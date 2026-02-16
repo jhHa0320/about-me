@@ -16,3 +16,4 @@ venv/
 # Debugging scripts
 inspect_file.py
 reproduce_issue.py
+data.json
