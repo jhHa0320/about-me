@@ -1,0 +1,120 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'home' %}#projects">Projects</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
+            </ol>
+        </nav>
+
+        <article class="blog-post">
+            <header class="mb-4 border-bottom pb-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <h1 class="display-5 fw-bold mb-2">{{ project.title }}</h1>
+                    {% if project.github_url or project.demo_url %}
+                    <div class="d-flex gap-2">
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm" target="_blank">
+                            <i class="bi bi-github"></i> GitHub
+                        </a>
+                        {% endif %}
+                        {% if project.demo_url %}
+                        <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm" target="_blank">
+                            <i class="bi bi-window"></i> Live Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="text-muted mb-3">
+                    <span class="me-3"><i class="bi bi-calendar-event"></i> {{ project.period }}</span>
+                    {% for category in project.categories.all %}
+                    <span class="badge bg-secondary me-1">{{ category.name }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="card bg-light border-0 mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <strong><i class="bi bi-person-badge"></i> Role:</strong> {{ project.role }}
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <strong><i class="bi bi-tools"></i> Tech Stack:</strong>
+                                {% for tech in project.tech_stacks.all %}
+                                <span class="badge bg-white text-dark border">{{ tech.name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if project.image %}
+                <figure class="figure w-100 mt-3">
+                    <img src="{{ project.image.url }}" class="figure-img img-fluid rounded w-100 shadow-sm"
+                        alt="{{ project.title }}">
+                </figure>
+                {% endif %}
+            </header>
+
+            <section class="mb-5">
+                <h3 class="h4 mb-3 border-bottom pb-2">프로젝트 개요</h3>
+                <p class="lead">{{ project.description|linebreaks }}</p>
+            </section>
+
+            {% if project.outcome %}
+            <section class="mb-5">
+                <h3 class="h4 mb-3 border-bottom pb-2">주요 성과</h3>
+                <div class="alert alert-success border-0 shadow-sm">
+                    {{ project.outcome|linebreaks }}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if project.content %}
+            <section class="mb-5">
+                <h3 class="h4 mb-3 border-bottom pb-2">상세 내용 (Report)</h3>
+                <div class="project-content">
+                    {{ project.content|safe }}
+                </div>
+            </section>
+            {% endif %}
+
+        </article>
+
+        <div class="text-center mt-5 mb-5">
+            <a href="{% url 'home' %}#projects" class="btn btn-outline-secondary btn-lg">
+                목록으로 돌아가기
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .project-content {
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+    .project-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-content h1,
+    .project-content h2,
+    .project-content h3 {
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}

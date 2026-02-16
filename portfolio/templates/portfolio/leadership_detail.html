@@ -1,0 +1,105 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'home' %}#leadership">Leadership & Experiences</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ leadership.title }}</li>
+            </ol>
+        </nav>
+
+        <article class="blog-post">
+            <header class="mb-4 border-bottom pb-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <h1 class="display-5 fw-bold mb-2">{{ leadership.title }}</h1>
+                    {% if leadership.link %}
+                    <div class="d-flex gap-2">
+                        <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm" target="_blank">
+                            <i class="bi bi-link-45deg"></i> 관련 링크
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="text-muted mb-3">
+                    <span class="me-3"><i class="bi bi-calendar-event"></i> {{ leadership.period }}</span>
+                    <span class="badge bg-primary me-1">{{ leadership.organization }}</span>
+                </div>
+
+                <div class="card bg-light border-0 mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <strong><i class="bi bi-person-badge"></i> Role:</strong> {{ leadership.role }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if leadership.image %}
+                <figure class="figure w-100 mt-3">
+                    <img src="{{ leadership.image.url }}" class="figure-img img-fluid rounded w-100 shadow-sm"
+                        alt="{{ leadership.title }}">
+                </figure>
+                {% endif %}
+            </header>
+
+            <section class="mb-5">
+                <h3 class="h4 mb-3 border-bottom pb-2">활동 개요</h3>
+                <p class="lead">{{ leadership.description|linebreaks }}</p>
+            </section>
+
+            {% if leadership.outcome %}
+            <section class="mb-5">
+                <h3 class="h4 mb-3 border-bottom pb-2">주요 성과</h3>
+                <div class="alert alert-success border-0 shadow-sm">
+                    {{ leadership.outcome|linebreaks }}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if leadership.content %}
+            <section class="mb-5">
+                <h3 class="h4 mb-3 border-bottom pb-2">상세 내용 (Activity Report)</h3>
+                <div class="project-content">
+                    {{ leadership.content|safe }}
+                </div>
+            </section>
+            {% endif %}
+
+        </article>
+
+        <div class="text-center mt-5 mb-5">
+            <a href="{% url 'home' %}#leadership" class="btn btn-outline-secondary btn-lg">
+                목록으로 돌아가기
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .project-content {
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+    .project-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .project-content h1,
+    .project-content h2,
+    .project-content h3 {
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
