@@ -1,0 +1,753 @@
+[
+{
+  "model": "portfolio.profile",
+  "pk": 1,
+  "fields": {
+    "name": "하정훈",
+    "birthdate": "2001-03-20",
+    "email": "snake6862@naver.com",
+    "github_url": "https://github.com/jhHa0320",
+    "introduction": "",
+    "profile_image": ""
+  }
+},
+{
+  "model": "portfolio.education",
+  "pk": 1,
+  "fields": {
+    "profile": 1,
+    "period": "2020",
+    "school": "한민고등학교",
+    "status": "졸업"
+  }
+},
+{
+  "model": "portfolio.education",
+  "pk": 2,
+  "fields": {
+    "profile": 1,
+    "period": "2021-2023",
+    "school": "중앙대학교 다빈치캠퍼스 예술공학부",
+    "status": "중퇴"
+  }
+},
+{
+  "model": "portfolio.education",
+  "pk": 3,
+  "fields": {
+    "profile": 1,
+    "period": "2024-",
+    "school": "숭실대학교 AI소프트웨어학부",
+    "status": "재학"
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 1,
+  "fields": {
+    "name": "Python",
+    "category": "USING",
+    "description": "주력 언어",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 2,
+  "fields": {
+    "name": "FastAPI",
+    "category": "USING",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 3,
+  "fields": {
+    "name": "Git",
+    "category": "USING",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 4,
+  "fields": {
+    "name": "Supabase",
+    "category": "USING",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 5,
+  "fields": {
+    "name": "HTML/CSS",
+    "category": "MAINTAIN",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 6,
+  "fields": {
+    "name": "Data Analysis",
+    "category": "MAINTAIN",
+    "description": "pandas, numpy",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 7,
+  "fields": {
+    "name": "Data Visualization",
+    "category": "MAINTAIN",
+    "description": "matplotlib, seaborn",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 8,
+  "fields": {
+    "name": "Machine Learning",
+    "category": "MAINTAIN",
+    "description": "사이킷런",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 9,
+  "fields": {
+    "name": "Deep Learning",
+    "category": "MAINTAIN",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 10,
+  "fields": {
+    "name": "Flask",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 11,
+  "fields": {
+    "name": "Django",
+    "category": "USING",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 12,
+  "fields": {
+    "name": "C",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 13,
+  "fields": {
+    "name": "C++",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 14,
+  "fields": {
+    "name": "Javascript",
+    "category": "MAINTAIN",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 15,
+  "fields": {
+    "name": "MongoDB",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 16,
+  "fields": {
+    "name": "Bootstrap",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 17,
+  "fields": {
+    "name": "Netlify",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 18,
+  "fields": {
+    "name": "NetworkX",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 19,
+  "fields": {
+    "name": "Folium",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 20,
+  "fields": {
+    "name": "NLP",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.skill",
+  "pk": 21,
+  "fields": {
+    "name": "기타",
+    "category": "EXPERIENCE",
+    "description": "",
+    "icon": ""
+  }
+},
+{
+  "model": "portfolio.career",
+  "pk": 1,
+  "fields": {
+    "organization": "숭실대학교 AI융합학부 데이터사이언스 소모임",
+    "role": "대표자",
+    "period": "2025.1-2025.9",
+    "description": "학술 소모임 데이터 과학 분야에서 2기 대표자로 활동함."
+  }
+},
+{
+  "model": "portfolio.projectcategory",
+  "pk": 1,
+  "fields": {
+    "name": "교내"
+  }
+},
+{
+  "model": "portfolio.projectcategory",
+  "pk": 2,
+  "fields": {
+    "name": "전공"
+  }
+},
+{
+  "model": "portfolio.projectcategory",
+  "pk": 3,
+  "fields": {
+    "name": "공모전/대회"
+  }
+},
+{
+  "model": "portfolio.projectcategory",
+  "pk": 4,
+  "fields": {
+    "name": "소모임/동아리"
+  }
+},
+{
+  "model": "portfolio.projectcategory",
+  "pk": 5,
+  "fields": {
+    "name": "교외"
+  }
+},
+{
+  "model": "portfolio.projectcategory",
+  "pk": 6,
+  "fields": {
+    "name": "교양"
+  }
+},
+{
+  "model": "portfolio.projectcategory",
+  "pk": 7,
+  "fields": {
+    "name": "개인"
+  }
+},
+{
+  "model": "portfolio.projecttype",
+  "pk": 1,
+  "fields": {
+    "name": "핵심",
+    "description": "메인 프로젝트; 성과, 학습, 경험.",
+    "order": 0
+  }
+},
+{
+  "model": "portfolio.projecttype",
+  "pk": 2,
+  "fields": {
+    "name": "성장",
+    "description": "서브 프로젝트; 학습, 경험, 기록",
+    "order": 1
+  }
+},
+{
+  "model": "portfolio.projecttype",
+  "pk": 3,
+  "fields": {
+    "name": "기록",
+    "description": "히스토리 프로젝트; 기록, 경험",
+    "order": 2
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 1,
+  "fields": {
+    "type": 1,
+    "title": "숭실의 나침반",
+    "period": "2024년 1학기",
+    "role": "1인 프로젝트로서 모든 과정에 참여",
+    "outcome": "",
+    "description": "숭실대학교 교내 길찾기",
+    "content": "",
+    "github_url": "https://github.com/jhHa0320/ssu_direction",
+    "demo_url": "",
+    "image": "",
+    "order": 0,
+    "is_active": true,
+    "categories": [
+      1,
+      2
+    ],
+    "tech_stacks": [
+      1,
+      5,
+      11,
+      14,
+      18,
+      19
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 2,
+  "fields": {
+    "type": 1,
+    "title": "개인화 음주측정 프로그램",
+    "period": "2024년 2학기",
+    "role": "팀 프로젝트로서 웹 및 DB 구현을 담당",
+    "outcome": "",
+    "description": "프로그래밍및실습2 C언어 프로젝트. 아두이노 활용 파트는 다른 팀원이 담당하고, 본인은 개인화 웹 및 DB 구현.",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 3,
+    "is_active": true,
+    "categories": [
+      1,
+      2
+    ],
+    "tech_stacks": [
+      1,
+      5,
+      10,
+      14,
+      15
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 3,
+  "fields": {
+    "type": 1,
+    "title": "뉴스 링커",
+    "period": "2024년 2학기",
+    "role": "기획 및 백엔드 개발",
+    "outcome": "",
+    "description": "오픈소스기초설계 팀 프로젝트픈소스기초설계 팀 프로젝트",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 2,
+    "is_active": true,
+    "categories": [
+      1,
+      2
+    ],
+    "tech_stacks": [
+      1,
+      5,
+      10,
+      14,
+      16,
+      20
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 4,
+  "fields": {
+    "type": 2,
+    "title": "2024 빅 콘테스트",
+    "period": "2024년 여름방학",
+    "role": "기획 및 데이터 분석 전반",
+    "outcome": "",
+    "description": "데이터과학 소모임 활동 중 공모전 참여 활동",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 1,
+    "is_active": true,
+    "categories": [
+      3,
+      4,
+      5
+    ],
+    "tech_stacks": [
+      1,
+      6,
+      7
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 5,
+  "fields": {
+    "type": 2,
+    "title": "2024 숭실대학교 중앙도서관 데이터톤",
+    "period": "2024년 겨울방학",
+    "role": "팀장. 데이터 분석 및 시각화. 예측 모델 개발",
+    "outcome": "",
+    "description": "2024 숭실대학교 중앙도서관 데이터톤에 '보존서고 이동기준 마련' 주제로 참여",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 5,
+    "is_active": true,
+    "categories": [
+      1,
+      4
+    ],
+    "tech_stacks": [
+      1,
+      6,
+      7,
+      8,
+      20
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 6,
+  "fields": {
+    "type": 1,
+    "title": "손가락으로 덧셈 게임",
+    "period": "2024년 2학기",
+    "role": "데이터 수집 및 백엔드",
+    "outcome": "",
+    "description": "AI개발과실전 교양필수 과목에서 진행된 팀 프로젝트",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 4,
+    "is_active": true,
+    "categories": [
+      1,
+      6
+    ],
+    "tech_stacks": [
+      1,
+      5,
+      8,
+      14,
+      16
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 7,
+  "fields": {
+    "type": 3,
+    "title": "한국데이터정보과학회 & SAS KOREA 제1회 데이터 분석 경진대회",
+    "period": "2025년 1학기",
+    "role": "팀장",
+    "outcome": "",
+    "description": "DS 소모임 대표를 맡아 진행한 첫 공모전 참가. 소모임 내 4개의 팀으로 구성하고 각 팀의 진행 상황을 지도함.",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 6,
+    "is_active": true,
+    "categories": [
+      3,
+      4,
+      5
+    ],
+    "tech_stacks": [
+      21
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 8,
+  "fields": {
+    "type": 3,
+    "title": "2025 게임이용자 패널데이터 경진대회",
+    "period": "2025년 1학기",
+    "role": "팀장, 데이터 분석 및 전처리, 논문 작성",
+    "outcome": "",
+    "description": "설문조사 항목이 많아 반복적인 데이터 전처리로 시간이 많이 소요되었음. 전처리 전략을 설계하는 연습에 도웁이 되었음.",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 7,
+    "is_active": true,
+    "categories": [
+      3,
+      5
+    ],
+    "tech_stacks": [
+      1,
+      6,
+      7
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 9,
+  "fields": {
+    "type": 1,
+    "title": "2025 풍력 발전량 예측 공모전",
+    "period": "2025년 1학기 - 여름방학",
+    "role": "팀장, 데이터 분석 및 시각화, 전처리, 모델 설꼐 및 예측 실행",
+    "outcome": "",
+    "description": "데이터 다운로드부터 난관이었던 프로젝트였음(TB 단위) 이후 예측 및 성능 평가, 회의 지도",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 8,
+    "is_active": true,
+    "categories": [
+      3,
+      4,
+      5
+    ],
+    "tech_stacks": [
+      1,
+      6,
+      7,
+      8
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 10,
+  "fields": {
+    "type": 1,
+    "title": "머신러닝 기반 외식 서비스(식당) 리뷰 감성 분석 및 만족도 지수 개발",
+    "period": "2025년 2학기",
+    "role": "전공(머신러닝) 개인 프로젝트",
+    "outcome": "",
+    "description": "데이터과학 소모임, 전공 수업, 개인 학습 내용을 모두 총체적으로 프로젝트에 담아보았음.",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 9,
+    "is_active": true,
+    "categories": [
+      1,
+      2
+    ],
+    "tech_stacks": [
+      1,
+      6,
+      7,
+      8,
+      9,
+      20
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 11,
+  "fields": {
+    "type": 1,
+    "title": "개인 포트폴리오 사이트",
+    "period": "2026년 2월 -",
+    "role": "개인 포트폴리오 사이트 개발",
+    "outcome": "",
+    "description": "개발 및 유지",
+    "content": "",
+    "github_url": "",
+    "demo_url": "",
+    "image": "",
+    "order": 11,
+    "is_active": true,
+    "categories": [
+      7
+    ],
+    "tech_stacks": [
+      1,
+      5,
+      11,
+      16
+    ]
+  }
+},
+{
+  "model": "portfolio.project",
+  "pk": 12,
+  "fields": {
+    "type": 1,
+    "title": "픽합주(합주실 종합 예약 사이트)",
+    "period": "2025년 12월 -",
+    "role": "백엔드, 보안",
+    "outcome": "",
+    "description": "숭실대학교 IT대 밴드부 SUMMIT에서 합주실 종합 예약 사이트를 개발하여 3차 출시 백엔드 멤버로 참여중.",
+    "content": "",
+    "github_url": "https://github.com/summitBandWeb/",
+    "demo_url": "https://www.pickhabju.com/",
+    "image": "",
+    "order": 10,
+    "is_active": true,
+    "categories": [
+      1,
+      4
+    ],
+    "tech_stacks": [
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "portfolio.activity",
+  "pk": 1,
+  "fields": {
+    "title": "SK AI Dream Camp 초급",
+    "organization": "SK Mysuni",
+    "description": "",
+    "period": "2025 여름방학",
+    "link": "",
+    "attachment": "",
+    "order": 0
+  }
+},
+{
+  "model": "portfolio.activity",
+  "pk": 2,
+  "fields": {
+    "title": "ADsP",
+    "organization": "K Data 데이터 자격검정",
+    "description": "",
+    "period": "2025.09.05",
+    "link": "",
+    "attachment": "",
+    "order": 1
+  }
+},
+{
+  "model": "portfolio.activity",
+  "pk": 3,
+  "fields": {
+    "title": "TOPCIT 수준 2",
+    "organization": "TOPCIT",
+    "description": "",
+    "period": "2025.11.01",
+    "link": "",
+    "attachment": "",
+    "order": 2
+  }
+},
+{
+  "model": "portfolio.leadership",
+  "pk": 1,
+  "fields": {
+    "title": "SUMMIT(밴드부)",
+    "organization": "숭실대학교 IT대 밴드 소모임",
+    "period": "2024년 1학기 -",
+    "role": "팀장 3회, 멘토",
+    "description": "숭실대학교 IT대 밴드 소모임인 SUMMIT에서 베이스 세션으로 활동 중\r\n- 학기 정기공연 4회 중 3회(2024-1, 2024-2, 2025-2) 팀장 담당\r\n- 2024년 2학기, 2025년 1학기 베이스 멘토로서 멘토링 활동 진행\r\n- 2025년 1년 동안 각종 공연 참여(새내기 새로배움터, 봄 축제, 대동제, 연합공연 2회, 졸업공연, 버스킹 등)\r\n- 2026년 SUMMIT에서 개발한 픽합주 프로젝트(합주실 종합예약 사이트) 참여 중",
+    "content": "",
+    "outcome": "",
+    "image": "",
+    "link": "",
+    "order": 2
+  }
+},
+{
+  "model": "portfolio.leadership",
+  "pk": 2,
+  "fields": {
+    "title": "SSU-PARE(볼링부)",
+    "organization": "숭실대학교 IT대 볼링 소모임",
+    "period": "2024년 2학기 - 2025년 1학기",
+    "role": "부회장, 총무",
+    "description": "볼링 소모임 슈페어를 신설하여 2024년 2학기 부회장, 2025년 1학기 총무로서 소모임을 이끌었음.",
+    "content": "",
+    "outcome": "",
+    "image": "",
+    "link": "",
+    "order": 1
+  }
+}
+]
