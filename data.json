@@ -1,1949 +1,2782 @@
 [
-{
-  "model": "admin.logentry",
-  "pk": 1,
-  "fields": {
-    "action_time": "2026-02-15T14:33:18.689Z",
-    "user": 1,
-    "content_type": 9,
-    "object_id": "1",
-    "object_repr": "하정훈",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
+  {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2026-02-15T14:33:18.689Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "1",
+      "object_repr": "하정훈",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2026-02-15T15:36:48.421Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "1",
+      "object_repr": "한민고등학교 (졸업)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2026-02-15T15:37:15.420Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "2",
+      "object_repr": "중앙대학교 안성캠퍼스 예술공학부 (중퇴)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+      "action_time": "2026-02-15T15:37:58.906Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "3",
+      "object_repr": "숭실대학교 AI소프트웨어학부 (재학)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+      "action_time": "2026-02-15T15:41:24.507Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "1",
+      "object_repr": "Python (사용 중 🔥)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+      "action_time": "2026-02-15T15:49:58.498Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "2",
+      "object_repr": "FastAPI (사용 중 🔥)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+      "action_time": "2026-02-15T15:50:06.444Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "Git (사용 중 🔥)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+      "action_time": "2026-02-15T15:50:15.322Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "4",
+      "object_repr": "Supabase (사용 중 🔥)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+      "action_time": "2026-02-15T15:50:35.404Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "5",
+      "object_repr": "HTML/CSS (기능 유지 ✅)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+      "action_time": "2026-02-15T15:50:48.935Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "6",
+      "object_repr": "Data Analysis (기능 유지 ✅)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+      "action_time": "2026-02-15T15:51:00.262Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "6",
+      "object_repr": "Data Analysis (기능 유지 ✅)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc124\\uba85\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+      "action_time": "2026-02-15T15:51:13.508Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "7",
+      "object_repr": "Data Visualization (기능 유지 ✅)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+      "action_time": "2026-02-15T15:51:28.091Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "8",
+      "object_repr": "Machine Learning (기능 유지 ✅)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+      "action_time": "2026-02-15T15:51:35.112Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "9",
+      "object_repr": "Deep Learning (기능 유지 ✅)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+      "action_time": "2026-02-15T15:51:47.184Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "10",
+      "object_repr": "Flask (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+      "action_time": "2026-02-15T15:51:51.610Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "11",
+      "object_repr": "Django (사용 중 🔥)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+      "action_time": "2026-02-15T15:51:56.627Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "12",
+      "object_repr": "C (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+      "action_time": "2026-02-15T15:52:03.295Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "13",
+      "object_repr": "C++ (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+      "action_time": "2026-02-15T15:52:11.385Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "14",
+      "object_repr": "Javascript (기능 유지 ✅)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+      "action_time": "2026-02-15T15:52:18.377Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "15",
+      "object_repr": "MongoDB (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+      "action_time": "2026-02-15T15:52:31.123Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "16",
+      "object_repr": "Bootstrap (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+      "action_time": "2026-02-15T15:52:35.955Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "17",
+      "object_repr": "Netlify (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+      "action_time": "2026-02-15T15:58:36.884Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "1",
+      "object_repr": "숭실대학교 AI융합학부 데이터사이언스 소모임 - 대표자",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+      "action_time": "2026-02-15T16:34:19.113Z",
+      "user": 1,
+      "content_type": 13,
+      "object_id": "1",
+      "object_repr": "교내",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+      "action_time": "2026-02-15T16:34:22.629Z",
+      "user": 1,
+      "content_type": 13,
+      "object_id": "2",
+      "object_repr": "전공",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+      "action_time": "2026-02-15T16:34:34.453Z",
+      "user": 1,
+      "content_type": 13,
+      "object_id": "3",
+      "object_repr": "공모전/대회",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+      "action_time": "2026-02-15T16:34:38.187Z",
+      "user": 1,
+      "content_type": 13,
+      "object_id": "4",
+      "object_repr": "소모임",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+      "action_time": "2026-02-15T16:34:50.413Z",
+      "user": 1,
+      "content_type": 13,
+      "object_id": "4",
+      "object_repr": "소모임/동아리",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uce74\\ud14c\\uace0\\ub9ac\\uba85\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 29,
+    "fields": {
+      "action_time": "2026-02-15T16:35:03.928Z",
+      "user": 1,
+      "content_type": 13,
+      "object_id": "5",
+      "object_repr": "교외",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 30,
+    "fields": {
+      "action_time": "2026-02-15T16:35:06.483Z",
+      "user": 1,
+      "content_type": 13,
+      "object_id": "6",
+      "object_repr": "교양",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 31,
+    "fields": {
+      "action_time": "2026-02-15T16:35:09.455Z",
+      "user": 1,
+      "content_type": 13,
+      "object_id": "7",
+      "object_repr": "개인\\",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 32,
+    "fields": {
+      "action_time": "2026-02-15T16:35:13.672Z",
+      "user": 1,
+      "content_type": 13,
+      "object_id": "7",
+      "object_repr": "개인",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uce74\\ud14c\\uace0\\ub9ac\\uba85\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 33,
+    "fields": {
+      "action_time": "2026-02-15T16:36:22.243Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "18",
+      "object_repr": "NetworkX (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 34,
+    "fields": {
+      "action_time": "2026-02-15T16:36:48.667Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "1",
+      "object_repr": "숭실의 나침반",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 35,
+    "fields": {
+      "action_time": "2026-02-15T16:37:12.079Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "19",
+      "object_repr": "Folium (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 36,
+    "fields": {
+      "action_time": "2026-02-15T16:38:20.205Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "1",
+      "object_repr": "숭실의 나침반",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc0ac\\uc6a9 \\uae30\\uc220 (\\ubcf5\\uc218\\uc120\\ud0dd \\uac00\\ub2a5)\", \"\\ub098\\uc758 \\uc5ed\\ud560\", \"\\uc124\\uba85\", \"Github \\ub9c1\\ud06c\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 37,
+    "fields": {
+      "action_time": "2026-02-15T16:38:58.220Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "1",
+      "object_repr": "숭실의 나침반",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uae30\\uac04\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 38,
+    "fields": {
+      "action_time": "2026-02-15T17:10:30.204Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "2",
+      "object_repr": "Project object (2)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 39,
+    "fields": {
+      "action_time": "2026-02-15T17:12:10.407Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "2",
+      "object_repr": "Project object (2)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc0ac\\uc6a9 \\uae30\\uc220 (\\ubcf5\\uc218\\uc120\\ud0dd \\uac00\\ub2a5)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 40,
+    "fields": {
+      "action_time": "2026-02-15T17:13:54.807Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "20",
+      "object_repr": "NLP (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 41,
+    "fields": {
+      "action_time": "2026-02-15T17:15:46.513Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "3",
+      "object_repr": "Project object (3)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 42,
+    "fields": {
+      "action_time": "2026-02-15T17:16:51.114Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "4",
+      "object_repr": "Project object (4)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 43,
+    "fields": {
+      "action_time": "2026-02-15T17:18:56.517Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "5",
+      "object_repr": "Project object (5)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 44,
+    "fields": {
+      "action_time": "2026-02-15T17:37:11.885Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "6",
+      "object_repr": "Project object (6)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 45,
+    "fields": {
+      "action_time": "2026-02-15T18:38:49.954Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "4",
+      "object_repr": "Project object (4)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 46,
+    "fields": {
+      "action_time": "2026-02-15T18:38:49.957Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "5",
+      "object_repr": "Project object (5)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 47,
+    "fields": {
+      "action_time": "2026-02-15T18:38:49.957Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "6",
+      "object_repr": "Project object (6)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 48,
+    "fields": {
+      "action_time": "2026-02-15T18:38:49.959Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "3",
+      "object_repr": "Project object (3)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 49,
+    "fields": {
+      "action_time": "2026-02-15T18:38:49.959Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "2",
+      "object_repr": "Project object (2)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 50,
+    "fields": {
+      "action_time": "2026-02-16T02:08:51.552Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "기타 (경험 있음 🕰️)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 51,
+    "fields": {
+      "action_time": "2026-02-16T02:10:13.011Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "7",
+      "object_repr": "Project object (7)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 52,
+    "fields": {
+      "action_time": "2026-02-16T02:23:42.894Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "8",
+      "object_repr": "Project object (8)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 53,
+    "fields": {
+      "action_time": "2026-02-16T02:25:13.163Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "9",
+      "object_repr": "Project object (9)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 54,
+    "fields": {
+      "action_time": "2026-02-16T02:43:20.336Z",
+      "user": 1,
+      "content_type": 15,
+      "object_id": "1",
+      "object_repr": "핵심",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 55,
+    "fields": {
+      "action_time": "2026-02-16T02:43:41.823Z",
+      "user": 1,
+      "content_type": 15,
+      "object_id": "2",
+      "object_repr": "성장",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 56,
+    "fields": {
+      "action_time": "2026-02-16T02:44:04.526Z",
+      "user": 1,
+      "content_type": 15,
+      "object_id": "3",
+      "object_repr": "기록",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 57,
+    "fields": {
+      "action_time": "2026-02-16T02:45:11.181Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "9",
+      "object_repr": "Project object (9)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 58,
+    "fields": {
+      "action_time": "2026-02-16T02:45:11.183Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "8",
+      "object_repr": "Project object (8)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 59,
+    "fields": {
+      "action_time": "2026-02-16T02:45:11.183Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "7",
+      "object_repr": "Project object (7)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 60,
+    "fields": {
+      "action_time": "2026-02-16T02:45:11.184Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "5",
+      "object_repr": "Project object (5)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 61,
+    "fields": {
+      "action_time": "2026-02-16T02:45:11.184Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "6",
+      "object_repr": "Project object (6)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 62,
+    "fields": {
+      "action_time": "2026-02-16T02:45:11.185Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "2",
+      "object_repr": "Project object (2)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 63,
+    "fields": {
+      "action_time": "2026-02-16T02:45:11.186Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "3",
+      "object_repr": "Project object (3)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 64,
+    "fields": {
+      "action_time": "2026-02-16T02:45:11.186Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "4",
+      "object_repr": "Project object (4)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 65,
+    "fields": {
+      "action_time": "2026-02-16T02:45:11.186Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "1",
+      "object_repr": "Project object (1)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 66,
+    "fields": {
+      "action_time": "2026-02-16T02:46:27.824Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "10",
+      "object_repr": "Project object (10)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 67,
+    "fields": {
+      "action_time": "2026-02-16T02:46:33.268Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "10",
+      "object_repr": "Project object (10)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 68,
+    "fields": {
+      "action_time": "2026-02-16T02:48:37.530Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "11",
+      "object_repr": "Project object (11)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 69,
+    "fields": {
+      "action_time": "2026-02-16T02:48:51.742Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "11",
+      "object_repr": "Project object (11)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\", \"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 70,
+    "fields": {
+      "action_time": "2026-02-16T02:56:45.203Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "12",
+      "object_repr": "Project object (12)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 71,
+    "fields": {
+      "action_time": "2026-02-16T02:56:51.772Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "12",
+      "object_repr": "Project object (12)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\", \"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 72,
+    "fields": {
+      "action_time": "2026-02-16T02:57:14.942Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "11",
+      "object_repr": "Project object (11)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uae30\\uac04\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 73,
+    "fields": {
+      "action_time": "2026-02-16T02:57:29.807Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "12",
+      "object_repr": "Project object (12)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8\\uba85\", \"\\uae30\\uac04\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 74,
+    "fields": {
+      "action_time": "2026-02-16T03:59:26.363Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "SK AI Dream Camp 초급",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 75,
+    "fields": {
+      "action_time": "2026-02-16T04:00:38.789Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "2",
+      "object_repr": "ADsP",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 76,
+    "fields": {
+      "action_time": "2026-02-16T04:03:08.758Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "3",
+      "object_repr": "TOPCIT 수준 2",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 77,
+    "fields": {
+      "action_time": "2026-02-16T04:03:21.346Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "3",
+      "object_repr": "TOPCIT 수준 2",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 78,
+    "fields": {
+      "action_time": "2026-02-16T04:03:21.347Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "2",
+      "object_repr": "ADsP",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 79,
+    "fields": {
+      "action_time": "2026-02-16T04:17:24.822Z",
+      "user": 1,
+      "content_type": 12,
+      "object_id": "2",
+      "object_repr": "중앙대학교 다빈치캠퍼스 예술공학부 (중퇴)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud559\\uad50\\uba85\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 80,
+    "fields": {
+      "action_time": "2026-02-16T04:20:23.643Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "SK AI Dream Camp 초급",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc124\\uba85\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 81,
+    "fields": {
+      "action_time": "2026-02-16T04:20:27.866Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "2",
+      "object_repr": "ADsP",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc124\\uba85\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 82,
+    "fields": {
+      "action_time": "2026-02-16T05:42:30.861Z",
+      "user": 1,
+      "content_type": 16,
+      "object_id": "1",
+      "object_repr": "밴드부 활동 - 숭실대학교 IT대 밴드 소모임 SUMMIT",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 83,
+    "fields": {
+      "action_time": "2026-02-16T05:44:04.613Z",
+      "user": 1,
+      "content_type": 16,
+      "object_id": "2",
+      "object_repr": "볼링부 활동 - 숭실대학교 IT대 볼링 소모임 SSU-PARE",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 84,
+    "fields": {
+      "action_time": "2026-02-16T05:44:23.193Z",
+      "user": 1,
+      "content_type": 16,
+      "object_id": "1",
+      "object_repr": "밴드부 활동 - 숭실대학교 IT대 밴드 소모임 SUMMIT",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uae30\\uac04\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 85,
+    "fields": {
+      "action_time": "2026-02-16T05:45:14.589Z",
+      "user": 1,
+      "content_type": 16,
+      "object_id": "2",
+      "object_repr": "볼링부 활동 - 숭실대학교 IT대 볼링 소모임 SSU-PARE",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 86,
+    "fields": {
+      "action_time": "2026-02-16T05:45:14.593Z",
+      "user": 1,
+      "content_type": 16,
+      "object_id": "1",
+      "object_repr": "밴드부 활동 - 숭실대학교 IT대 밴드 소모임 SUMMIT",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 87,
+    "fields": {
+      "action_time": "2026-02-16T05:52:34.739Z",
+      "user": 1,
+      "content_type": 16,
+      "object_id": "2",
+      "object_repr": "SSU-PARE(볼링부) - 숭실대학교 IT대 볼링 소모임",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud65c\\ub3d9\\uba85\", \"\\ub2e8\\uccb4/\\uc870\\uc9c1\\uba85\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 88,
+    "fields": {
+      "action_time": "2026-02-16T05:52:45.224Z",
+      "user": 1,
+      "content_type": 16,
+      "object_id": "1",
+      "object_repr": "SUMMIT(밴드부) - 숭실대학교 IT대 밴드 소모임",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud65c\\ub3d9\\uba85\", \"\\ub2e8\\uccb4/\\uc870\\uc9c1\\uba85\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 89,
+    "fields": {
+      "action_time": "2026-02-16T05:53:01.434Z",
+      "user": 1,
+      "content_type": 16,
+      "object_id": "2",
+      "object_repr": "SSU-PARE(볼링부) - 숭실대학교 IT대 볼링 소모임",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 90,
+    "fields": {
+      "action_time": "2026-02-16T05:53:01.436Z",
+      "user": 1,
+      "content_type": 16,
+      "object_id": "1",
+      "object_repr": "SUMMIT(밴드부) - 숭실대학교 IT대 밴드 소모임",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 91,
+    "fields": {
+      "action_time": "2026-02-18T16:03:25.388Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "12",
+      "object_repr": "Project object (12)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\ubc94\\uc704 (\\uac1c\\uc778/\\ud300)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 92,
+    "fields": {
+      "action_time": "2026-02-18T16:03:25.391Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "9",
+      "object_repr": "Project object (9)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\ubc94\\uc704 (\\uac1c\\uc778/\\ud300)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 93,
+    "fields": {
+      "action_time": "2026-02-18T16:03:25.392Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "8",
+      "object_repr": "Project object (8)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\ubc94\\uc704 (\\uac1c\\uc778/\\ud300)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 94,
+    "fields": {
+      "action_time": "2026-02-18T16:03:25.394Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "7",
+      "object_repr": "Project object (7)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\ubc94\\uc704 (\\uac1c\\uc778/\\ud300)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 95,
+    "fields": {
+      "action_time": "2026-02-18T16:03:25.394Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "5",
+      "object_repr": "Project object (5)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\ubc94\\uc704 (\\uac1c\\uc778/\\ud300)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 96,
+    "fields": {
+      "action_time": "2026-02-18T16:03:25.396Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "6",
+      "object_repr": "Project object (6)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\ubc94\\uc704 (\\uac1c\\uc778/\\ud300)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 97,
+    "fields": {
+      "action_time": "2026-02-18T16:03:25.396Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "2",
+      "object_repr": "Project object (2)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\ubc94\\uc704 (\\uac1c\\uc778/\\ud300)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 98,
+    "fields": {
+      "action_time": "2026-02-18T16:03:25.397Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "3",
+      "object_repr": "Project object (3)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\ubc94\\uc704 (\\uac1c\\uc778/\\ud300)\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 99,
+    "fields": {
+      "action_time": "2026-02-18T16:03:25.398Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "4",
+      "object_repr": "Project object (4)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\ubc94\\uc704 (\\uac1c\\uc778/\\ud300)\"]}}]"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": 1,
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": 1,
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": 1,
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": 1,
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+      "name": "Can add permission",
+      "content_type": 2,
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+      "name": "Can change permission",
+      "content_type": 2,
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": 2,
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+      "name": "Can view permission",
+      "content_type": 2,
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+      "name": "Can add group",
+      "content_type": 3,
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+      "name": "Can change group",
+      "content_type": 3,
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+      "name": "Can delete group",
+      "content_type": 3,
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+      "name": "Can view group",
+      "content_type": 3,
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 4,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 4,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 4,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 4,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+      "name": "Can add content type",
+      "content_type": 5,
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+      "name": "Can change content type",
+      "content_type": 5,
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": 5,
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+      "name": "Can view content type",
+      "content_type": 5,
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+      "name": "Can add session",
+      "content_type": 6,
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+      "name": "Can change session",
+      "content_type": 6,
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+      "name": "Can delete session",
+      "content_type": 6,
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+      "name": "Can view session",
+      "content_type": 6,
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+      "name": "Can add 활동/자격증",
+      "content_type": 7,
+      "codename": "add_activity"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+      "name": "Can change 활동/자격증",
+      "content_type": 7,
+      "codename": "change_activity"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+      "name": "Can delete 활동/자격증",
+      "content_type": 7,
+      "codename": "delete_activity"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+      "name": "Can view 활동/자격증",
+      "content_type": 7,
+      "codename": "view_activity"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+      "name": "Can add 경력",
+      "content_type": 8,
+      "codename": "add_career"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+      "name": "Can change 경력",
+      "content_type": 8,
+      "codename": "change_career"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+      "name": "Can delete 경력",
+      "content_type": 8,
+      "codename": "delete_career"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+      "name": "Can view 경력",
+      "content_type": 8,
+      "codename": "view_career"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add 프로필",
+      "content_type": 9,
+      "codename": "add_profile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change 프로필",
+      "content_type": 9,
+      "codename": "change_profile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete 프로필",
+      "content_type": 9,
+      "codename": "delete_profile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view 프로필",
+      "content_type": 9,
+      "codename": "view_profile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can add 프로젝트",
+      "content_type": 10,
+      "codename": "add_project"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can change 프로젝트",
+      "content_type": 10,
+      "codename": "change_project"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+      "name": "Can delete 프로젝트",
+      "content_type": 10,
+      "codename": "delete_project"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+      "name": "Can view 프로젝트",
+      "content_type": 10,
+      "codename": "view_project"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+      "name": "Can add 기술",
+      "content_type": 11,
+      "codename": "add_skill"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+      "name": "Can change 기술",
+      "content_type": 11,
+      "codename": "change_skill"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+      "name": "Can delete 기술",
+      "content_type": 11,
+      "codename": "delete_skill"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+      "name": "Can view 기술",
+      "content_type": 11,
+      "codename": "view_skill"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+      "name": "Can add 학력",
+      "content_type": 12,
+      "codename": "add_education"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+      "name": "Can change 학력",
+      "content_type": 12,
+      "codename": "change_education"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+      "name": "Can delete 학력",
+      "content_type": 12,
+      "codename": "delete_education"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+      "name": "Can view 학력",
+      "content_type": 12,
+      "codename": "view_education"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+      "name": "Can add 프로젝트 카테고리",
+      "content_type": 13,
+      "codename": "add_projectcategory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+      "name": "Can change 프로젝트 카테고리",
+      "content_type": 13,
+      "codename": "change_projectcategory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+      "name": "Can delete 프로젝트 카테고리",
+      "content_type": 13,
+      "codename": "delete_projectcategory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+      "name": "Can view 프로젝트 카테고리",
+      "content_type": 13,
+      "codename": "view_projectcategory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+      "name": "Can add attachment",
+      "content_type": 14,
+      "codename": "add_attachment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+      "name": "Can change attachment",
+      "content_type": 14,
+      "codename": "change_attachment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+      "name": "Can delete attachment",
+      "content_type": 14,
+      "codename": "delete_attachment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+      "name": "Can view attachment",
+      "content_type": 14,
+      "codename": "view_attachment"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+      "name": "Can add 프로젝트 유형",
+      "content_type": 15,
+      "codename": "add_projecttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+      "name": "Can change 프로젝트 유형",
+      "content_type": 15,
+      "codename": "change_projecttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+      "name": "Can delete 프로젝트 유형",
+      "content_type": 15,
+      "codename": "delete_projecttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+      "name": "Can view 프로젝트 유형",
+      "content_type": 15,
+      "codename": "view_projecttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+      "name": "Can add 리더십 및 경험",
+      "content_type": 16,
+      "codename": "add_leadership"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+      "name": "Can change 리더십 및 경험",
+      "content_type": 16,
+      "codename": "change_leadership"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+      "name": "Can delete 리더십 및 경험",
+      "content_type": 16,
+      "codename": "delete_leadership"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+      "name": "Can view 리더십 및 경험",
+      "content_type": 16,
+      "codename": "view_leadership"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$ZUtCExjdDK0OQnhGmcFzPk$QtJaRCdSFSlevtnRHw1t2BxkMmK19q3WozO/Ysojz5E=",
+      "last_login": "2026-02-15T14:16:38.487Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@example.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-02-15T14:13:32.608Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+      "app_label": "admin",
+      "model": "logentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+      "app_label": "auth",
+      "model": "user"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+      "app_label": "portfolio",
+      "model": "activity"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+      "app_label": "portfolio",
+      "model": "career"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+      "app_label": "portfolio",
+      "model": "profile"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+      "app_label": "portfolio",
+      "model": "project"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+      "app_label": "portfolio",
+      "model": "skill"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+      "app_label": "portfolio",
+      "model": "education"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+      "app_label": "portfolio",
+      "model": "projectcategory"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+      "app_label": "django_summernote",
+      "model": "attachment"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": {
+      "app_label": "portfolio",
+      "model": "projecttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": {
+      "app_label": "portfolio",
+      "model": "leadership"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "5w8wzh93ljeliyx8jsjbrstwjsmrragc",
+    "fields": {
+      "session_data": ".eJxVjM0OwiAQhN-FsyHdRX706L3PQFjYStVAUtqT8d2lSQ-azOmbb-YtfNjW7LfGi5-TuAoQp19GIT657EV6hHKvMtayLjPJXZFH2-RYE79uh_t3kEPLfW0nZS0wgIuG1ICQAIiQBnRs0QQG12M7UsB0vkykk4naoVOAOqH4fAHJeDcs:1vrcvO:iLwnZ8MvwuDmZnxE2u5zEHbo11f7zDyv2XuUV2tmbto",
+      "expire_date": "2026-03-01T14:16:38.495Z"
+    }
+  },
+  {
+    "model": "portfolio.profile",
+    "pk": 1,
+    "fields": {
+      "name": "하정훈",
+      "birthdate": "2001-03-20",
+      "email": "snake6862@naver.com",
+      "github_url": "https://github.com/jhHa0320",
+      "introduction": "",
+      "profile_image": ""
+    }
+  },
+  {
+    "model": "portfolio.education",
+    "pk": 1,
+    "fields": {
+      "profile": 1,
+      "period": "2020",
+      "school": "한민고등학교",
+      "status": "졸업"
+    }
+  },
+  {
+    "model": "portfolio.education",
+    "pk": 2,
+    "fields": {
+      "profile": 1,
+      "period": "2021-2023",
+      "school": "중앙대학교 다빈치캠퍼스 예술공학부",
+      "status": "중퇴"
+    }
+  },
+  {
+    "model": "portfolio.education",
+    "pk": 3,
+    "fields": {
+      "profile": 1,
+      "period": "2024-",
+      "school": "숭실대학교 AI소프트웨어학부",
+      "status": "재학"
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 1,
+    "fields": {
+      "name": "Python",
+      "category": "USING",
+      "description": "주력 언어",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 2,
+    "fields": {
+      "name": "FastAPI",
+      "category": "USING",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 3,
+    "fields": {
+      "name": "Git",
+      "category": "USING",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 4,
+    "fields": {
+      "name": "Supabase",
+      "category": "USING",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 5,
+    "fields": {
+      "name": "HTML/CSS",
+      "category": "MAINTAIN",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 6,
+    "fields": {
+      "name": "Data Analysis",
+      "category": "MAINTAIN",
+      "description": "pandas, numpy",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 7,
+    "fields": {
+      "name": "Data Visualization",
+      "category": "MAINTAIN",
+      "description": "matplotlib, seaborn",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 8,
+    "fields": {
+      "name": "Machine Learning",
+      "category": "MAINTAIN",
+      "description": "사이킷런",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 9,
+    "fields": {
+      "name": "Deep Learning",
+      "category": "MAINTAIN",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 10,
+    "fields": {
+      "name": "Flask",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 11,
+    "fields": {
+      "name": "Django",
+      "category": "USING",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 12,
+    "fields": {
+      "name": "C",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 13,
+    "fields": {
+      "name": "C++",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 14,
+    "fields": {
+      "name": "Javascript",
+      "category": "MAINTAIN",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 15,
+    "fields": {
+      "name": "MongoDB",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 16,
+    "fields": {
+      "name": "Bootstrap",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 17,
+    "fields": {
+      "name": "Netlify",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 18,
+    "fields": {
+      "name": "NetworkX",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 19,
+    "fields": {
+      "name": "Folium",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 20,
+    "fields": {
+      "name": "NLP",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.skill",
+    "pk": 21,
+    "fields": {
+      "name": "기타",
+      "category": "EXPERIENCE",
+      "description": "",
+      "icon": ""
+    }
+  },
+  {
+    "model": "portfolio.career",
+    "pk": 1,
+    "fields": {
+      "organization": "숭실대학교 AI융합학부 데이터사이언스 소모임",
+      "role": "대표자",
+      "period": "2025.1-2025.9",
+      "description": "학술 소모임 데이터 과학 분야에서 2기 대표자로 활동함."
+    }
+  },
+  {
+    "model": "portfolio.projectcategory",
+    "pk": 1,
+    "fields": {
+      "name": "교내"
+    }
+  },
+  {
+    "model": "portfolio.projectcategory",
+    "pk": 2,
+    "fields": {
+      "name": "전공"
+    }
+  },
+  {
+    "model": "portfolio.projectcategory",
+    "pk": 3,
+    "fields": {
+      "name": "공모전/대회"
+    }
+  },
+  {
+    "model": "portfolio.projectcategory",
+    "pk": 4,
+    "fields": {
+      "name": "소모임/동아리"
+    }
+  },
+  {
+    "model": "portfolio.projectcategory",
+    "pk": 5,
+    "fields": {
+      "name": "교외"
+    }
+  },
+  {
+    "model": "portfolio.projectcategory",
+    "pk": 6,
+    "fields": {
+      "name": "교양"
+    }
+  },
+  {
+    "model": "portfolio.projectcategory",
+    "pk": 7,
+    "fields": {
+      "name": "개인"
+    }
+  },
+  {
+    "model": "portfolio.projecttype",
+    "pk": 1,
+    "fields": {
+      "name": "핵심",
+      "description": "메인 프로젝트; 성과, 학습, 경험.",
+      "order": 0
+    }
+  },
+  {
+    "model": "portfolio.projecttype",
+    "pk": 2,
+    "fields": {
+      "name": "성장",
+      "description": "서브 프로젝트; 학습, 경험, 기록",
+      "order": 1
+    }
+  },
+  {
+    "model": "portfolio.projecttype",
+    "pk": 3,
+    "fields": {
+      "name": "기록",
+      "description": "히스토리 프로젝트; 기록, 경험",
+      "order": 2
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 1,
+    "fields": {
+      "type": 1,
+      "title": "숭실의 나침반",
+      "period": "2024년 1학기",
+      "role": "1인 프로젝트로서 모든 과정에 참여",
+      "outcome": "",
+      "description": "숭실대학교 교내 길찾기",
+      "content": "",
+      "github_url": "https://github.com/jhHa0320/ssu_direction",
+      "demo_url": "",
+      "image": "",
+      "order": 0,
+      "scope": "INDIVIDUAL",
+      "is_active": true,
+      "categories": [
+        1,
+        2
+      ],
+      "tech_stacks": [
+        1,
+        5,
+        11,
+        14,
+        18,
+        19
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 2,
+    "fields": {
+      "type": 1,
+      "title": "개인화 음주측정 프로그램",
+      "period": "2024년 2학기",
+      "role": "팀 프로젝트로서 웹 및 DB 구현을 담당",
+      "outcome": "",
+      "description": "프로그래밍및실습2 C언어 프로젝트. 아두이노 활용 파트는 다른 팀원이 담당하고, 본인은 개인화 웹 및 DB 구현.",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 3,
+      "scope": "TEAM",
+      "is_active": true,
+      "categories": [
+        1,
+        2
+      ],
+      "tech_stacks": [
+        1,
+        5,
+        10,
+        14,
+        15
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 3,
+    "fields": {
+      "type": 1,
+      "title": "뉴스 링커",
+      "period": "2024년 2학기",
+      "role": "기획 및 백엔드 개발",
+      "outcome": "",
+      "description": "오픈소스기초설계 팀 프로젝트픈소스기초설계 팀 프로젝트",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 2,
+      "scope": "TEAM",
+      "is_active": true,
+      "categories": [
+        1,
+        2
+      ],
+      "tech_stacks": [
+        1,
+        5,
+        10,
+        14,
+        16,
+        20
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 4,
+    "fields": {
+      "type": 2,
+      "title": "2024 빅 콘테스트",
+      "period": "2024년 여름방학",
+      "role": "기획 및 데이터 분석 전반",
+      "outcome": "",
+      "description": "데이터과학 소모임 활동 중 공모전 참여 활동",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 1,
+      "scope": "TEAM",
+      "is_active": true,
+      "categories": [
+        3,
+        4,
+        5
+      ],
+      "tech_stacks": [
+        1,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 5,
+    "fields": {
+      "type": 2,
+      "title": "2024 숭실대학교 중앙도서관 데이터톤",
+      "period": "2024년 겨울방학",
+      "role": "팀장. 데이터 분석 및 시각화. 예측 모델 개발",
+      "outcome": "",
+      "description": "2024 숭실대학교 중앙도서관 데이터톤에 '보존서고 이동기준 마련' 주제로 참여",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 5,
+      "scope": "TEAM",
+      "is_active": true,
+      "categories": [
+        1,
+        4
+      ],
+      "tech_stacks": [
+        1,
+        6,
+        7,
+        8,
+        20
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 6,
+    "fields": {
+      "type": 1,
+      "title": "손가락으로 덧셈 게임",
+      "period": "2024년 2학기",
+      "role": "데이터 수집 및 백엔드",
+      "outcome": "",
+      "description": "AI개발과실전 교양필수 과목에서 진행된 팀 프로젝트",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 4,
+      "scope": "TEAM",
+      "is_active": true,
+      "categories": [
+        1,
+        6
+      ],
+      "tech_stacks": [
+        1,
+        5,
+        8,
+        14,
+        16
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 7,
+    "fields": {
+      "type": 3,
+      "title": "한국데이터정보과학회 & SAS KOREA 제1회 데이터 분석 경진대회",
+      "period": "2025년 1학기",
+      "role": "팀장",
+      "outcome": "",
+      "description": "DS 소모임 대표를 맡아 진행한 첫 공모전 참가. 소모임 내 4개의 팀으로 구성하고 각 팀의 진행 상황을 지도함.",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 6,
+      "scope": "TEAM",
+      "is_active": true,
+      "categories": [
+        3,
+        4,
+        5
+      ],
+      "tech_stacks": [
+        21
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 8,
+    "fields": {
+      "type": 3,
+      "title": "2025 게임이용자 패널데이터 경진대회",
+      "period": "2025년 1학기",
+      "role": "팀장, 데이터 분석 및 전처리, 논문 작성",
+      "outcome": "",
+      "description": "설문조사 항목이 많아 반복적인 데이터 전처리로 시간이 많이 소요되었음. 전처리 전략을 설계하는 연습에 도웁이 되었음.",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 7,
+      "scope": "TEAM",
+      "is_active": true,
+      "categories": [
+        3,
+        5
+      ],
+      "tech_stacks": [
+        1,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 9,
+    "fields": {
+      "type": 1,
+      "title": "2025 풍력 발전량 예측 공모전",
+      "period": "2025년 1학기 - 여름방학",
+      "role": "팀장, 데이터 분석 및 시각화, 전처리, 모델 설꼐 및 예측 실행",
+      "outcome": "",
+      "description": "데이터 다운로드부터 난관이었던 프로젝트였음(TB 단위) 이후 예측 및 성능 평가, 회의 지도",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 8,
+      "scope": "TEAM",
+      "is_active": true,
+      "categories": [
+        3,
+        4,
+        5
+      ],
+      "tech_stacks": [
+        1,
+        6,
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 10,
+    "fields": {
+      "type": 1,
+      "title": "머신러닝 기반 외식 서비스(식당) 리뷰 감성 분석 및 만족도 지수 개발",
+      "period": "2025년 2학기",
+      "role": "전공(머신러닝) 개인 프로젝트",
+      "outcome": "",
+      "description": "데이터과학 소모임, 전공 수업, 개인 학습 내용을 모두 총체적으로 프로젝트에 담아보았음.",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 9,
+      "scope": "INDIVIDUAL",
+      "is_active": true,
+      "categories": [
+        1,
+        2
+      ],
+      "tech_stacks": [
+        1,
+        6,
+        7,
+        8,
+        9,
+        20
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 11,
+    "fields": {
+      "type": 1,
+      "title": "개인 포트폴리오 사이트",
+      "period": "2026년 2월 -",
+      "role": "개인 포트폴리오 사이트 개발",
+      "outcome": "",
+      "description": "개발 및 유지",
+      "content": "",
+      "github_url": "",
+      "demo_url": "",
+      "image": "",
+      "order": 11,
+      "scope": "INDIVIDUAL",
+      "is_active": true,
+      "categories": [
+        7
+      ],
+      "tech_stacks": [
+        1,
+        5,
+        11,
+        16
+      ]
+    }
+  },
+  {
+    "model": "portfolio.project",
+    "pk": 12,
+    "fields": {
+      "type": 1,
+      "title": "픽합주(합주실 종합 예약 사이트)",
+      "period": "2025년 12월 -",
+      "role": "백엔드, 보안",
+      "outcome": "",
+      "description": "숭실대학교 IT대 밴드부 SUMMIT에서 합주실 종합 예약 사이트를 개발하여 3차 출시 백엔드 멤버로 참여중.",
+      "content": "",
+      "github_url": "https://github.com/summitBandWeb/",
+      "demo_url": "https://www.pickhabju.com/",
+      "image": "",
+      "order": 10,
+      "scope": "TEAM",
+      "is_active": true,
+      "categories": [
+        1,
+        4
+      ],
+      "tech_stacks": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "portfolio.activity",
+    "pk": 1,
+    "fields": {
+      "title": "SK AI Dream Camp 초급",
+      "organization": "SK Mysuni",
+      "description": "",
+      "period": "2025 여름방학",
+      "link": "",
+      "attachment": "",
+      "order": 0
+    }
+  },
+  {
+    "model": "portfolio.activity",
+    "pk": 2,
+    "fields": {
+      "title": "ADsP",
+      "organization": "K Data 데이터 자격검정",
+      "description": "",
+      "period": "2025.09.05",
+      "link": "",
+      "attachment": "",
+      "order": 1
+    }
+  },
+  {
+    "model": "portfolio.activity",
+    "pk": 3,
+    "fields": {
+      "title": "TOPCIT 수준 2",
+      "organization": "TOPCIT",
+      "description": "",
+      "period": "2025.11.01",
+      "link": "",
+      "attachment": "",
+      "order": 2
+    }
+  },
+  {
+    "model": "portfolio.leadership",
+    "pk": 1,
+    "fields": {
+      "title": "SUMMIT(밴드부)",
+      "organization": "숭실대학교 IT대 밴드 소모임",
+      "period": "2024년 1학기 -",
+      "role": "팀장 3회, 멘토",
+      "description": "숭실대학교 IT대 밴드 소모임인 SUMMIT에서 베이스 세션으로 활동 중\r\n- 학기 정기공연 4회 중 3회(2024-1, 2024-2, 2025-2) 팀장 담당\r\n- 2024년 2학기, 2025년 1학기 베이스 멘토로서 멘토링 활동 진행\r\n- 2025년 1년 동안 각종 공연 참여(새내기 새로배움터, 봄 축제, 대동제, 연합공연 2회, 졸업공연, 버스킹 등)\r\n- 2026년 SUMMIT에서 개발한 픽합주 프로젝트(합주실 종합예약 사이트) 참여 중",
+      "content": "",
+      "outcome": "",
+      "image": "",
+      "link": "",
+      "order": 2
+    }
+  },
+  {
+    "model": "portfolio.leadership",
+    "pk": 2,
+    "fields": {
+      "title": "SSU-PARE(볼링부)",
+      "organization": "숭실대학교 IT대 볼링 소모임",
+      "period": "2024년 2학기 - 2025년 1학기",
+      "role": "부회장, 총무",
+      "description": "볼링 소모임 슈페어를 신설하여 2024년 2학기 부회장, 2025년 1학기 총무로서 소모임을 이끌었음.",
+      "content": "",
+      "outcome": "",
+      "image": "",
+      "link": "",
+      "order": 1
+    }
   }
-},
-{
-  "model": "admin.logentry",
-  "pk": 2,
-  "fields": {
-    "action_time": "2026-02-15T15:36:48.421Z",
-    "user": 1,
-    "content_type": 12,
-    "object_id": "1",
-    "object_repr": "한민고등학교 (졸업)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 3,
-  "fields": {
-    "action_time": "2026-02-15T15:37:15.420Z",
-    "user": 1,
-    "content_type": 12,
-    "object_id": "2",
-    "object_repr": "중앙대학교 안성캠퍼스 예술공학부 (중퇴)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 4,
-  "fields": {
-    "action_time": "2026-02-15T15:37:58.906Z",
-    "user": 1,
-    "content_type": 12,
-    "object_id": "3",
-    "object_repr": "숭실대학교 AI소프트웨어학부 (재학)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 5,
-  "fields": {
-    "action_time": "2026-02-15T15:41:24.507Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "1",
-    "object_repr": "Python (사용 중 🔥)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 6,
-  "fields": {
-    "action_time": "2026-02-15T15:49:58.498Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "2",
-    "object_repr": "FastAPI (사용 중 🔥)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 7,
-  "fields": {
-    "action_time": "2026-02-15T15:50:06.444Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "3",
-    "object_repr": "Git (사용 중 🔥)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 8,
-  "fields": {
-    "action_time": "2026-02-15T15:50:15.322Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "4",
-    "object_repr": "Supabase (사용 중 🔥)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 9,
-  "fields": {
-    "action_time": "2026-02-15T15:50:35.404Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "5",
-    "object_repr": "HTML/CSS (기능 유지 ✅)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 10,
-  "fields": {
-    "action_time": "2026-02-15T15:50:48.935Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "6",
-    "object_repr": "Data Analysis (기능 유지 ✅)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 11,
-  "fields": {
-    "action_time": "2026-02-15T15:51:00.262Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "6",
-    "object_repr": "Data Analysis (기능 유지 ✅)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc124\\uba85\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 12,
-  "fields": {
-    "action_time": "2026-02-15T15:51:13.508Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "7",
-    "object_repr": "Data Visualization (기능 유지 ✅)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 13,
-  "fields": {
-    "action_time": "2026-02-15T15:51:28.091Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "8",
-    "object_repr": "Machine Learning (기능 유지 ✅)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 14,
-  "fields": {
-    "action_time": "2026-02-15T15:51:35.112Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "9",
-    "object_repr": "Deep Learning (기능 유지 ✅)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 15,
-  "fields": {
-    "action_time": "2026-02-15T15:51:47.184Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "10",
-    "object_repr": "Flask (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 16,
-  "fields": {
-    "action_time": "2026-02-15T15:51:51.610Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "11",
-    "object_repr": "Django (사용 중 🔥)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 17,
-  "fields": {
-    "action_time": "2026-02-15T15:51:56.627Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "12",
-    "object_repr": "C (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 18,
-  "fields": {
-    "action_time": "2026-02-15T15:52:03.295Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "13",
-    "object_repr": "C++ (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 19,
-  "fields": {
-    "action_time": "2026-02-15T15:52:11.385Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "14",
-    "object_repr": "Javascript (기능 유지 ✅)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 20,
-  "fields": {
-    "action_time": "2026-02-15T15:52:18.377Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "15",
-    "object_repr": "MongoDB (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 21,
-  "fields": {
-    "action_time": "2026-02-15T15:52:31.123Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "16",
-    "object_repr": "Bootstrap (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 22,
-  "fields": {
-    "action_time": "2026-02-15T15:52:35.955Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "17",
-    "object_repr": "Netlify (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 23,
-  "fields": {
-    "action_time": "2026-02-15T15:58:36.884Z",
-    "user": 1,
-    "content_type": 8,
-    "object_id": "1",
-    "object_repr": "숭실대학교 AI융합학부 데이터사이언스 소모임 - 대표자",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 24,
-  "fields": {
-    "action_time": "2026-02-15T16:34:19.113Z",
-    "user": 1,
-    "content_type": 13,
-    "object_id": "1",
-    "object_repr": "교내",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 25,
-  "fields": {
-    "action_time": "2026-02-15T16:34:22.629Z",
-    "user": 1,
-    "content_type": 13,
-    "object_id": "2",
-    "object_repr": "전공",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 26,
-  "fields": {
-    "action_time": "2026-02-15T16:34:34.453Z",
-    "user": 1,
-    "content_type": 13,
-    "object_id": "3",
-    "object_repr": "공모전/대회",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 27,
-  "fields": {
-    "action_time": "2026-02-15T16:34:38.187Z",
-    "user": 1,
-    "content_type": 13,
-    "object_id": "4",
-    "object_repr": "소모임",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 28,
-  "fields": {
-    "action_time": "2026-02-15T16:34:50.413Z",
-    "user": 1,
-    "content_type": 13,
-    "object_id": "4",
-    "object_repr": "소모임/동아리",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uce74\\ud14c\\uace0\\ub9ac\\uba85\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 29,
-  "fields": {
-    "action_time": "2026-02-15T16:35:03.928Z",
-    "user": 1,
-    "content_type": 13,
-    "object_id": "5",
-    "object_repr": "교외",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 30,
-  "fields": {
-    "action_time": "2026-02-15T16:35:06.483Z",
-    "user": 1,
-    "content_type": 13,
-    "object_id": "6",
-    "object_repr": "교양",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 31,
-  "fields": {
-    "action_time": "2026-02-15T16:35:09.455Z",
-    "user": 1,
-    "content_type": 13,
-    "object_id": "7",
-    "object_repr": "개인\\",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 32,
-  "fields": {
-    "action_time": "2026-02-15T16:35:13.672Z",
-    "user": 1,
-    "content_type": 13,
-    "object_id": "7",
-    "object_repr": "개인",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uce74\\ud14c\\uace0\\ub9ac\\uba85\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 33,
-  "fields": {
-    "action_time": "2026-02-15T16:36:22.243Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "18",
-    "object_repr": "NetworkX (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 34,
-  "fields": {
-    "action_time": "2026-02-15T16:36:48.667Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "1",
-    "object_repr": "숭실의 나침반",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 35,
-  "fields": {
-    "action_time": "2026-02-15T16:37:12.079Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "19",
-    "object_repr": "Folium (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 36,
-  "fields": {
-    "action_time": "2026-02-15T16:38:20.205Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "1",
-    "object_repr": "숭실의 나침반",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc0ac\\uc6a9 \\uae30\\uc220 (\\ubcf5\\uc218\\uc120\\ud0dd \\uac00\\ub2a5)\", \"\\ub098\\uc758 \\uc5ed\\ud560\", \"\\uc124\\uba85\", \"Github \\ub9c1\\ud06c\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 37,
-  "fields": {
-    "action_time": "2026-02-15T16:38:58.220Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "1",
-    "object_repr": "숭실의 나침반",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uae30\\uac04\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 38,
-  "fields": {
-    "action_time": "2026-02-15T17:10:30.204Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "2",
-    "object_repr": "Project object (2)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 39,
-  "fields": {
-    "action_time": "2026-02-15T17:12:10.407Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "2",
-    "object_repr": "Project object (2)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc0ac\\uc6a9 \\uae30\\uc220 (\\ubcf5\\uc218\\uc120\\ud0dd \\uac00\\ub2a5)\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 40,
-  "fields": {
-    "action_time": "2026-02-15T17:13:54.807Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "20",
-    "object_repr": "NLP (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 41,
-  "fields": {
-    "action_time": "2026-02-15T17:15:46.513Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "3",
-    "object_repr": "Project object (3)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 42,
-  "fields": {
-    "action_time": "2026-02-15T17:16:51.114Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "4",
-    "object_repr": "Project object (4)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 43,
-  "fields": {
-    "action_time": "2026-02-15T17:18:56.517Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "5",
-    "object_repr": "Project object (5)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 44,
-  "fields": {
-    "action_time": "2026-02-15T17:37:11.885Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "6",
-    "object_repr": "Project object (6)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 45,
-  "fields": {
-    "action_time": "2026-02-15T18:38:49.954Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "4",
-    "object_repr": "Project object (4)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 46,
-  "fields": {
-    "action_time": "2026-02-15T18:38:49.957Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "5",
-    "object_repr": "Project object (5)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 47,
-  "fields": {
-    "action_time": "2026-02-15T18:38:49.957Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "6",
-    "object_repr": "Project object (6)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 48,
-  "fields": {
-    "action_time": "2026-02-15T18:38:49.959Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "3",
-    "object_repr": "Project object (3)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 49,
-  "fields": {
-    "action_time": "2026-02-15T18:38:49.959Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "2",
-    "object_repr": "Project object (2)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 50,
-  "fields": {
-    "action_time": "2026-02-16T02:08:51.552Z",
-    "user": 1,
-    "content_type": 11,
-    "object_id": "21",
-    "object_repr": "기타 (경험 있음 🕰️)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 51,
-  "fields": {
-    "action_time": "2026-02-16T02:10:13.011Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "7",
-    "object_repr": "Project object (7)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 52,
-  "fields": {
-    "action_time": "2026-02-16T02:23:42.894Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "8",
-    "object_repr": "Project object (8)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 53,
-  "fields": {
-    "action_time": "2026-02-16T02:25:13.163Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "9",
-    "object_repr": "Project object (9)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 54,
-  "fields": {
-    "action_time": "2026-02-16T02:43:20.336Z",
-    "user": 1,
-    "content_type": 15,
-    "object_id": "1",
-    "object_repr": "핵심",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 55,
-  "fields": {
-    "action_time": "2026-02-16T02:43:41.823Z",
-    "user": 1,
-    "content_type": 15,
-    "object_id": "2",
-    "object_repr": "성장",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 56,
-  "fields": {
-    "action_time": "2026-02-16T02:44:04.526Z",
-    "user": 1,
-    "content_type": 15,
-    "object_id": "3",
-    "object_repr": "기록",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 57,
-  "fields": {
-    "action_time": "2026-02-16T02:45:11.181Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "9",
-    "object_repr": "Project object (9)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 58,
-  "fields": {
-    "action_time": "2026-02-16T02:45:11.183Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "8",
-    "object_repr": "Project object (8)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 59,
-  "fields": {
-    "action_time": "2026-02-16T02:45:11.183Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "7",
-    "object_repr": "Project object (7)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 60,
-  "fields": {
-    "action_time": "2026-02-16T02:45:11.184Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "5",
-    "object_repr": "Project object (5)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 61,
-  "fields": {
-    "action_time": "2026-02-16T02:45:11.184Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "6",
-    "object_repr": "Project object (6)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 62,
-  "fields": {
-    "action_time": "2026-02-16T02:45:11.185Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "2",
-    "object_repr": "Project object (2)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 63,
-  "fields": {
-    "action_time": "2026-02-16T02:45:11.186Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "3",
-    "object_repr": "Project object (3)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 64,
-  "fields": {
-    "action_time": "2026-02-16T02:45:11.186Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "4",
-    "object_repr": "Project object (4)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 65,
-  "fields": {
-    "action_time": "2026-02-16T02:45:11.186Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "1",
-    "object_repr": "Project object (1)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 66,
-  "fields": {
-    "action_time": "2026-02-16T02:46:27.824Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "10",
-    "object_repr": "Project object (10)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 67,
-  "fields": {
-    "action_time": "2026-02-16T02:46:33.268Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "10",
-    "object_repr": "Project object (10)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 68,
-  "fields": {
-    "action_time": "2026-02-16T02:48:37.530Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "11",
-    "object_repr": "Project object (11)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 69,
-  "fields": {
-    "action_time": "2026-02-16T02:48:51.742Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "11",
-    "object_repr": "Project object (11)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\", \"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 70,
-  "fields": {
-    "action_time": "2026-02-16T02:56:45.203Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "12",
-    "object_repr": "Project object (12)",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 71,
-  "fields": {
-    "action_time": "2026-02-16T02:56:51.772Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "12",
-    "object_repr": "Project object (12)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\", \"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 72,
-  "fields": {
-    "action_time": "2026-02-16T02:57:14.942Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "11",
-    "object_repr": "Project object (11)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uae30\\uac04\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 73,
-  "fields": {
-    "action_time": "2026-02-16T02:57:29.807Z",
-    "user": 1,
-    "content_type": 10,
-    "object_id": "12",
-    "object_repr": "Project object (12)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8\\uba85\", \"\\uae30\\uac04\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 74,
-  "fields": {
-    "action_time": "2026-02-16T03:59:26.363Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "SK AI Dream Camp 초급",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 75,
-  "fields": {
-    "action_time": "2026-02-16T04:00:38.789Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "2",
-    "object_repr": "ADsP",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 76,
-  "fields": {
-    "action_time": "2026-02-16T04:03:08.758Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "3",
-    "object_repr": "TOPCIT 수준 2",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 77,
-  "fields": {
-    "action_time": "2026-02-16T04:03:21.346Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "3",
-    "object_repr": "TOPCIT 수준 2",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 78,
-  "fields": {
-    "action_time": "2026-02-16T04:03:21.347Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "2",
-    "object_repr": "ADsP",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 79,
-  "fields": {
-    "action_time": "2026-02-16T04:17:24.822Z",
-    "user": 1,
-    "content_type": 12,
-    "object_id": "2",
-    "object_repr": "중앙대학교 다빈치캠퍼스 예술공학부 (중퇴)",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud559\\uad50\\uba85\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 80,
-  "fields": {
-    "action_time": "2026-02-16T04:20:23.643Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "1",
-    "object_repr": "SK AI Dream Camp 초급",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc124\\uba85\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 81,
-  "fields": {
-    "action_time": "2026-02-16T04:20:27.866Z",
-    "user": 1,
-    "content_type": 7,
-    "object_id": "2",
-    "object_repr": "ADsP",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc124\\uba85\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 82,
-  "fields": {
-    "action_time": "2026-02-16T05:42:30.861Z",
-    "user": 1,
-    "content_type": 16,
-    "object_id": "1",
-    "object_repr": "밴드부 활동 - 숭실대학교 IT대 밴드 소모임 SUMMIT",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 83,
-  "fields": {
-    "action_time": "2026-02-16T05:44:04.613Z",
-    "user": 1,
-    "content_type": 16,
-    "object_id": "2",
-    "object_repr": "볼링부 활동 - 숭실대학교 IT대 볼링 소모임 SSU-PARE",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 84,
-  "fields": {
-    "action_time": "2026-02-16T05:44:23.193Z",
-    "user": 1,
-    "content_type": 16,
-    "object_id": "1",
-    "object_repr": "밴드부 활동 - 숭실대학교 IT대 밴드 소모임 SUMMIT",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uae30\\uac04\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 85,
-  "fields": {
-    "action_time": "2026-02-16T05:45:14.589Z",
-    "user": 1,
-    "content_type": 16,
-    "object_id": "2",
-    "object_repr": "볼링부 활동 - 숭실대학교 IT대 볼링 소모임 SSU-PARE",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 86,
-  "fields": {
-    "action_time": "2026-02-16T05:45:14.593Z",
-    "user": 1,
-    "content_type": 16,
-    "object_id": "1",
-    "object_repr": "밴드부 활동 - 숭실대학교 IT대 밴드 소모임 SUMMIT",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 87,
-  "fields": {
-    "action_time": "2026-02-16T05:52:34.739Z",
-    "user": 1,
-    "content_type": 16,
-    "object_id": "2",
-    "object_repr": "SSU-PARE(볼링부) - 숭실대학교 IT대 볼링 소모임",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud65c\\ub3d9\\uba85\", \"\\ub2e8\\uccb4/\\uc870\\uc9c1\\uba85\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 88,
-  "fields": {
-    "action_time": "2026-02-16T05:52:45.224Z",
-    "user": 1,
-    "content_type": 16,
-    "object_id": "1",
-    "object_repr": "SUMMIT(밴드부) - 숭실대학교 IT대 밴드 소모임",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\ud65c\\ub3d9\\uba85\", \"\\ub2e8\\uccb4/\\uc870\\uc9c1\\uba85\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 89,
-  "fields": {
-    "action_time": "2026-02-16T05:53:01.434Z",
-    "user": 1,
-    "content_type": 16,
-    "object_id": "2",
-    "object_repr": "SSU-PARE(볼링부) - 숭실대학교 IT대 볼링 소모임",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 90,
-  "fields": {
-    "action_time": "2026-02-16T05:53:01.436Z",
-    "user": 1,
-    "content_type": 16,
-    "object_id": "1",
-    "object_repr": "SUMMIT(밴드부) - 숭실대학교 IT대 밴드 소모임",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 1,
-  "fields": {
-    "password": "pbkdf2_sha256$870000$ZUtCExjdDK0OQnhGmcFzPk$QtJaRCdSFSlevtnRHw1t2BxkMmK19q3WozO/Ysojz5E=",
-    "last_login": "2026-02-15T14:16:38.487Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "admin@example.com",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2026-02-15T14:13:32.608Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "5w8wzh93ljeliyx8jsjbrstwjsmrragc",
-  "fields": {
-    "session_data": ".eJxVjM0OwiAQhN-FsyHdRX706L3PQFjYStVAUtqT8d2lSQ-azOmbb-YtfNjW7LfGi5-TuAoQp19GIT657EV6hHKvMtayLjPJXZFH2-RYE79uh_t3kEPLfW0nZS0wgIuG1ICQAIiQBnRs0QQG12M7UsB0vkykk4naoVOAOqH4fAHJeDcs:1vrcvO:iLwnZ8MvwuDmZnxE2u5zEHbo11f7zDyv2XuUV2tmbto",
-    "expire_date": "2026-03-01T14:16:38.495Z"
-  }
-},
-{
-  "model": "portfolio.profile",
-  "pk": 1,
-  "fields": {
-    "name": "하정훈",
-    "birthdate": "2001-03-20",
-    "email": "snake6862@naver.com",
-    "github_url": "https://github.com/jhHa0320",
-    "introduction": "",
-    "profile_image": ""
-  }
-},
-{
-  "model": "portfolio.education",
-  "pk": 1,
-  "fields": {
-    "profile": 1,
-    "period": "2020",
-    "school": "한민고등학교",
-    "status": "졸업"
-  }
-},
-{
-  "model": "portfolio.education",
-  "pk": 2,
-  "fields": {
-    "profile": 1,
-    "period": "2021-2023",
-    "school": "중앙대학교 다빈치캠퍼스 예술공학부",
-    "status": "중퇴"
-  }
-},
-{
-  "model": "portfolio.education",
-  "pk": 3,
-  "fields": {
-    "profile": 1,
-    "period": "2024-",
-    "school": "숭실대학교 AI소프트웨어학부",
-    "status": "재학"
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 1,
-  "fields": {
-    "name": "Python",
-    "category": "USING",
-    "description": "주력 언어",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 2,
-  "fields": {
-    "name": "FastAPI",
-    "category": "USING",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 3,
-  "fields": {
-    "name": "Git",
-    "category": "USING",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 4,
-  "fields": {
-    "name": "Supabase",
-    "category": "USING",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 5,
-  "fields": {
-    "name": "HTML/CSS",
-    "category": "MAINTAIN",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 6,
-  "fields": {
-    "name": "Data Analysis",
-    "category": "MAINTAIN",
-    "description": "pandas, numpy",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 7,
-  "fields": {
-    "name": "Data Visualization",
-    "category": "MAINTAIN",
-    "description": "matplotlib, seaborn",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 8,
-  "fields": {
-    "name": "Machine Learning",
-    "category": "MAINTAIN",
-    "description": "사이킷런",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 9,
-  "fields": {
-    "name": "Deep Learning",
-    "category": "MAINTAIN",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 10,
-  "fields": {
-    "name": "Flask",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 11,
-  "fields": {
-    "name": "Django",
-    "category": "USING",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 12,
-  "fields": {
-    "name": "C",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 13,
-  "fields": {
-    "name": "C++",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 14,
-  "fields": {
-    "name": "Javascript",
-    "category": "MAINTAIN",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 15,
-  "fields": {
-    "name": "MongoDB",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 16,
-  "fields": {
-    "name": "Bootstrap",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 17,
-  "fields": {
-    "name": "Netlify",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 18,
-  "fields": {
-    "name": "NetworkX",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 19,
-  "fields": {
-    "name": "Folium",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 20,
-  "fields": {
-    "name": "NLP",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.skill",
-  "pk": 21,
-  "fields": {
-    "name": "기타",
-    "category": "EXPERIENCE",
-    "description": "",
-    "icon": ""
-  }
-},
-{
-  "model": "portfolio.career",
-  "pk": 1,
-  "fields": {
-    "organization": "숭실대학교 AI융합학부 데이터사이언스 소모임",
-    "role": "대표자",
-    "period": "2025.1-2025.9",
-    "description": "학술 소모임 데이터 과학 분야에서 2기 대표자로 활동함."
-  }
-},
-{
-  "model": "portfolio.projectcategory",
-  "pk": 1,
-  "fields": {
-    "name": "교내"
-  }
-},
-{
-  "model": "portfolio.projectcategory",
-  "pk": 2,
-  "fields": {
-    "name": "전공"
-  }
-},
-{
-  "model": "portfolio.projectcategory",
-  "pk": 3,
-  "fields": {
-    "name": "공모전/대회"
-  }
-},
-{
-  "model": "portfolio.projectcategory",
-  "pk": 4,
-  "fields": {
-    "name": "소모임/동아리"
-  }
-},
-{
-  "model": "portfolio.projectcategory",
-  "pk": 5,
-  "fields": {
-    "name": "교외"
-  }
-},
-{
-  "model": "portfolio.projectcategory",
-  "pk": 6,
-  "fields": {
-    "name": "교양"
-  }
-},
-{
-  "model": "portfolio.projectcategory",
-  "pk": 7,
-  "fields": {
-    "name": "개인"
-  }
-},
-{
-  "model": "portfolio.projecttype",
-  "pk": 1,
-  "fields": {
-    "name": "핵심",
-    "description": "메인 프로젝트; 성과, 학습, 경험.",
-    "order": 0
-  }
-},
-{
-  "model": "portfolio.projecttype",
-  "pk": 2,
-  "fields": {
-    "name": "성장",
-    "description": "서브 프로젝트; 학습, 경험, 기록",
-    "order": 1
-  }
-},
-{
-  "model": "portfolio.projecttype",
-  "pk": 3,
-  "fields": {
-    "name": "기록",
-    "description": "히스토리 프로젝트; 기록, 경험",
-    "order": 2
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 1,
-  "fields": {
-    "type": 1,
-    "title": "숭실의 나침반",
-    "period": "2024년 1학기",
-    "role": "1인 프로젝트로서 모든 과정에 참여",
-    "outcome": "",
-    "description": "숭실대학교 교내 길찾기",
-    "content": "",
-    "github_url": "https://github.com/jhHa0320/ssu_direction",
-    "demo_url": "",
-    "image": "",
-    "order": 0,
-    "is_active": true,
-    "categories": [
-      1,
-      2
-    ],
-    "tech_stacks": [
-      1,
-      5,
-      11,
-      14,
-      18,
-      19
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 2,
-  "fields": {
-    "type": 1,
-    "title": "개인화 음주측정 프로그램",
-    "period": "2024년 2학기",
-    "role": "팀 프로젝트로서 웹 및 DB 구현을 담당",
-    "outcome": "",
-    "description": "프로그래밍및실습2 C언어 프로젝트. 아두이노 활용 파트는 다른 팀원이 담당하고, 본인은 개인화 웹 및 DB 구현.",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 3,
-    "is_active": true,
-    "categories": [
-      1,
-      2
-    ],
-    "tech_stacks": [
-      1,
-      5,
-      10,
-      14,
-      15
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 3,
-  "fields": {
-    "type": 1,
-    "title": "뉴스 링커",
-    "period": "2024년 2학기",
-    "role": "기획 및 백엔드 개발",
-    "outcome": "",
-    "description": "오픈소스기초설계 팀 프로젝트픈소스기초설계 팀 프로젝트",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 2,
-    "is_active": true,
-    "categories": [
-      1,
-      2
-    ],
-    "tech_stacks": [
-      1,
-      5,
-      10,
-      14,
-      16,
-      20
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 4,
-  "fields": {
-    "type": 2,
-    "title": "2024 빅 콘테스트",
-    "period": "2024년 여름방학",
-    "role": "기획 및 데이터 분석 전반",
-    "outcome": "",
-    "description": "데이터과학 소모임 활동 중 공모전 참여 활동",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 1,
-    "is_active": true,
-    "categories": [
-      3,
-      4,
-      5
-    ],
-    "tech_stacks": [
-      1,
-      6,
-      7
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 5,
-  "fields": {
-    "type": 2,
-    "title": "2024 숭실대학교 중앙도서관 데이터톤",
-    "period": "2024년 겨울방학",
-    "role": "팀장. 데이터 분석 및 시각화. 예측 모델 개발",
-    "outcome": "",
-    "description": "2024 숭실대학교 중앙도서관 데이터톤에 '보존서고 이동기준 마련' 주제로 참여",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 5,
-    "is_active": true,
-    "categories": [
-      1,
-      4
-    ],
-    "tech_stacks": [
-      1,
-      6,
-      7,
-      8,
-      20
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 6,
-  "fields": {
-    "type": 1,
-    "title": "손가락으로 덧셈 게임",
-    "period": "2024년 2학기",
-    "role": "데이터 수집 및 백엔드",
-    "outcome": "",
-    "description": "AI개발과실전 교양필수 과목에서 진행된 팀 프로젝트",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 4,
-    "is_active": true,
-    "categories": [
-      1,
-      6
-    ],
-    "tech_stacks": [
-      1,
-      5,
-      8,
-      14,
-      16
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 7,
-  "fields": {
-    "type": 3,
-    "title": "한국데이터정보과학회 & SAS KOREA 제1회 데이터 분석 경진대회",
-    "period": "2025년 1학기",
-    "role": "팀장",
-    "outcome": "",
-    "description": "DS 소모임 대표를 맡아 진행한 첫 공모전 참가. 소모임 내 4개의 팀으로 구성하고 각 팀의 진행 상황을 지도함.",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 6,
-    "is_active": true,
-    "categories": [
-      3,
-      4,
-      5
-    ],
-    "tech_stacks": [
-      21
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 8,
-  "fields": {
-    "type": 3,
-    "title": "2025 게임이용자 패널데이터 경진대회",
-    "period": "2025년 1학기",
-    "role": "팀장, 데이터 분석 및 전처리, 논문 작성",
-    "outcome": "",
-    "description": "설문조사 항목이 많아 반복적인 데이터 전처리로 시간이 많이 소요되었음. 전처리 전략을 설계하는 연습에 도웁이 되었음.",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 7,
-    "is_active": true,
-    "categories": [
-      3,
-      5
-    ],
-    "tech_stacks": [
-      1,
-      6,
-      7
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 9,
-  "fields": {
-    "type": 1,
-    "title": "2025 풍력 발전량 예측 공모전",
-    "period": "2025년 1학기 - 여름방학",
-    "role": "팀장, 데이터 분석 및 시각화, 전처리, 모델 설꼐 및 예측 실행",
-    "outcome": "",
-    "description": "데이터 다운로드부터 난관이었던 프로젝트였음(TB 단위) 이후 예측 및 성능 평가, 회의 지도",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 8,
-    "is_active": true,
-    "categories": [
-      3,
-      4,
-      5
-    ],
-    "tech_stacks": [
-      1,
-      6,
-      7,
-      8
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 10,
-  "fields": {
-    "type": 1,
-    "title": "머신러닝 기반 외식 서비스(식당) 리뷰 감성 분석 및 만족도 지수 개발",
-    "period": "2025년 2학기",
-    "role": "전공(머신러닝) 개인 프로젝트",
-    "outcome": "",
-    "description": "데이터과학 소모임, 전공 수업, 개인 학습 내용을 모두 총체적으로 프로젝트에 담아보았음.",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 9,
-    "is_active": true,
-    "categories": [
-      1,
-      2
-    ],
-    "tech_stacks": [
-      1,
-      6,
-      7,
-      8,
-      9,
-      20
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 11,
-  "fields": {
-    "type": 1,
-    "title": "개인 포트폴리오 사이트",
-    "period": "2026년 2월 -",
-    "role": "개인 포트폴리오 사이트 개발",
-    "outcome": "",
-    "description": "개발 및 유지",
-    "content": "",
-    "github_url": "",
-    "demo_url": "",
-    "image": "",
-    "order": 11,
-    "is_active": true,
-    "categories": [
-      7
-    ],
-    "tech_stacks": [
-      1,
-      5,
-      11,
-      16
-    ]
-  }
-},
-{
-  "model": "portfolio.project",
-  "pk": 12,
-  "fields": {
-    "type": 1,
-    "title": "픽합주(합주실 종합 예약 사이트)",
-    "period": "2025년 12월 -",
-    "role": "백엔드, 보안",
-    "outcome": "",
-    "description": "숭실대학교 IT대 밴드부 SUMMIT에서 합주실 종합 예약 사이트를 개발하여 3차 출시 백엔드 멤버로 참여중.",
-    "content": "",
-    "github_url": "https://github.com/summitBandWeb/",
-    "demo_url": "https://www.pickhabju.com/",
-    "image": "",
-    "order": 10,
-    "is_active": true,
-    "categories": [
-      1,
-      4
-    ],
-    "tech_stacks": [
-      1,
-      2,
-      3,
-      4
-    ]
-  }
-},
-{
-  "model": "portfolio.activity",
-  "pk": 1,
-  "fields": {
-    "title": "SK AI Dream Camp 초급",
-    "organization": "SK Mysuni",
-    "description": "",
-    "period": "2025 여름방학",
-    "link": "",
-    "attachment": "",
-    "order": 0
-  }
-},
-{
-  "model": "portfolio.activity",
-  "pk": 2,
-  "fields": {
-    "title": "ADsP",
-    "organization": "K Data 데이터 자격검정",
-    "description": "",
-    "period": "2025.09.05",
-    "link": "",
-    "attachment": "",
-    "order": 1
-  }
-},
-{
-  "model": "portfolio.activity",
-  "pk": 3,
-  "fields": {
-    "title": "TOPCIT 수준 2",
-    "organization": "TOPCIT",
-    "description": "",
-    "period": "2025.11.01",
-    "link": "",
-    "attachment": "",
-    "order": 2
-  }
-},
-{
-  "model": "portfolio.leadership",
-  "pk": 1,
-  "fields": {
-    "title": "SUMMIT(밴드부)",
-    "organization": "숭실대학교 IT대 밴드 소모임",
-    "period": "2024년 1학기 -",
-    "role": "팀장 3회, 멘토",
-    "description": "숭실대학교 IT대 밴드 소모임인 SUMMIT에서 베이스 세션으로 활동 중\r\n- 학기 정기공연 4회 중 3회(2024-1, 2024-2, 2025-2) 팀장 담당\r\n- 2024년 2학기, 2025년 1학기 베이스 멘토로서 멘토링 활동 진행\r\n- 2025년 1년 동안 각종 공연 참여(새내기 새로배움터, 봄 축제, 대동제, 연합공연 2회, 졸업공연, 버스킹 등)\r\n- 2026년 SUMMIT에서 개발한 픽합주 프로젝트(합주실 종합예약 사이트) 참여 중",
-    "content": "",
-    "outcome": "",
-    "image": "",
-    "link": "",
-    "order": 2
-  }
-},
-{
-  "model": "portfolio.leadership",
-  "pk": 2,
-  "fields": {
-    "title": "SSU-PARE(볼링부)",
-    "organization": "숭실대학교 IT대 볼링 소모임",
-    "period": "2024년 2학기 - 2025년 1학기",
-    "role": "부회장, 총무",
-    "description": "볼링 소모임 슈페어를 신설하여 2024년 2학기 부회장, 2025년 1학기 총무로서 소모임을 이끌었음.",
-    "content": "",
-    "outcome": "",
-    "image": "",
-    "link": "",
-    "order": 1
-  }
-}
 ]
