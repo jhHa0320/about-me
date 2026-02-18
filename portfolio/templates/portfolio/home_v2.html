@@ -180,6 +180,13 @@
                 {% endfor %}
             </div>
 
+            <!-- Project Scope Filters -->
+            <div class="d-flex flex-wrap gap-2 justify-content-center mb-3" id="project-scope-filters">
+                <button class="btn btn-dark active" data-scope="all">전체</button>
+                <button class="btn btn-outline-dark" data-scope="INDIVIDUAL">개인 프로젝트</button>
+                <button class="btn btn-outline-dark" data-scope="TEAM">팀 프로젝트</button>
+            </div>
+
             <!-- Dynamic Description Area -->
             <div class="text-center mb-4" style="min-height: 24px;">
                 <p class="text-muted fst-italic" id="type-description">
@@ -204,6 +211,7 @@
         {% for project in projects %}
         <div class="col-md-6 mb-4 project-item"
             data-type="{% if project.type %}{{ project.type.id }}{% else %}none{% endif %}"
+            data-scope="{{ project.scope }}"
             data-tech-stacks="{% for tech in project.tech_stacks.all %}{{ tech.id }} {% endfor %}">
             <div class="card h-100 shadow border-0">
                 {% if project.image %}
@@ -278,6 +286,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const typeButtons = document.querySelectorAll('#project-type-filters button');
+        const scopeButtons = document.querySelectorAll('#project-scope-filters button');
         const techButtons = document.querySelectorAll('#project-filters button');
         const descriptionText = document.getElementById('type-description');
         const projectItems = document.querySelectorAll('.project-item');
@@ -286,6 +295,7 @@
         const itemsPerPage = 6;
         let currentPage = 1;
         let currentType = 'all';
+        let currentScope = 'all';
         let currentTechFilters = [];
 
         // --- 1. Filter Logic ---
@@ -294,10 +304,14 @@
 
             projectItems.forEach(item => {
                 const itemType = item.getAttribute('data-type');
+                const itemScope = item.getAttribute('data-scope');
                 const itemTechStacks = item.getAttribute('data-tech-stacks').trim().split(/\s+/);
 
                 // Type Filter Check
                 const typeMatch = (currentType === 'all') || (itemType === currentType);
+
+                // Scope Filter Check
+                const scopeMatch = (currentScope === 'all') || (itemScope === currentScope);
 
                 // Tech Filter Check
                 let techMatch = true;
@@ -306,7 +320,7 @@
                     techMatch = currentTechFilters.some(filter => itemTechStacks.includes(filter));
                 }
 
-                if (typeMatch && techMatch) {
+                if (typeMatch && scopeMatch && techMatch) {
                     filtered.push(item);
                 }
             });
@@ -402,6 +416,23 @@
                 this.classList.add('active', 'btn-dark');
 
                 currentType = this.getAttribute('data-type');
+                currentPage = 1;
+                updateVisibility();
+            });
+        });
+
+
+        // Scope Filter Click
+        scopeButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                scopeButtons.forEach(b => {
+                    b.classList.remove('active', 'btn-dark');
+                    b.classList.add('btn-outline-dark');
+                });
+                this.classList.remove('btn-outline-dark');
+                this.classList.add('active', 'btn-dark');
+
+                currentScope = this.getAttribute('data-scope');
                 currentPage = 1;
                 updateVisibility();
             });

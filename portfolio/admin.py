@@ -33,14 +33,14 @@ class CareerAdmin(admin.ModelAdmin):
 @admin.register(Project)
 class ProjectAdmin(SummernoteModelAdmin):
     summernote_fields = ('content',)
-    list_display = ('order', 'title', 'period', 'type', 'role', 'is_active')
-    list_editable = ('order', 'is_active', 'type')
+    list_display = ('order', 'title', 'period', 'type', 'scope', 'role', 'is_active')
+    list_editable = ('order', 'is_active', 'type', 'scope')
     list_display_links = ('title',)
-    list_filter = ('type', 'categories', 'tech_stacks', 'is_active')
+    list_filter = ('type', 'scope', 'categories', 'tech_stacks', 'is_active')
     filter_horizontal = ('categories', 'tech_stacks')
     fieldsets = (
         ('기본 정보', {
-            'fields': ('title', 'type', 'period', 'categories', 'tech_stacks', 'role', 'order', 'is_active')
+            'fields': ('title', 'type', 'scope', 'period', 'categories', 'tech_stacks', 'role', 'order', 'is_active')
         }),
         ('상세 내용', {
             'fields': ('description', 'outcome', 'content', 'image')

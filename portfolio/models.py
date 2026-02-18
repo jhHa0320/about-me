@@ -98,6 +98,13 @@ class Project(models.Model):
     demo_url = models.URLField(blank=True, verbose_name="데모 링크")
     image = models.ImageField(upload_to='projects/', blank=True, null=True, verbose_name="대표 이미지")
     order = models.IntegerField(default=0, verbose_name="정렬 순서 (높을수록 먼저)")
+    
+    SCOPE_CHOICES = [
+        ('INDIVIDUAL', '개인 프로젝트'),
+        ('TEAM', '팀 프로젝트'),
+    ]
+    scope = models.CharField(max_length=20, choices=SCOPE_CHOICES, default='INDIVIDUAL', verbose_name="프로젝트 범위 (개인/팀)")
+    
     is_active = models.BooleanField(default=True, verbose_name="활성화 여부")
 
     class Meta:

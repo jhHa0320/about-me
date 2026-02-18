@@ -1,9 +1,1205 @@
 [
 {
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2026-02-15T14:33:18.689Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "í•˜ì •í›ˆ",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2026-02-15T15:36:48.421Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "1",
+    "object_repr": "í•œë¯¼ê³ ë“±í•™êµ (ì¡¸ì—…)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2026-02-15T15:37:15.420Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "2",
+    "object_repr": "ì¤‘ì•™ëŒ€í•™êµ ì•ˆì„±ìº í¼ìŠ¤ ì˜ˆìˆ ê³µí•™ë¶€ (ì¤‘í‡´)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2026-02-15T15:37:58.906Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "3",
+    "object_repr": "ìˆ­ì‹¤ëŒ€í•™êµ AIì†Œí”„íŠ¸ì›¨ì–´í•™ë¶€ (ì¬í•™)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2026-02-15T15:41:24.507Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "Python (ì‚¬ìš© ì¤‘ ğŸ”¥)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2026-02-15T15:49:58.498Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "2",
+    "object_repr": "FastAPI (ì‚¬ìš© ì¤‘ ğŸ”¥)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2026-02-15T15:50:06.444Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "3",
+    "object_repr": "Git (ì‚¬ìš© ì¤‘ ğŸ”¥)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2026-02-15T15:50:15.322Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "4",
+    "object_repr": "Supabase (ì‚¬ìš© ì¤‘ ğŸ”¥)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2026-02-15T15:50:35.404Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "5",
+    "object_repr": "HTML/CSS (ê¸°ëŠ¥ ìœ ì§€ âœ…)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2026-02-15T15:50:48.935Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "6",
+    "object_repr": "Data Analysis (ê¸°ëŠ¥ ìœ ì§€ âœ…)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2026-02-15T15:51:00.262Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "6",
+    "object_repr": "Data Analysis (ê¸°ëŠ¥ ìœ ì§€ âœ…)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc124\\uba85\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2026-02-15T15:51:13.508Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "7",
+    "object_repr": "Data Visualization (ê¸°ëŠ¥ ìœ ì§€ âœ…)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2026-02-15T15:51:28.091Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "8",
+    "object_repr": "Machine Learning (ê¸°ëŠ¥ ìœ ì§€ âœ…)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2026-02-15T15:51:35.112Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "9",
+    "object_repr": "Deep Learning (ê¸°ëŠ¥ ìœ ì§€ âœ…)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2026-02-15T15:51:47.184Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "10",
+    "object_repr": "Flask (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2026-02-15T15:51:51.610Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "11",
+    "object_repr": "Django (ì‚¬ìš© ì¤‘ ğŸ”¥)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2026-02-15T15:51:56.627Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "12",
+    "object_repr": "C (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2026-02-15T15:52:03.295Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "13",
+    "object_repr": "C++ (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2026-02-15T15:52:11.385Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "14",
+    "object_repr": "Javascript (ê¸°ëŠ¥ ìœ ì§€ âœ…)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2026-02-15T15:52:18.377Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "15",
+    "object_repr": "MongoDB (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2026-02-15T15:52:31.123Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "16",
+    "object_repr": "Bootstrap (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2026-02-15T15:52:35.955Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "17",
+    "object_repr": "Netlify (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2026-02-15T15:58:36.884Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "ìˆ­ì‹¤ëŒ€í•™êµ AIìœµí•©í•™ë¶€ ë°ì´í„°ì‚¬ì´ì–¸ìŠ¤ ì†Œëª¨ì„ - ëŒ€í‘œì",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2026-02-15T16:34:19.113Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "1",
+    "object_repr": "êµë‚´",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2026-02-15T16:34:22.629Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "2",
+    "object_repr": "ì „ê³µ",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2026-02-15T16:34:34.453Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "3",
+    "object_repr": "ê³µëª¨ì „/ëŒ€íšŒ",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2026-02-15T16:34:38.187Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "4",
+    "object_repr": "ì†Œëª¨ì„",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2026-02-15T16:34:50.413Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "4",
+    "object_repr": "ì†Œëª¨ì„/ë™ì•„ë¦¬",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uce74\\ud14c\\uace0\\ub9ac\\uba85\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2026-02-15T16:35:03.928Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "5",
+    "object_repr": "êµì™¸",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2026-02-15T16:35:06.483Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "6",
+    "object_repr": "êµì–‘",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2026-02-15T16:35:09.455Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "7",
+    "object_repr": "ê°œì¸\\",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2026-02-15T16:35:13.672Z",
+    "user": 1,
+    "content_type": 13,
+    "object_id": "7",
+    "object_repr": "ê°œì¸",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uce74\\ud14c\\uace0\\ub9ac\\uba85\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2026-02-15T16:36:22.243Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "18",
+    "object_repr": "NetworkX (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2026-02-15T16:36:48.667Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "ìˆ­ì‹¤ì˜ ë‚˜ì¹¨ë°˜",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2026-02-15T16:37:12.079Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "19",
+    "object_repr": "Folium (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2026-02-15T16:38:20.205Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "ìˆ­ì‹¤ì˜ ë‚˜ì¹¨ë°˜",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc0ac\\uc6a9 \\uae30\\uc220 (\\ubcf5\\uc218\\uc120\\ud0dd \\uac00\\ub2a5)\", \"\\ub098\\uc758 \\uc5ed\\ud560\", \"\\uc124\\uba85\", \"Github \\ub9c1\\ud06c\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2026-02-15T16:38:58.220Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "ìˆ­ì‹¤ì˜ ë‚˜ì¹¨ë°˜",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uae30\\uac04\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2026-02-15T17:10:30.204Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Project object (2)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2026-02-15T17:12:10.407Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Project object (2)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc0ac\\uc6a9 \\uae30\\uc220 (\\ubcf5\\uc218\\uc120\\ud0dd \\uac00\\ub2a5)\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2026-02-15T17:13:54.807Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "20",
+    "object_repr": "NLP (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2026-02-15T17:15:46.513Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "3",
+    "object_repr": "Project object (3)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2026-02-15T17:16:51.114Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "4",
+    "object_repr": "Project object (4)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2026-02-15T17:18:56.517Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "5",
+    "object_repr": "Project object (5)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2026-02-15T17:37:11.885Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "6",
+    "object_repr": "Project object (6)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2026-02-15T18:38:49.954Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "4",
+    "object_repr": "Project object (4)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2026-02-15T18:38:49.957Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "5",
+    "object_repr": "Project object (5)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2026-02-15T18:38:49.957Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "6",
+    "object_repr": "Project object (6)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2026-02-15T18:38:49.959Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "3",
+    "object_repr": "Project object (3)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2026-02-15T18:38:49.959Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Project object (2)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2026-02-16T02:08:51.552Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "21",
+    "object_repr": "ê¸°íƒ€ (ê²½í—˜ ìˆìŒ ğŸ•°ï¸)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2026-02-16T02:10:13.011Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "7",
+    "object_repr": "Project object (7)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2026-02-16T02:23:42.894Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "8",
+    "object_repr": "Project object (8)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2026-02-16T02:25:13.163Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "9",
+    "object_repr": "Project object (9)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2026-02-16T02:43:20.336Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "1",
+    "object_repr": "í•µì‹¬",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2026-02-16T02:43:41.823Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "2",
+    "object_repr": "ì„±ì¥",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2026-02-16T02:44:04.526Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "3",
+    "object_repr": "ê¸°ë¡",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2026-02-16T02:45:11.181Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "9",
+    "object_repr": "Project object (9)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2026-02-16T02:45:11.183Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "8",
+    "object_repr": "Project object (8)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2026-02-16T02:45:11.183Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "7",
+    "object_repr": "Project object (7)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2026-02-16T02:45:11.184Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "5",
+    "object_repr": "Project object (5)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2026-02-16T02:45:11.184Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "6",
+    "object_repr": "Project object (6)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2026-02-16T02:45:11.185Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Project object (2)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 63,
+  "fields": {
+    "action_time": "2026-02-16T02:45:11.186Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "3",
+    "object_repr": "Project object (3)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 64,
+  "fields": {
+    "action_time": "2026-02-16T02:45:11.186Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "4",
+    "object_repr": "Project object (4)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 65,
+  "fields": {
+    "action_time": "2026-02-16T02:45:11.186Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Project object (1)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 66,
+  "fields": {
+    "action_time": "2026-02-16T02:46:27.824Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "10",
+    "object_repr": "Project object (10)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 67,
+  "fields": {
+    "action_time": "2026-02-16T02:46:33.268Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "10",
+    "object_repr": "Project object (10)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 68,
+  "fields": {
+    "action_time": "2026-02-16T02:48:37.530Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "11",
+    "object_repr": "Project object (11)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 69,
+  "fields": {
+    "action_time": "2026-02-16T02:48:51.742Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "11",
+    "object_repr": "Project object (11)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\", \"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 70,
+  "fields": {
+    "action_time": "2026-02-16T02:56:45.203Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "12",
+    "object_repr": "Project object (12)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 71,
+  "fields": {
+    "action_time": "2026-02-16T02:56:51.772Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "12",
+    "object_repr": "Project object (12)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\", \"\\ud504\\ub85c\\uc81d\\ud2b8 \\uc720\\ud615\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 72,
+  "fields": {
+    "action_time": "2026-02-16T02:57:14.942Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "11",
+    "object_repr": "Project object (11)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uae30\\uac04\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 73,
+  "fields": {
+    "action_time": "2026-02-16T02:57:29.807Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "12",
+    "object_repr": "Project object (12)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud504\\ub85c\\uc81d\\ud2b8\\uba85\", \"\\uae30\\uac04\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 74,
+  "fields": {
+    "action_time": "2026-02-16T03:59:26.363Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "SK AI Dream Camp ì´ˆê¸‰",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 75,
+  "fields": {
+    "action_time": "2026-02-16T04:00:38.789Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "ADsP",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 76,
+  "fields": {
+    "action_time": "2026-02-16T04:03:08.758Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "TOPCIT ìˆ˜ì¤€ 2",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 77,
+  "fields": {
+    "action_time": "2026-02-16T04:03:21.346Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "TOPCIT ìˆ˜ì¤€ 2",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 78,
+  "fields": {
+    "action_time": "2026-02-16T04:03:21.347Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "ADsP",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 79,
+  "fields": {
+    "action_time": "2026-02-16T04:17:24.822Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "2",
+    "object_repr": "ì¤‘ì•™ëŒ€í•™êµ ë‹¤ë¹ˆì¹˜ìº í¼ìŠ¤ ì˜ˆìˆ ê³µí•™ë¶€ (ì¤‘í‡´)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud559\\uad50\\uba85\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 80,
+  "fields": {
+    "action_time": "2026-02-16T04:20:23.643Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "SK AI Dream Camp ì´ˆê¸‰",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc124\\uba85\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 81,
+  "fields": {
+    "action_time": "2026-02-16T04:20:27.866Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "ADsP",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc124\\uba85\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 82,
+  "fields": {
+    "action_time": "2026-02-16T05:42:30.861Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "1",
+    "object_repr": "ë°´ë“œë¶€ í™œë™ - ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë°´ë“œ ì†Œëª¨ì„ SUMMIT",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 83,
+  "fields": {
+    "action_time": "2026-02-16T05:44:04.613Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "2",
+    "object_repr": "ë³¼ë§ë¶€ í™œë™ - ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë³¼ë§ ì†Œëª¨ì„ SSU-PARE",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 84,
+  "fields": {
+    "action_time": "2026-02-16T05:44:23.193Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "1",
+    "object_repr": "ë°´ë“œë¶€ í™œë™ - ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë°´ë“œ ì†Œëª¨ì„ SUMMIT",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uae30\\uac04\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 85,
+  "fields": {
+    "action_time": "2026-02-16T05:45:14.589Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "2",
+    "object_repr": "ë³¼ë§ë¶€ í™œë™ - ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë³¼ë§ ì†Œëª¨ì„ SSU-PARE",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 86,
+  "fields": {
+    "action_time": "2026-02-16T05:45:14.593Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "1",
+    "object_repr": "ë°´ë“œë¶€ í™œë™ - ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë°´ë“œ ì†Œëª¨ì„ SUMMIT",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 87,
+  "fields": {
+    "action_time": "2026-02-16T05:52:34.739Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "2",
+    "object_repr": "SSU-PARE(ë³¼ë§ë¶€) - ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë³¼ë§ ì†Œëª¨ì„",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud65c\\ub3d9\\uba85\", \"\\ub2e8\\uccb4/\\uc870\\uc9c1\\uba85\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 88,
+  "fields": {
+    "action_time": "2026-02-16T05:52:45.224Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "1",
+    "object_repr": "SUMMIT(ë°´ë“œë¶€) - ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë°´ë“œ ì†Œëª¨ì„",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\ud65c\\ub3d9\\uba85\", \"\\ub2e8\\uccb4/\\uc870\\uc9c1\\uba85\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 89,
+  "fields": {
+    "action_time": "2026-02-16T05:53:01.434Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "2",
+    "object_repr": "SSU-PARE(ë³¼ë§ë¶€) - ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë³¼ë§ ì†Œëª¨ì„",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 90,
+  "fields": {
+    "action_time": "2026-02-16T05:53:01.436Z",
+    "user": 1,
+    "content_type": 16,
+    "object_id": "1",
+    "object_repr": "SUMMIT(ë°´ë“œë¶€) - ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë°´ë“œ ì†Œëª¨ì„",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\uc815\\ub82c \\uc21c\\uc11c (\\ub192\\uc744\\uc218\\ub85d \\uba3c\\uc800)\"]}}]"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$ZUtCExjdDK0OQnhGmcFzPk$QtJaRCdSFSlevtnRHw1t2BxkMmK19q3WozO/Ysojz5E=",
+    "last_login": "2026-02-15T14:16:38.487Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-02-15T14:13:32.608Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "5w8wzh93ljeliyx8jsjbrstwjsmrragc",
+  "fields": {
+    "session_data": ".eJxVjM0OwiAQhN-FsyHdRX706L3PQFjYStVAUtqT8d2lSQ-azOmbb-YtfNjW7LfGi5-TuAoQp19GIT657EV6hHKvMtayLjPJXZFH2-RYE79uh_t3kEPLfW0nZS0wgIuG1ICQAIiQBnRs0QQG12M7UsB0vkykk4naoVOAOqH4fAHJeDcs:1vrcvO:iLwnZ8MvwuDmZnxE2u5zEHbo11f7zDyv2XuUV2tmbto",
+    "expire_date": "2026-03-01T14:16:38.495Z"
+  }
+},
+{
   "model": "portfolio.profile",
   "pk": 1,
   "fields": {
-    "name": "ÇÏÁ¤ÈÆ",
+    "name": "í•˜ì •í›ˆ",
     "birthdate": "2001-03-20",
     "email": "snake6862@naver.com",
     "github_url": "https://github.com/jhHa0320",
@@ -17,8 +1213,8 @@
   "fields": {
     "profile": 1,
     "period": "2020",
-    "school": "ÇÑ¹Î°íµîÇĞ±³",
-    "status": "Á¹¾÷"
+    "school": "í•œë¯¼ê³ ë“±í•™êµ",
+    "status": "ì¡¸ì—…"
   }
 },
 {
@@ -27,8 +1223,8 @@
   "fields": {
     "profile": 1,
     "period": "2021-2023",
-    "school": "Áß¾Ó´ëÇĞ±³ ´ÙºóÄ¡Ä·ÆÛ½º ¿¹¼ú°øÇĞºÎ",
-    "status": "ÁßÅğ"
+    "school": "ì¤‘ì•™ëŒ€í•™êµ ë‹¤ë¹ˆì¹˜ìº í¼ìŠ¤ ì˜ˆìˆ ê³µí•™ë¶€",
+    "status": "ì¤‘í‡´"
   }
 },
 {
@@ -37,8 +1233,8 @@
   "fields": {
     "profile": 1,
     "period": "2024-",
-    "school": "¼ş½Ç´ëÇĞ±³ AI¼ÒÇÁÆ®¿ş¾îÇĞºÎ",
-    "status": "ÀçÇĞ"
+    "school": "ìˆ­ì‹¤ëŒ€í•™êµ AIì†Œí”„íŠ¸ì›¨ì–´í•™ë¶€",
+    "status": "ì¬í•™"
   }
 },
 {
@@ -47,7 +1243,7 @@
   "fields": {
     "name": "Python",
     "category": "USING",
-    "description": "ÁÖ·Â ¾ğ¾î",
+    "description": "ì£¼ë ¥ ì–¸ì–´",
     "icon": ""
   }
 },
@@ -117,7 +1313,7 @@
   "fields": {
     "name": "Machine Learning",
     "category": "MAINTAIN",
-    "description": "»çÀÌÅ¶·±",
+    "description": "ì‚¬ì´í‚·ëŸ°",
     "icon": ""
   }
 },
@@ -245,7 +1441,7 @@
   "model": "portfolio.skill",
   "pk": 21,
   "fields": {
-    "name": "±âÅ¸",
+    "name": "ê¸°íƒ€",
     "category": "EXPERIENCE",
     "description": "",
     "icon": ""
@@ -255,67 +1451,67 @@
   "model": "portfolio.career",
   "pk": 1,
   "fields": {
-    "organization": "¼ş½Ç´ëÇĞ±³ AIÀ¶ÇÕÇĞºÎ µ¥ÀÌÅÍ»çÀÌ¾ğ½º ¼Ò¸ğÀÓ",
-    "role": "´ëÇ¥ÀÚ",
+    "organization": "ìˆ­ì‹¤ëŒ€í•™êµ AIìœµí•©í•™ë¶€ ë°ì´í„°ì‚¬ì´ì–¸ìŠ¤ ì†Œëª¨ì„",
+    "role": "ëŒ€í‘œì",
     "period": "2025.1-2025.9",
-    "description": "ÇĞ¼ú ¼Ò¸ğÀÓ µ¥ÀÌÅÍ °úÇĞ ºĞ¾ß¿¡¼­ 2±â ´ëÇ¥ÀÚ·Î È°µ¿ÇÔ."
+    "description": "í•™ìˆ  ì†Œëª¨ì„ ë°ì´í„° ê³¼í•™ ë¶„ì•¼ì—ì„œ 2ê¸° ëŒ€í‘œìë¡œ í™œë™í•¨."
   }
 },
 {
   "model": "portfolio.projectcategory",
   "pk": 1,
   "fields": {
-    "name": "±³³»"
+    "name": "êµë‚´"
   }
 },
 {
   "model": "portfolio.projectcategory",
   "pk": 2,
   "fields": {
-    "name": "Àü°ø"
+    "name": "ì „ê³µ"
   }
 },
 {
   "model": "portfolio.projectcategory",
   "pk": 3,
   "fields": {
-    "name": "°ø¸ğÀü/´ëÈ¸"
+    "name": "ê³µëª¨ì „/ëŒ€íšŒ"
   }
 },
 {
   "model": "portfolio.projectcategory",
   "pk": 4,
   "fields": {
-    "name": "¼Ò¸ğÀÓ/µ¿¾Æ¸®"
+    "name": "ì†Œëª¨ì„/ë™ì•„ë¦¬"
   }
 },
 {
   "model": "portfolio.projectcategory",
   "pk": 5,
   "fields": {
-    "name": "±³¿Ü"
+    "name": "êµì™¸"
   }
 },
 {
   "model": "portfolio.projectcategory",
   "pk": 6,
   "fields": {
-    "name": "±³¾ç"
+    "name": "êµì–‘"
   }
 },
 {
   "model": "portfolio.projectcategory",
   "pk": 7,
   "fields": {
-    "name": "°³ÀÎ"
+    "name": "ê°œì¸"
   }
 },
 {
   "model": "portfolio.projecttype",
   "pk": 1,
   "fields": {
-    "name": "ÇÙ½É",
-    "description": "¸ŞÀÎ ÇÁ·ÎÁ§Æ®; ¼º°ú, ÇĞ½À, °æÇè.",
+    "name": "í•µì‹¬",
+    "description": "ë©”ì¸ í”„ë¡œì íŠ¸; ì„±ê³¼, í•™ìŠµ, ê²½í—˜.",
     "order": 0
   }
 },
@@ -323,8 +1519,8 @@
   "model": "portfolio.projecttype",
   "pk": 2,
   "fields": {
-    "name": "¼ºÀå",
-    "description": "¼­ºê ÇÁ·ÎÁ§Æ®; ÇĞ½À, °æÇè, ±â·Ï",
+    "name": "ì„±ì¥",
+    "description": "ì„œë¸Œ í”„ë¡œì íŠ¸; í•™ìŠµ, ê²½í—˜, ê¸°ë¡",
     "order": 1
   }
 },
@@ -332,8 +1528,8 @@
   "model": "portfolio.projecttype",
   "pk": 3,
   "fields": {
-    "name": "±â·Ï",
-    "description": "È÷½ºÅä¸® ÇÁ·ÎÁ§Æ®; ±â·Ï, °æÇè",
+    "name": "ê¸°ë¡",
+    "description": "íˆìŠ¤í† ë¦¬ í”„ë¡œì íŠ¸; ê¸°ë¡, ê²½í—˜",
     "order": 2
   }
 },
@@ -342,11 +1538,11 @@
   "pk": 1,
   "fields": {
     "type": 1,
-    "title": "¼ş½ÇÀÇ ³ªÄ§¹İ",
-    "period": "2024³â 1ÇĞ±â",
-    "role": "1ÀÎ ÇÁ·ÎÁ§Æ®·Î¼­ ¸ğµç °úÁ¤¿¡ Âü¿©",
+    "title": "ìˆ­ì‹¤ì˜ ë‚˜ì¹¨ë°˜",
+    "period": "2024ë…„ 1í•™ê¸°",
+    "role": "1ì¸ í”„ë¡œì íŠ¸ë¡œì„œ ëª¨ë“  ê³¼ì •ì— ì°¸ì—¬",
     "outcome": "",
-    "description": "¼ş½Ç´ëÇĞ±³ ±³³» ±æÃ£±â",
+    "description": "ìˆ­ì‹¤ëŒ€í•™êµ êµë‚´ ê¸¸ì°¾ê¸°",
     "content": "",
     "github_url": "https://github.com/jhHa0320/ssu_direction",
     "demo_url": "",
@@ -372,11 +1568,11 @@
   "pk": 2,
   "fields": {
     "type": 1,
-    "title": "°³ÀÎÈ­ À½ÁÖÃøÁ¤ ÇÁ·Î±×·¥",
-    "period": "2024³â 2ÇĞ±â",
-    "role": "ÆÀ ÇÁ·ÎÁ§Æ®·Î¼­ À¥ ¹× DB ±¸ÇöÀ» ´ã´ç",
+    "title": "ê°œì¸í™” ìŒì£¼ì¸¡ì • í”„ë¡œê·¸ë¨",
+    "period": "2024ë…„ 2í•™ê¸°",
+    "role": "íŒ€ í”„ë¡œì íŠ¸ë¡œì„œ ì›¹ ë° DB êµ¬í˜„ì„ ë‹´ë‹¹",
     "outcome": "",
-    "description": "ÇÁ·Î±×·¡¹Ö¹×½Ç½À2 C¾ğ¾î ÇÁ·ÎÁ§Æ®. ¾ÆµÎÀÌ³ë È°¿ë ÆÄÆ®´Â ´Ù¸¥ ÆÀ¿øÀÌ ´ã´çÇÏ°í, º»ÀÎÀº °³ÀÎÈ­ À¥ ¹× DB ±¸Çö.",
+    "description": "í”„ë¡œê·¸ë˜ë°ë°ì‹¤ìŠµ2 Cì–¸ì–´ í”„ë¡œì íŠ¸. ì•„ë‘ì´ë…¸ í™œìš© íŒŒíŠ¸ëŠ” ë‹¤ë¥¸ íŒ€ì›ì´ ë‹´ë‹¹í•˜ê³ , ë³¸ì¸ì€ ê°œì¸í™” ì›¹ ë° DB êµ¬í˜„.",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -401,11 +1597,11 @@
   "pk": 3,
   "fields": {
     "type": 1,
-    "title": "´º½º ¸µÄ¿",
-    "period": "2024³â 2ÇĞ±â",
-    "role": "±âÈ¹ ¹× ¹é¿£µå °³¹ß",
+    "title": "ë‰´ìŠ¤ ë§ì»¤",
+    "period": "2024ë…„ 2í•™ê¸°",
+    "role": "ê¸°íš ë° ë°±ì—”ë“œ ê°œë°œ",
     "outcome": "",
-    "description": "¿ÀÇÂ¼Ò½º±âÃÊ¼³°è ÆÀ ÇÁ·ÎÁ§Æ®ÇÂ¼Ò½º±âÃÊ¼³°è ÆÀ ÇÁ·ÎÁ§Æ®",
+    "description": "ì˜¤í”ˆì†ŒìŠ¤ê¸°ì´ˆì„¤ê³„ íŒ€ í”„ë¡œì íŠ¸í”ˆì†ŒìŠ¤ê¸°ì´ˆì„¤ê³„ íŒ€ í”„ë¡œì íŠ¸",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -431,11 +1627,11 @@
   "pk": 4,
   "fields": {
     "type": 2,
-    "title": "2024 ºò ÄÜÅ×½ºÆ®",
-    "period": "2024³â ¿©¸§¹æÇĞ",
-    "role": "±âÈ¹ ¹× µ¥ÀÌÅÍ ºĞ¼® Àü¹İ",
+    "title": "2024 ë¹… ì½˜í…ŒìŠ¤íŠ¸",
+    "period": "2024ë…„ ì—¬ë¦„ë°©í•™",
+    "role": "ê¸°íš ë° ë°ì´í„° ë¶„ì„ ì „ë°˜",
     "outcome": "",
-    "description": "µ¥ÀÌÅÍ°úÇĞ ¼Ò¸ğÀÓ È°µ¿ Áß °ø¸ğÀü Âü¿© È°µ¿",
+    "description": "ë°ì´í„°ê³¼í•™ ì†Œëª¨ì„ í™œë™ ì¤‘ ê³µëª¨ì „ ì°¸ì—¬ í™œë™",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -459,11 +1655,11 @@
   "pk": 5,
   "fields": {
     "type": 2,
-    "title": "2024 ¼ş½Ç´ëÇĞ±³ Áß¾Óµµ¼­°ü µ¥ÀÌÅÍÅæ",
-    "period": "2024³â °Ü¿ï¹æÇĞ",
-    "role": "ÆÀÀå. µ¥ÀÌÅÍ ºĞ¼® ¹× ½Ã°¢È­. ¿¹Ãø ¸ğµ¨ °³¹ß",
+    "title": "2024 ìˆ­ì‹¤ëŒ€í•™êµ ì¤‘ì•™ë„ì„œê´€ ë°ì´í„°í†¤",
+    "period": "2024ë…„ ê²¨ìš¸ë°©í•™",
+    "role": "íŒ€ì¥. ë°ì´í„° ë¶„ì„ ë° ì‹œê°í™”. ì˜ˆì¸¡ ëª¨ë¸ ê°œë°œ",
     "outcome": "",
-    "description": "2024 ¼ş½Ç´ëÇĞ±³ Áß¾Óµµ¼­°ü µ¥ÀÌÅÍÅæ¿¡ 'º¸Á¸¼­°í ÀÌµ¿±âÁØ ¸¶·Ã' ÁÖÁ¦·Î Âü¿©",
+    "description": "2024 ìˆ­ì‹¤ëŒ€í•™êµ ì¤‘ì•™ë„ì„œê´€ ë°ì´í„°í†¤ì— 'ë³´ì¡´ì„œê³  ì´ë™ê¸°ì¤€ ë§ˆë ¨' ì£¼ì œë¡œ ì°¸ì—¬",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -488,11 +1684,11 @@
   "pk": 6,
   "fields": {
     "type": 1,
-    "title": "¼Õ°¡¶ôÀ¸·Î µ¡¼À °ÔÀÓ",
-    "period": "2024³â 2ÇĞ±â",
-    "role": "µ¥ÀÌÅÍ ¼öÁı ¹× ¹é¿£µå",
+    "title": "ì†ê°€ë½ìœ¼ë¡œ ë§ì…ˆ ê²Œì„",
+    "period": "2024ë…„ 2í•™ê¸°",
+    "role": "ë°ì´í„° ìˆ˜ì§‘ ë° ë°±ì—”ë“œ",
     "outcome": "",
-    "description": "AI°³¹ß°ú½ÇÀü ±³¾çÇÊ¼ö °ú¸ñ¿¡¼­ ÁøÇàµÈ ÆÀ ÇÁ·ÎÁ§Æ®",
+    "description": "AIê°œë°œê³¼ì‹¤ì „ êµì–‘í•„ìˆ˜ ê³¼ëª©ì—ì„œ ì§„í–‰ëœ íŒ€ í”„ë¡œì íŠ¸",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -517,11 +1713,11 @@
   "pk": 7,
   "fields": {
     "type": 3,
-    "title": "ÇÑ±¹µ¥ÀÌÅÍÁ¤º¸°úÇĞÈ¸ & SAS KOREA Á¦1È¸ µ¥ÀÌÅÍ ºĞ¼® °æÁø´ëÈ¸",
-    "period": "2025³â 1ÇĞ±â",
-    "role": "ÆÀÀå",
+    "title": "í•œêµ­ë°ì´í„°ì •ë³´ê³¼í•™íšŒ & SAS KOREA ì œ1íšŒ ë°ì´í„° ë¶„ì„ ê²½ì§„ëŒ€íšŒ",
+    "period": "2025ë…„ 1í•™ê¸°",
+    "role": "íŒ€ì¥",
     "outcome": "",
-    "description": "DS ¼Ò¸ğÀÓ ´ëÇ¥¸¦ ¸Ã¾Æ ÁøÇàÇÑ Ã¹ °ø¸ğÀü Âü°¡. ¼Ò¸ğÀÓ ³» 4°³ÀÇ ÆÀÀ¸·Î ±¸¼ºÇÏ°í °¢ ÆÀÀÇ ÁøÇà »óÈ²À» ÁöµµÇÔ.",
+    "description": "DS ì†Œëª¨ì„ ëŒ€í‘œë¥¼ ë§¡ì•„ ì§„í–‰í•œ ì²« ê³µëª¨ì „ ì°¸ê°€. ì†Œëª¨ì„ ë‚´ 4ê°œì˜ íŒ€ìœ¼ë¡œ êµ¬ì„±í•˜ê³  ê° íŒ€ì˜ ì§„í–‰ ìƒí™©ì„ ì§€ë„í•¨.",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -543,11 +1739,11 @@
   "pk": 8,
   "fields": {
     "type": 3,
-    "title": "2025 °ÔÀÓÀÌ¿ëÀÚ ÆĞ³Îµ¥ÀÌÅÍ °æÁø´ëÈ¸",
-    "period": "2025³â 1ÇĞ±â",
-    "role": "ÆÀÀå, µ¥ÀÌÅÍ ºĞ¼® ¹× ÀüÃ³¸®, ³í¹® ÀÛ¼º",
+    "title": "2025 ê²Œì„ì´ìš©ì íŒ¨ë„ë°ì´í„° ê²½ì§„ëŒ€íšŒ",
+    "period": "2025ë…„ 1í•™ê¸°",
+    "role": "íŒ€ì¥, ë°ì´í„° ë¶„ì„ ë° ì „ì²˜ë¦¬, ë…¼ë¬¸ ì‘ì„±",
     "outcome": "",
-    "description": "¼³¹®Á¶»ç Ç×¸ñÀÌ ¸¹¾Æ ¹İº¹ÀûÀÎ µ¥ÀÌÅÍ ÀüÃ³¸®·Î ½Ã°£ÀÌ ¸¹ÀÌ ¼Ò¿äµÇ¾úÀ½. ÀüÃ³¸® Àü·«À» ¼³°èÇÏ´Â ¿¬½À¿¡ µµ¿óÀÌ µÇ¾úÀ½.",
+    "description": "ì„¤ë¬¸ì¡°ì‚¬ í•­ëª©ì´ ë§ì•„ ë°˜ë³µì ì¸ ë°ì´í„° ì „ì²˜ë¦¬ë¡œ ì‹œê°„ì´ ë§ì´ ì†Œìš”ë˜ì—ˆìŒ. ì „ì²˜ë¦¬ ì „ëµì„ ì„¤ê³„í•˜ëŠ” ì—°ìŠµì— ë„ì›ì´ ë˜ì—ˆìŒ.",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -570,11 +1766,11 @@
   "pk": 9,
   "fields": {
     "type": 1,
-    "title": "2025 Ç³·Â ¹ßÀü·® ¿¹Ãø °ø¸ğÀü",
-    "period": "2025³â 1ÇĞ±â - ¿©¸§¹æÇĞ",
-    "role": "ÆÀÀå, µ¥ÀÌÅÍ ºĞ¼® ¹× ½Ã°¢È­, ÀüÃ³¸®, ¸ğµ¨ ¼³²¾ ¹× ¿¹Ãø ½ÇÇà",
+    "title": "2025 í’ë ¥ ë°œì „ëŸ‰ ì˜ˆì¸¡ ê³µëª¨ì „",
+    "period": "2025ë…„ 1í•™ê¸° - ì—¬ë¦„ë°©í•™",
+    "role": "íŒ€ì¥, ë°ì´í„° ë¶„ì„ ë° ì‹œê°í™”, ì „ì²˜ë¦¬, ëª¨ë¸ ì„¤ê¼ ë° ì˜ˆì¸¡ ì‹¤í–‰",
     "outcome": "",
-    "description": "µ¥ÀÌÅÍ ´Ù¿î·ÎµåºÎÅÍ ³­°üÀÌ¾ú´ø ÇÁ·ÎÁ§Æ®¿´À½(TB ´ÜÀ§) ÀÌÈÄ ¿¹Ãø ¹× ¼º´É Æò°¡, È¸ÀÇ Áöµµ",
+    "description": "ë°ì´í„° ë‹¤ìš´ë¡œë“œë¶€í„° ë‚œê´€ì´ì—ˆë˜ í”„ë¡œì íŠ¸ì˜€ìŒ(TB ë‹¨ìœ„) ì´í›„ ì˜ˆì¸¡ ë° ì„±ëŠ¥ í‰ê°€, íšŒì˜ ì§€ë„",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -599,11 +1795,11 @@
   "pk": 10,
   "fields": {
     "type": 1,
-    "title": "¸Ó½Å·¯´× ±â¹İ ¿Ü½Ä ¼­ºñ½º(½Ä´ç) ¸®ºä °¨¼º ºĞ¼® ¹× ¸¸Á·µµ Áö¼ö °³¹ß",
-    "period": "2025³â 2ÇĞ±â",
-    "role": "Àü°ø(¸Ó½Å·¯´×) °³ÀÎ ÇÁ·ÎÁ§Æ®",
+    "title": "ë¨¸ì‹ ëŸ¬ë‹ ê¸°ë°˜ ì™¸ì‹ ì„œë¹„ìŠ¤(ì‹ë‹¹) ë¦¬ë·° ê°ì„± ë¶„ì„ ë° ë§Œì¡±ë„ ì§€ìˆ˜ ê°œë°œ",
+    "period": "2025ë…„ 2í•™ê¸°",
+    "role": "ì „ê³µ(ë¨¸ì‹ ëŸ¬ë‹) ê°œì¸ í”„ë¡œì íŠ¸",
     "outcome": "",
-    "description": "µ¥ÀÌÅÍ°úÇĞ ¼Ò¸ğÀÓ, Àü°ø ¼ö¾÷, °³ÀÎ ÇĞ½À ³»¿ëÀ» ¸ğµÎ ÃÑÃ¼ÀûÀ¸·Î ÇÁ·ÎÁ§Æ®¿¡ ´ã¾Æº¸¾ÒÀ½.",
+    "description": "ë°ì´í„°ê³¼í•™ ì†Œëª¨ì„, ì „ê³µ ìˆ˜ì—…, ê°œì¸ í•™ìŠµ ë‚´ìš©ì„ ëª¨ë‘ ì´ì²´ì ìœ¼ë¡œ í”„ë¡œì íŠ¸ì— ë‹´ì•„ë³´ì•˜ìŒ.",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -629,11 +1825,11 @@
   "pk": 11,
   "fields": {
     "type": 1,
-    "title": "°³ÀÎ Æ÷Æ®Æú¸®¿À »çÀÌÆ®",
-    "period": "2026³â 2¿ù -",
-    "role": "°³ÀÎ Æ÷Æ®Æú¸®¿À »çÀÌÆ® °³¹ß",
+    "title": "ê°œì¸ í¬íŠ¸í´ë¦¬ì˜¤ ì‚¬ì´íŠ¸",
+    "period": "2026ë…„ 2ì›” -",
+    "role": "ê°œì¸ í¬íŠ¸í´ë¦¬ì˜¤ ì‚¬ì´íŠ¸ ê°œë°œ",
     "outcome": "",
-    "description": "°³¹ß ¹× À¯Áö",
+    "description": "ê°œë°œ ë° ìœ ì§€",
     "content": "",
     "github_url": "",
     "demo_url": "",
@@ -656,11 +1852,11 @@
   "pk": 12,
   "fields": {
     "type": 1,
-    "title": "ÇÈÇÕÁÖ(ÇÕÁÖ½Ç Á¾ÇÕ ¿¹¾à »çÀÌÆ®)",
-    "period": "2025³â 12¿ù -",
-    "role": "¹é¿£µå, º¸¾È",
+    "title": "í”½í•©ì£¼(í•©ì£¼ì‹¤ ì¢…í•© ì˜ˆì•½ ì‚¬ì´íŠ¸)",
+    "period": "2025ë…„ 12ì›” -",
+    "role": "ë°±ì—”ë“œ, ë³´ì•ˆ",
     "outcome": "",
-    "description": "¼ş½Ç´ëÇĞ±³ IT´ë ¹êµåºÎ SUMMIT¿¡¼­ ÇÕÁÖ½Ç Á¾ÇÕ ¿¹¾à »çÀÌÆ®¸¦ °³¹ßÇÏ¿© 3Â÷ Ãâ½Ã ¹é¿£µå ¸â¹ö·Î Âü¿©Áß.",
+    "description": "ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë°´ë“œë¶€ SUMMITì—ì„œ í•©ì£¼ì‹¤ ì¢…í•© ì˜ˆì•½ ì‚¬ì´íŠ¸ë¥¼ ê°œë°œí•˜ì—¬ 3ì°¨ ì¶œì‹œ ë°±ì—”ë“œ ë©¤ë²„ë¡œ ì°¸ì—¬ì¤‘.",
     "content": "",
     "github_url": "https://github.com/summitBandWeb/",
     "demo_url": "https://www.pickhabju.com/",
@@ -683,10 +1879,10 @@
   "model": "portfolio.activity",
   "pk": 1,
   "fields": {
-    "title": "SK AI Dream Camp ÃÊ±Ş",
+    "title": "SK AI Dream Camp ì´ˆê¸‰",
     "organization": "SK Mysuni",
     "description": "",
-    "period": "2025 ¿©¸§¹æÇĞ",
+    "period": "2025 ì—¬ë¦„ë°©í•™",
     "link": "",
     "attachment": "",
     "order": 0
@@ -697,7 +1893,7 @@
   "pk": 2,
   "fields": {
     "title": "ADsP",
-    "organization": "K Data µ¥ÀÌÅÍ ÀÚ°İ°ËÁ¤",
+    "organization": "K Data ë°ì´í„° ìê²©ê²€ì •",
     "description": "",
     "period": "2025.09.05",
     "link": "",
@@ -709,7 +1905,7 @@
   "model": "portfolio.activity",
   "pk": 3,
   "fields": {
-    "title": "TOPCIT ¼öÁØ 2",
+    "title": "TOPCIT ìˆ˜ì¤€ 2",
     "organization": "TOPCIT",
     "description": "",
     "period": "2025.11.01",
@@ -722,11 +1918,11 @@
   "model": "portfolio.leadership",
   "pk": 1,
   "fields": {
-    "title": "SUMMIT(¹êµåºÎ)",
-    "organization": "¼ş½Ç´ëÇĞ±³ IT´ë ¹êµå ¼Ò¸ğÀÓ",
-    "period": "2024³â 1ÇĞ±â -",
-    "role": "ÆÀÀå 3È¸, ¸àÅä",
-    "description": "¼ş½Ç´ëÇĞ±³ IT´ë ¹êµå ¼Ò¸ğÀÓÀÎ SUMMIT¿¡¼­ º£ÀÌ½º ¼¼¼ÇÀ¸·Î È°µ¿ Áß\r\n- ÇĞ±â Á¤±â°ø¿¬ 4È¸ Áß 3È¸(2024-1, 2024-2, 2025-2) ÆÀÀå ´ã´ç\r\n- 2024³â 2ÇĞ±â, 2025³â 1ÇĞ±â º£ÀÌ½º ¸àÅä·Î¼­ ¸àÅä¸µ È°µ¿ ÁøÇà\r\n- 2025³â 1³â µ¿¾È °¢Á¾ °ø¿¬ Âü¿©(»õ³»±â »õ·Î¹è¿òÅÍ, º½ ÃàÁ¦, ´ëµ¿Á¦, ¿¬ÇÕ°ø¿¬ 2È¸, Á¹¾÷°ø¿¬, ¹ö½ºÅ· µî)\r\n- 2026³â SUMMIT¿¡¼­ °³¹ßÇÑ ÇÈÇÕÁÖ ÇÁ·ÎÁ§Æ®(ÇÕÁÖ½Ç Á¾ÇÕ¿¹¾à »çÀÌÆ®) Âü¿© Áß",
+    "title": "SUMMIT(ë°´ë“œë¶€)",
+    "organization": "ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë°´ë“œ ì†Œëª¨ì„",
+    "period": "2024ë…„ 1í•™ê¸° -",
+    "role": "íŒ€ì¥ 3íšŒ, ë©˜í† ",
+    "description": "ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë°´ë“œ ì†Œëª¨ì„ì¸ SUMMITì—ì„œ ë² ì´ìŠ¤ ì„¸ì…˜ìœ¼ë¡œ í™œë™ ì¤‘\r\n- í•™ê¸° ì •ê¸°ê³µì—° 4íšŒ ì¤‘ 3íšŒ(2024-1, 2024-2, 2025-2) íŒ€ì¥ ë‹´ë‹¹\r\n- 2024ë…„ 2í•™ê¸°, 2025ë…„ 1í•™ê¸° ë² ì´ìŠ¤ ë©˜í† ë¡œì„œ ë©˜í† ë§ í™œë™ ì§„í–‰\r\n- 2025ë…„ 1ë…„ ë™ì•ˆ ê°ì¢… ê³µì—° ì°¸ì—¬(ìƒˆë‚´ê¸° ìƒˆë¡œë°°ì›€í„°, ë´„ ì¶•ì œ, ëŒ€ë™ì œ, ì—°í•©ê³µì—° 2íšŒ, ì¡¸ì—…ê³µì—°, ë²„ìŠ¤í‚¹ ë“±)\r\n- 2026ë…„ SUMMITì—ì„œ ê°œë°œí•œ í”½í•©ì£¼ í”„ë¡œì íŠ¸(í•©ì£¼ì‹¤ ì¢…í•©ì˜ˆì•½ ì‚¬ì´íŠ¸) ì°¸ì—¬ ì¤‘",
     "content": "",
     "outcome": "",
     "image": "",
@@ -738,11 +1934,11 @@
   "model": "portfolio.leadership",
   "pk": 2,
   "fields": {
-    "title": "SSU-PARE(º¼¸µºÎ)",
-    "organization": "¼ş½Ç´ëÇĞ±³ IT´ë º¼¸µ ¼Ò¸ğÀÓ",
-    "period": "2024³â 2ÇĞ±â - 2025³â 1ÇĞ±â",
-    "role": "ºÎÈ¸Àå, ÃÑ¹«",
-    "description": "º¼¸µ ¼Ò¸ğÀÓ ½´Æä¾î¸¦ ½Å¼³ÇÏ¿© 2024³â 2ÇĞ±â ºÎÈ¸Àå, 2025³â 1ÇĞ±â ÃÑ¹«·Î¼­ ¼Ò¸ğÀÓÀ» ÀÌ²ø¾úÀ½.",
+    "title": "SSU-PARE(ë³¼ë§ë¶€)",
+    "organization": "ìˆ­ì‹¤ëŒ€í•™êµ ITëŒ€ ë³¼ë§ ì†Œëª¨ì„",
+    "period": "2024ë…„ 2í•™ê¸° - 2025ë…„ 1í•™ê¸°",
+    "role": "ë¶€íšŒì¥, ì´ë¬´",
+    "description": "ë³¼ë§ ì†Œëª¨ì„ ìŠˆí˜ì–´ë¥¼ ì‹ ì„¤í•˜ì—¬ 2024ë…„ 2í•™ê¸° ë¶€íšŒì¥, 2025ë…„ 1í•™ê¸° ì´ë¬´ë¡œì„œ ì†Œëª¨ì„ì„ ì´ëŒì—ˆìŒ.",
     "content": "",
     "outcome": "",
     "image": "",
