@@ -163,6 +163,44 @@
             border: 1px solid #444 !important;
         }
 
+        /* Back to Top 버튼 스타일 */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--primary-yellow) !important;
+            color: #000 !important;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* 터치 기기에서 클릭 후 색상 유지 방지 및 마우스 호버 효과 */
+        @media (hover: hover) {
+            #btn-back-to-top:hover {
+                background-color: var(--primary-yellow-dark) !important;
+                transform: scale(1.1);
+            }
+        }
+
+        /* 클릭 시 피드백만 짧게 */
+        #btn-back-to-top:active {
+            transform: scale(0.9);
+            background-color: var(--primary-yellow-dark) !important;
+        }
+
+        /* 포커스 시 배경색 유지 방지 */
+        #btn-back-to-top:focus {
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            background-color: var(--primary-yellow) !important;
+        }
+
         /* 기술 스택 리스트 아이템의 설명 텍스트 대비 향상 */
         [data-bs-theme="dark"] .text-muted {
             color: #bbb !important;
@@ -362,8 +400,41 @@
         <p class="mb-0">&copy; 2026 Ha Jeong-Hoon. All rights reserved.</p>
     </footer>
 
-    <!-- Bootstrap 5 JS -->
+    <!-- Back to Top 버튼 -->
+    <button type="button" class="btn btn-primary btn-floating" id="btn-back-to-top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap 5.3 Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Back to Top 기능
+        let mybutton = document.getElementById("btn-back-to-top");
+
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 300 ||
+                document.documentElement.scrollTop > 300
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        mybutton.addEventListener("click", backToTop);
+
+        function backToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+    </script>
     <script>
         /*!
          * Color mode toggler for Bootstrap's docs (https://getbootstrap.com/)
