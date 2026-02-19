@@ -200,7 +200,7 @@
             </div>
 
             <!-- Tech Stack Filters -->
-            <div class="d-flex flex-wrap gap-2 justify-content-start" id="project-filters">
+            <div class="filter-scroll-container mb-3" id="project-filters">
                 <button class="btn btn-outline-secondary active" data-filter="all">All</button>
                 {% for skill in project_skills %}
                 <button class="btn btn-outline-secondary" data-filter="{{ skill.id }}">
