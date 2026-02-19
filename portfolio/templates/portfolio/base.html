@@ -250,6 +250,41 @@
             .profile-name-responsive {
                 font-size: 1.25rem !important;
             }
+
+            /* 프로젝트 및 리더십 모바일 가로 스크롤 스타일 */
+            #project-list,
+            #leadership-list {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 20px;
+                gap: 15px;
+                scrollbar-width: none;
+                /* Firefox */
+                -ms-overflow-style: none;
+                /* IE/Edge */
+            }
+
+            #project-list::-webkit-scrollbar,
+            #leadership-list::-webkit-scrollbar {
+                display: none;
+                /* Chrome, Safari, Opera */
+            }
+
+            .project-item,
+            #leadership-list>.col-md-6 {
+                flex: 0 0 85% !important;
+                max-width: 85% !important;
+                scroll-snap-align: center;
+                margin-bottom: 0 !important;
+            }
+
+            /* 모바일에서 전용 페이지네이션 숨김 (스크롤이 이를 대체) */
+            #pagination-controls-wrapper {
+                display: none !important;
+            }
         }
 
         @media (min-width: 768px) {
@@ -468,7 +503,8 @@
         <p class="mb-0">&copy; 2026 Jeonghun Ha. All rights reserved.</p>
     </footer>
 
-    <!-- 모바일 하단 내비게이션 바 -->
+    <!-- 모바일 하단 내비게이션 바 (홈 화면에서만 표시) -->
+    {% if request.resolver_match.url_name == 'home' %}
     <nav class="mobile-bottom-nav d-md-none">
         <a href="#profile" class="nav-item">
             <i class="bi bi-house-door"></i>
@@ -487,6 +523,7 @@
             <span>활동</span>
         </a>
     </nav>
+    {% endif %}
 
     <!-- Back to Top 버튼 -->
     <button type="button" class="btn btn-primary btn-floating" id="btn-back-to-top">

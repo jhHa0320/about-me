@@ -303,19 +303,20 @@
                         style="height: 200px; object-fit: cover;">
                     {% endif %}
                     <div class="card-body d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h5 class="card-title fw-bold mb-0">
-                                {{ project.title }}
-                            </h5>
-                            <small class="text-muted text-end"
-                                style="min-width: 90px; white-space: nowrap; flex-shrink: 0;">{{ project.period
-                                }}</small>
-                        </div>
-
-                        <div class="mb-3">
+                        <div class="mb-2">
                             {% for category in project.categories.all %}
                             <span class="badge bg-secondary me-1">{{ category.name }}</span>
                             {% endfor %}
+                        </div>
+
+                        <div class="mb-2">
+                            <h5 class="card-title fw-bold mb-1">
+                                <a href="{% url 'project_detail' project.id %}"
+                                    class="text-dark text-decoration-none stretched-link">
+                                    {{ project.title }}
+                                </a>
+                            </h5>
+                            <small class="text-muted">{{ project.period }}</small>
                         </div>
 
                         <p class="card-text flex-grow-1">{{ project.description|linebreaks }}</p>
@@ -332,21 +333,15 @@
                             </li>
                         </ul>
 
-                        <div class="mt-auto d-flex align-items-center justify-content-between">
-                            <div class="d-flex gap-2 align-items-center">
-                                <a href="{% url 'project_detail' project.id %}"
-                                    class="text-primary text-decoration-none small stretched-link fw-bold">
-                                    + 자세히 보기
-                                </a>
-                                {% if project.github_url %}
-                                <a href="{{ project.github_url }}"
-                                    class="btn btn-outline-dark btn-sm position-relative ms-2" style="z-index: 2;"
-                                    target="_blank">View Code</a>
-                                {% endif %}
-                            </div>
+                        <div class="mt-auto d-flex align-items-center justify-content-end gap-2"
+                            style="position: relative; z-index: 2;">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm" target="_blank">View
+                                Code</a>
+                            {% endif %}
                             {% if project.demo_url %}
-                            <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm position-relative"
-                                style="z-index: 2;" target="_blank">Live Demo</a>
+                            <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm" target="_blank">Live
+                                Demo</a>
                             {% endif %}
                         </div>
                     </div>
@@ -356,7 +351,7 @@
         </div>
 
         <!-- Pagination Controls -->
-        <div class="row mt-4">
+        <div class="row mt-4" id="pagination-controls-wrapper">
             <div class="col-12">
                 <nav aria-label="Project pagination">
                     <ul class="pagination justify-content-center" id="pagination-controls">
@@ -380,21 +375,17 @@
         const projectItems = document.querySelectorAll('.project-item');
         const paginationControls = document.getElementById('pagination-controls');
 
-        const getItemsPerPage = () => window.innerWidth < 768 ? 1 : 6;
-        let itemsPerPage = getItemsPerPage();
+        const isMobile = () => window.innerWidth < 768;
+        const itemsPerPage = 6;
         let currentPage = 1;
         let currentType = 'all';
         let currentScope = 'all';
         let currentTechFilters = [];
 
-        // Resize listener to handle responsive itemsPerPage
+        // Resize listener to handle UI switch between scroll and pagination
         window.addEventListener('resize', () => {
-            const newItemsPerPage = getItemsPerPage();
-            if (newItemsPerPage !== itemsPerPage) {
-                itemsPerPage = newItemsPerPage;
-                currentPage = 1;
-                updateVisibility();
-            }
+            currentPage = 1;
+            updateVisibility();
         });
 
         // --- 1. Filter Logic ---
@@ -484,24 +475,34 @@
             const filteredItems = getFilteredItems();
             const totalItems = filteredItems.length;
 
-            const totalPages = Math.ceil(totalItems / itemsPerPage);
-            if (currentPage > totalPages && totalPages > 0) {
-                currentPage = 1;
-            } else if (currentPage < 1) {
-                currentPage = 1;
-            }
-
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-
             projectItems.forEach(item => item.style.display = 'none');
 
-            filteredItems.slice(startIndex, endIndex).forEach(item => {
-                item.style.display = 'block';
-                item.classList.add('fade-in');
-            });
+            if (isMobile()) {
+                // Mobile: Show all filtered items for horizontal scroll
+                filteredItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.add('fade-in');
+                });
+                // Pagination is hidden via CSS
+            } else {
+                // Desktop: Use pagination
+                const totalPages = Math.ceil(totalItems / itemsPerPage);
+                if (currentPage > totalPages && totalPages > 0) {
+                    currentPage = 1;
+                } else if (currentPage < 1) {
+                    currentPage = 1;
+                }
 
-            renderPagination(totalItems);
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+
+                filteredItems.slice(startIndex, endIndex).forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.add('fade-in');
+                });
+
+                renderPagination(totalItems);
+            }
         }
 
         // --- 4. Event Listeners ---
@@ -664,17 +665,18 @@
                         style="height: 200px; object-fit: cover;">
                     {% endif %}
                     <div class="card-body d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h5 class="card-title fw-bold mb-0">
-                                {{ leadership.title }}
-                            </h5>
-                            <small class="text-muted text-end"
-                                style="min-width: 90px; white-space: nowrap; flex-shrink: 0;">{{ leadership.period
-                                }}</small>
+                        <div class="mb-2">
+                            <span class="badge bg-secondary me-1">{{ leadership.organization }}</span>
                         </div>
 
-                        <div class="mb-3">
-                            <span class="badge bg-primary me-1">{{ leadership.organization }}</span>
+                        <div class="mb-2">
+                            <h5 class="card-title fw-bold mb-1">
+                                <a href="{% url 'leadership_detail' leadership.id %}"
+                                    class="text-dark text-decoration-none stretched-link">
+                                    {{ leadership.title }}
+                                </a>
+                            </h5>
+                            <small class="text-muted">{{ leadership.period }}</small>
                         </div>
 
                         <p class="card-text flex-grow-1">{{ leadership.description|linebreaks }}</p>
@@ -690,14 +692,11 @@
                             {% endif %}
                         </ul>
 
-                        <div class="mt-auto d-flex align-items-center justify-content-between">
-                            <a href="{% url 'leadership_detail' leadership.id %}"
-                                class="text-primary text-decoration-none small stretched-link fw-bold">
-                                + 자세히 보기
-                            </a>
+                        <div class="mt-auto d-flex align-items-center justify-content-end"
+                            style="position: relative; z-index: 2;">
                             {% if leadership.link %}
-                            <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm position-relative"
-                                style="z-index: 2;" target="_blank">관련 링크</a>
+                            <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm" target="_blank">관련
+                                링크</a>
                             {% endif %}
                         </div>
                     </div>
