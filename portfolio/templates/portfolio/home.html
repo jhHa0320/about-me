@@ -167,35 +167,40 @@
     <h2 class="section-title">PROJECTS</h2>
     <div class="row mb-4">
         <div class="col-12">
-            <!-- Project Type Filters -->
-            <div class="d-flex flex-wrap gap-2 justify-content-center mb-3" id="project-type-filters">
-                <button class="btn btn-dark active" data-type="all" data-description="모든 프로젝트를 한눈에 모아봅니다.">
-                    전체
-                </button>
-                {% for type in project_types %}
-                <button class="btn btn-outline-dark" data-type="{{ type.id }}"
-                    data-description="{{ type.description }}">
-                    {{ type.name }}
-                </button>
-                {% endfor %}
-            </div>
+            <!-- Project Filters (Type & Scope combined in one line) -->
+            <div class="d-flex flex-wrap gap-3 align-items-center mb-3">
+                <!-- Project Type Filters -->
+                <div class="d-flex gap-2" id="project-type-filters">
+                    <button class="btn btn-dark btn-sm active" data-type="all" data-description="모든 프로젝트를 한눈에 모아봅니다.">
+                        전체
+                    </button>
+                    {% for type in project_types %}
+                    <button class="btn btn-outline-dark btn-sm" data-type="{{ type.id }}"
+                        data-description="{{ type.description }}">
+                        {{ type.name }}
+                    </button>
+                    {% endfor %}
+                </div>
 
-            <!-- Project Scope Filters -->
-            <div class="d-flex flex-wrap gap-2 justify-content-center mb-3" id="project-scope-filters">
-                <button class="btn btn-dark active" data-scope="all">전체</button>
-                <button class="btn btn-outline-dark" data-scope="INDIVIDUAL">개인 프로젝트</button>
-                <button class="btn btn-outline-dark" data-scope="TEAM">팀 프로젝트</button>
+                <div class="text-muted fw-light">|</div>
+
+                <!-- Project Scope Filters -->
+                <div class="d-flex gap-2" id="project-scope-filters">
+                    <button class="btn btn-dark btn-sm active" data-scope="all">전체</button>
+                    <button class="btn btn-outline-dark btn-sm" data-scope="INDIVIDUAL">개인</button>
+                    <button class="btn btn-outline-dark btn-sm" data-scope="TEAM">팀</button>
+                </div>
             </div>
 
             <!-- Dynamic Description Area -->
-            <div class="text-center mb-4" style="min-height: 24px;">
+            <div class="text-start mb-4" style="min-height: 24px;">
                 <p class="text-muted fst-italic" id="type-description">
                     모든 프로젝트를 한눈에 모아봅니다.
                 </p>
             </div>
 
             <!-- Tech Stack Filters -->
-            <div class="d-flex flex-wrap gap-2 justify-content-center" id="project-filters">
+            <div class="d-flex flex-wrap gap-2 justify-content-start" id="project-filters">
                 <button class="btn btn-outline-primary active" data-filter="all">All</button>
                 {% for skill in project_skills %}
                 <button class="btn btn-outline-secondary" data-filter="{{ skill.id }}">
