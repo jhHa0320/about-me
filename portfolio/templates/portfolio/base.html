@@ -113,6 +113,13 @@
             --bs-primary: var(--primary-yellow);
         }
 
+        /* 다크모드 제목 강조 */
+        [data-bs-theme="dark"] .section-title,
+        [data-bs-theme="dark"] .card-title,
+        [data-bs-theme="dark"] .card-title a {
+            color: #ffffff !important;
+        }
+
         /* 다크모드 컴포넌트 강제 적용 */
         [data-bs-theme="dark"] .card,
         [data-bs-theme="dark"] .list-group-item {
