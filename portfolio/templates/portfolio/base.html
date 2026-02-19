@@ -199,6 +199,23 @@
             }
         }
 
+        /* 카드 호버 효과 */
+        .project-card-hover {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .project-card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .project-card-hover:active {
+            transform: translateY(-2px) scale(0.98);
+            /* 클릭 시 살짝 눌리는 효과 */
+            transition: transform 0.1s ease;
+        }
+
         body {
             padding-top: 56px;
             font-family: 'Nanum Gothic', sans-serif;
