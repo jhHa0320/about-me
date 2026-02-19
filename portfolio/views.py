@@ -33,7 +33,7 @@ def home(request):
         'activities': activities,
         'leaderships': leaderships,
     }
-    return render(request, 'portfolio/home_v2.html', context)
+    return render(request, 'portfolio/home.html', context)
 
 
 def leadership_detail(request, leadership_id):

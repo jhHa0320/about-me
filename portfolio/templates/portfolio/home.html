@@ -180,6 +180,13 @@
                 {% endfor %}
             </div>
 
+            <!-- Project Scope Filters -->
+            <div class="d-flex flex-wrap gap-2 justify-content-center mb-3" id="project-scope-filters">
+                <button class="btn btn-dark active" data-scope="all">전체</button>
+                <button class="btn btn-outline-dark" data-scope="INDIVIDUAL">개인 프로젝트</button>
+                <button class="btn btn-outline-dark" data-scope="TEAM">팀 프로젝트</button>
+            </div>
+
             <!-- Dynamic Description Area -->
             <div class="text-center mb-4" style="min-height: 24px;">
                 <p class="text-muted fst-italic" id="type-description">
@@ -204,6 +211,7 @@
         {% for project in projects %}
         <div class="col-md-6 mb-4 project-item"
             data-type="{% if project.type %}{{ project.type.id }}{% else %}none{% endif %}"
+            data-scope="{{ project.scope }}"
             data-tech-stacks="{% for tech in project.tech_stacks.all %}{{ tech.id }} {% endfor %}">
             <div class="card h-100 shadow border-0">
                 {% if project.image %}
@@ -278,6 +286,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const typeButtons = document.querySelectorAll('#project-type-filters button');
+        const scopeButtons = document.querySelectorAll('#project-scope-filters button');
         const techButtons = document.querySelectorAll('#project-filters button');
         const descriptionText = document.getElementById('type-description');
         const projectItems = document.querySelectorAll('.project-item');
@@ -286,6 +295,7 @@
         const itemsPerPage = 6;
         let currentPage = 1;
         let currentType = 'all';
+        let currentScope = 'all';
         let currentTechFilters = [];
 
         // --- 1. Filter Logic ---
@@ -294,10 +304,14 @@
 
             projectItems.forEach(item => {
                 const itemType = item.getAttribute('data-type');
+                const itemScope = item.getAttribute('data-scope');
                 const itemTechStacks = item.getAttribute('data-tech-stacks').trim().split(/\s+/);
 
                 // Type Filter Check
                 const typeMatch = (currentType === 'all') || (itemType === currentType);
+
+                // Scope Filter Check
+                const scopeMatch = (currentScope === 'all') || (itemScope === currentScope);
 
                 // Tech Filter Check
                 let techMatch = true;
@@ -306,7 +320,7 @@
                     techMatch = currentTechFilters.some(filter => itemTechStacks.includes(filter));
                 }
 
-                if (typeMatch && techMatch) {
+                if (typeMatch && scopeMatch && techMatch) {
                     filtered.push(item);
                 }
             });
@@ -407,6 +421,23 @@
             });
         });
 
+
+        // Scope Filter Click
+        scopeButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                scopeButtons.forEach(b => {
+                    b.classList.remove('active', 'btn-dark');
+                    b.classList.add('btn-outline-dark');
+                });
+                this.classList.remove('btn-outline-dark');
+                this.classList.add('active', 'btn-dark');
+
+                currentScope = this.getAttribute('data-scope');
+                currentPage = 1;
+                updateVisibility();
+            });
+        });
+
         // Tech Stack Filter Click (Multi-select Logic)
         const techAllButton = document.querySelector('#project-filters button[data-filter="all"]');
 
@@ -472,8 +503,9 @@
                         <h5 class="mb-1 fw-bold">
                             {{ activity.title }}
                             {% if activity.organization %}
-                            <span class="badge bg-secondary ms-2" style="font-size: 0.8em;">{{ activity.organization
-                                }}</span>
+                            <span class="badge bg-secondary ms-2" style="font-size: 0.8em;">
+                                {{ activity.organization }}
+                            </span>
                             {% endif %}
                         </h5>
                         {% if activity.period %}
@@ -496,6 +528,62 @@
     </div>
     {% else %}
     <p class="text-muted">등록된 활동 내역이 없습니다.</p>
+    {% endif %}
+</section>
+
+<!-- Leadership & Experiences Section -->
+<section id="leadership" class="py-5 bg-light rounded p-4">
+    <h2 class="section-title">LEADERSHIP & EXPERIENCES</h2>
+
+    {% if leaderships %}
+    <div class="row" id="leadership-list">
+        {% for leadership in leaderships %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow border-0">
+                {% if leadership.image %}
+                <img src="{{ leadership.image.url }}" class="card-img-top" alt="{{ leadership.title }}"
+                    style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title fw-bold mb-0">{{ leadership.title }}</h5>
+                        <small class="text-muted text-end"
+                            style="min-width: 90px; white-space: nowrap; flex-shrink: 0;">{{ leadership.period
+                            }}</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="badge bg-primary me-1">{{ leadership.organization }}</span>
+                    </div>
+
+                    <p class="card-text flex-grow-1">{{ leadership.description|linebreaks }}</p>
+
+                    <ul class="list-group list-group-flush mb-3 small">
+                        <li class="list-group-item px-0">
+                            <strong>역할:</strong> {{ leadership.role }}
+                        </li>
+                        {% if leadership.outcome %}
+                        <li class="list-group-item px-0">
+                            <strong>성과:</strong> {{ leadership.outcome|linebreaks }}
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    <div class="mt-auto">
+                        <a href="{% url 'leadership_detail' leadership.id %}" class="btn btn-secondary btn-sm me-2">자세히
+                            보기</a>
+                        {% if leadership.link %}
+                        <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm me-2" target="_blank">관련
+                            링크</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-muted">등록된 리더십 및 경험 활동이 없습니다.</p>
     {% endif %}
 </section>
 {% endblock %}
