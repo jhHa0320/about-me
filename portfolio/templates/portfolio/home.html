@@ -201,7 +201,7 @@
 
             <!-- Tech Stack Filters -->
             <div class="d-flex flex-wrap gap-2 justify-content-start" id="project-filters">
-                <button class="btn btn-outline-primary active" data-filter="all">All</button>
+                <button class="btn btn-outline-secondary active" data-filter="all">All</button>
                 {% for skill in project_skills %}
                 <button class="btn btn-outline-secondary" data-filter="{{ skill.id }}">
                     {{ skill.name }}
@@ -246,7 +246,7 @@
                             {% endfor %}
                         </li>
                         <li class="list-group-item px-0">
-                            <strong>나의 역할:</strong> {{ project.role }}
+                            <strong>역할:</strong> {{ project.role }}
                         </li>
                         {% if project.outcome %}
                         <li class="list-group-item px-0">
@@ -453,11 +453,11 @@
                 if (filterValue === 'all') {
                     currentTechFilters = [];
                     techButtons.forEach(b => {
-                        b.classList.remove('active', 'btn-primary');
+                        b.classList.remove('active', 'btn-primary', 'btn-secondary');
                         b.classList.add('btn-outline-secondary');
                     });
                     this.classList.remove('btn-outline-secondary');
-                    this.classList.add('active', 'btn-primary');
+                    this.classList.add('active', 'btn-secondary');
                 } else {
                     // Toggle current filter
                     if (currentTechFilters.includes(filterValue)) {
@@ -473,9 +473,9 @@
                     // Update 'All' button state
                     if (currentTechFilters.length === 0) {
                         techAllButton.classList.remove('btn-outline-secondary');
-                        techAllButton.classList.add('active', 'btn-primary');
+                        techAllButton.classList.add('active', 'btn-secondary');
                     } else {
-                        techAllButton.classList.remove('active', 'btn-primary');
+                        techAllButton.classList.remove('active', 'btn-secondary');
                         techAllButton.classList.add('btn-outline-secondary');
                     }
                 }
