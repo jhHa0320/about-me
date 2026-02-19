@@ -195,10 +195,39 @@
         }
 
         /* 포커스 시 배경색 유지 방지 */
-        #btn-back-to-top:focus {
+        #btn-back-to-top:focus,
+        #btn-back-page:focus {
             outline: none;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             background-color: var(--primary-yellow) !important;
+        }
+
+        /* 뒤로 가기 플로팅 버튼 스타일 */
+        #btn-back-page {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: block;
+            z-index: 1000;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #333 !important;
+            color: #fff !important;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease-in-out;
+        }
+
+        @media (hover: hover) {
+            #btn-back-page:hover {
+                background-color: #000 !important;
+                transform: scale(1.1);
+            }
+        }
+
+        #btn-back-page:active {
+            transform: scale(0.9);
         }
 
         /* 기술 스택 리스트 아이템의 설명 텍스트 대비 향상 */
@@ -525,6 +554,13 @@
     </nav>
     {% endif %}
 
+    <!-- 뒤로 가기 플로팅 버튼 (홈 화면이 아닐 때만 표시) -->
+    {% if request.resolver_match.url_name != 'home' %}
+    <button type="button" class="btn btn-secondary btn-floating" id="btn-back-page">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+    {% endif %}
+
     <!-- Back to Top 버튼 -->
     <button type="button" class="btn btn-primary btn-floating" id="btn-back-to-top">
         <i class="bi bi-arrow-up"></i>
@@ -558,6 +594,18 @@
             window.scrollTo({
                 top: 0,
                 behavior: "smooth"
+            });
+        }
+
+        // 뒤로 가기 기능
+        let backButton = document.getElementById("btn-back-page");
+        if (backButton) {
+            backButton.addEventListener("click", function () {
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.location.href = "/";
+                }
             });
         }
 
