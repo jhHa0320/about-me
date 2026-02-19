@@ -287,20 +287,18 @@
                 font-size: 1.25rem !important;
             }
 
-            /* 프로젝트 및 리더십 모바일 가로 스크롤 스타일 */
             #project-list,
             #leadership-list {
                 display: flex !important;
                 flex-wrap: nowrap !important;
                 overflow-x: auto !important;
+                align-items: flex-start !important;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
                 padding-bottom: 20px;
                 gap: 15px;
                 scrollbar-width: none;
-                /* Firefox */
                 -ms-overflow-style: none;
-                /* IE/Edge */
             }
 
             #project-list::-webkit-scrollbar,
@@ -330,6 +328,29 @@
 
             .profile-name-responsive {
                 font-size: 1.75rem;
+            }
+
+            /* PC 버전 스타일 복구 및 하나씩 보기 기조 */
+            #project-list,
+            #leadership-list {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                overflow-x: visible !important;
+                justify-content: center;
+                gap: 0;
+            }
+
+            .project-item,
+            #leadership-list>.col-md-6 {
+                flex: 0 0 50% !important;
+                /* PC에서 2열로 배치하여 6개 표시 */
+                max-width: 50% !important;
+                scroll-snap-align: none;
+                margin-bottom: 2rem !important;
+            }
+
+            #pagination-controls-wrapper {
+                display: block !important;
             }
         }
 
