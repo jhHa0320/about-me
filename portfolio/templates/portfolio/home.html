@@ -6,45 +6,54 @@
     <h2 class="section-title">PROFILE</h2>
     <div class="row align-items-center">
         {% if profile and profile.profile_image %}
-        <div class="col-md-4 text-center">
-            <img src="{{ profile.profile_image.url }}" class="img-fluid rounded-circle shadow"
-                style="max-width: 250px; height: 250px; object-fit: cover;">
+        <div class="col-md-4 mb-4 mb-md-0 text-center">
+            <img src="{{ profile.profile_image.url }}" class="img-fluid rounded-circle shadow profile-img"
+                style="width: 200px; height: 200px; object-fit: cover;">
         </div>
         {% endif %}
         <div class="col-md-{% if profile.profile_image %}8{% else %}12{% endif %}">
             {% if profile %}
-            <h3>{{ profile.name }}</h3>
-            <p><strong>생년월일:</strong> {{ profile.birthdate }}</p>
-            <p>
-                <strong>학력:</strong>
-                {% if educations %}
-            <ul class="list-unstyled ps-3 mt-1 mb-0">
-                {% for edu in educations %}
-                <li>
-                    <span class="text-muted me-2 d-inline-block" style="min-width: 90px;">{{ edu.period }}</span>
-                    <span><strong>{{ edu.school }}</strong> {{ edu.status }}</span>
-                </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <span class="text-muted">학력 정보가 없습니다.</span>
-            {% endif %}
-            </p>
-            <p>
-                <strong>이메일:</strong>
-                <a href="mailto:{{ profile.email }}" class="text-decoration-none">
-                    {{ profile.email }}
-                </a>
-            </p>
-            {% if profile.github_url %}
-            <p>
-                <strong>Github:</strong>
-                <a href="{{ profile.github_url }}" target="_blank" class="text-decoration-none">
-                    {{ profile.github_url }}
-                </a>
-            </p>
-            {% endif %}
-            <p class="mt-3 lead">{{ profile.introduction|linebreaks }}</p>
+            <h3 class="fw-bold mb-2 profile-name-responsive">{{ profile.name }}</h3>
+            <div class="profile-details profile-details-responsive">
+                <style>
+                    .profile-label {
+                        display: inline-block;
+                        min-width: 80px;
+                        font-weight: bold;
+                    }
+                </style>
+                <p class="mb-1">
+                    <span class="profile-label">생년월일</span> {{ profile.birthdate }}
+                </p>
+                <div class="mb-2">
+                    <span class="profile-label d-block mb-1">학력</span>
+                    {% if educations %}
+                    <ul class="list-unstyled ms-2 mb-0">
+                        {% for edu in educations %}
+                        <li class="mb-1">
+                            <span class="text-muted me-1 small" style="display: inline-block; min-width: 80px;">
+                                {{ edu.period }}</span>
+                            <span><strong>{{ edu.school }}</strong> {{ edu.status }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <span class="text-muted ms-2 small">학력 정보가 없습니다.</span>
+                    {% endif %}
+                </div>
+                <p class="mb-1">
+                    <span class="profile-label">이메일</span>
+                    <a href="mailto:{{ profile.email }}" class="text-decoration-none">{{ profile.email }}</a>
+                </p>
+                {% if profile.github_url %}
+                <p class="mb-1">
+                    <span class="profile-label">Github</span>
+                    <a href="{{ profile.github_url }}" target="_blank" class="text-decoration-none">
+                        {{ profile.github_url }}</a>
+                </p>
+                {% endif %}
+                <p class="mt-3 text-secondary" style="line-height: 1.5;">{{ profile.introduction|linebreaks }}</p>
+            </div>
             {% else %}
             <div class="alert alert-warning">
                 프로필 정보가 없습니다. 관리자 페이지에서 프로필을 추가해주세요.

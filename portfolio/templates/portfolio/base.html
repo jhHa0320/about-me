@@ -143,36 +143,60 @@
             color: #bbb !important;
         }
 
-        /* 모바일 가로 스크롤 필터 스타일 (2줄 레이아웃) */
+        /* 가로 스크롤 필터 (반응형: 모바일에서만 2줄 스크롤) */
         .filter-scroll-container {
-            display: grid;
-            grid-template-rows: repeat(2, auto);
-            grid-auto-columns: 160px;
-            /* 모든 버튼의 너비를 동일하게 고정 (가장 긴 이름 기준) */
-            grid-auto-flow: column;
-            /* 열 방향으로 배치하여 가로 스크롤 유도 */
+            display: flex;
+            flex-wrap: wrap;
             gap: 10px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 15px;
-            margin-bottom: -15px;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            scroll-snap-type: x proximity;
         }
 
-        .filter-scroll-container::-webkit-scrollbar {
-            display: none;
+        @media (max-width: 767.98px) {
+            .filter-scroll-container {
+                display: grid;
+                grid-template-rows: repeat(2, auto);
+                grid-auto-columns: 140px;
+                /* 모바일에서는 좀 더 작게 */
+                grid-auto-flow: column;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 15px;
+                margin-bottom: -5px;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                scroll-snap-type: x proximity;
+            }
+
+            .filter-scroll-container::-webkit-scrollbar {
+                display: none;
+            }
+
+            .filter-scroll-container .btn {
+                white-space: nowrap;
+                width: 100%;
+                text-align: center;
+                font-size: 0.85rem;
+                /* 모바일 필터 글자 크기 축소 */
+                padding: 0.4rem 0.5rem;
+            }
+
+            /* 모바일 전용 프로필 텍스트 크기 */
+            .profile-details-responsive {
+                font-size: 0.9rem !important;
+            }
+
+            .profile-name-responsive {
+                font-size: 1.25rem !important;
+            }
         }
 
-        .filter-scroll-container .btn {
-            white-space: nowrap;
-            width: 100%;
-            /* 그리드 셀 너비에 맞춤 */
-            text-align: center;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            /* 혹시나 너무 길면 말줄임표 */
+        @media (min-width: 768px) {
+            .profile-details-responsive {
+                font-size: 1.05rem;
+            }
+
+            .profile-name-responsive {
+                font-size: 1.75rem;
+            }
         }
 
         body {
