@@ -31,6 +31,14 @@
             color: #000 !important;
         }
 
+        a {
+            color: var(--primary-yellow-dark);
+        }
+
+        a:hover {
+            color: var(--primary-yellow);
+        }
+
         /* 버튼 스타일 전반 */
         .btn-primary {
             background-color: var(--primary-yellow) !important;
@@ -60,6 +68,22 @@
             color: #000 !important;
         }
 
+        /* 네비게이션 탭 (Nav Pills) 노란색 테마 적용 */
+        .nav-pills .nav-link.active,
+        .nav-pills .show>.nav-link {
+            background-color: var(--primary-yellow) !important;
+            color: #000 !important;
+            font-weight: bold;
+        }
+
+        .nav-pills .nav-link {
+            color: var(--bs-body-color);
+        }
+
+        .nav-pills .nav-link:hover {
+            color: var(--primary-yellow);
+        }
+
         /* 일반 다크 버튼(주요, 개인, 팀 등) 및 기술 버튼(secondary)의 호버 색상도 노란색 계열로 통일 */
         .btn-outline-dark:hover,
         .btn-outline-secondary:hover {
@@ -86,6 +110,7 @@
             --bs-emphasis-color: var(--primary-yellow);
             /* 강조 색상 */
             --bs-border-color: #333;
+            --bs-primary: var(--primary-yellow);
         }
 
         /* 다크모드 컴포넌트 강제 적용 */

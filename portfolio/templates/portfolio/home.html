@@ -66,27 +66,39 @@
 <!-- Skills Section -->
 <section id="skills" class="py-5 bg-light rounded p-4">
     <h2 class="section-title">SKILLS</h2>
-    <div class="row">
+
+    <!-- Mobile Tab Navigation (d-md-none) -->
+    <ul class="nav nav-pills nav-justified mb-4 d-md-none" id="skillsTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="using-tab" data-bs-toggle="pill" data-bs-target="#pills-using"
+                type="button" role="tab" aria-controls="pills-using" aria-selected="true">사용 중</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="maintain-tab" data-bs-toggle="pill" data-bs-target="#pills-maintain"
+                type="button" role="tab" aria-controls="pills-maintain" aria-selected="false">기능 유지</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="experience-tab" data-bs-toggle="pill" data-bs-target="#pills-experience"
+                type="button" role="tab" aria-controls="pills-experience" aria-selected="false">경험 있음</button>
+        </li>
+    </ul>
+
+    <!-- PC View (d-none d-md-flex) -->
+    <div class="row d-none d-md-flex">
         <!-- Using Column -->
         <div class="col-md-4 mb-4">
             <h5 class="mb-3 d-flex align-items-center">
-                <span class="badge bg-danger rounded-pill me-2">
-                    사용 중 🔥 {{ skills_using.count }}
-                </span>
+                <span class="badge bg-danger rounded-pill me-2">사용 중 🔥 {{ skills_using.count }}</span>
             </h5>
             <div class="list-group">
                 {% for skill in skills_using %}
                 <div class="list-group-item border-0 shadow-sm mb-2 rounded">
                     <div class="d-flex align-items-center mb-1">
-                        {% if skill.icon %}
-                        <img src="{{ skill.icon.url }}" class="me-2"
-                            style="width: 24px; height: 24px; object-fit: contain;">
-                        {% endif %}
+                        {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
+                            style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
                         <strong>{{ skill.name }}</strong>
                     </div>
-                    {% if skill.description %}
-                    <p class="mb-0 small text-muted">{{ skill.description }}</p>
-                    {% endif %}
+                    {% if skill.description %}<p class="mb-0 small text-muted">{{ skill.description }}</p>{% endif %}
                 </div>
                 {% empty %}
                 <p class="text-muted small">등록된 기술이 없습니다.</p>
@@ -97,23 +109,17 @@
         <!-- Maintain Column -->
         <div class="col-md-4 mb-4">
             <h5 class="mb-3 d-flex align-items-center">
-                <span class="badge bg-success rounded-pill me-2">
-                    기능 유지 ✅ {{ skills_maintain.count }}
-                </span>
+                <span class="badge bg-success rounded-pill me-2">기능 유지 ✅ {{ skills_maintain.count }}</span>
             </h5>
             <div class="list-group">
                 {% for skill in skills_maintain %}
                 <div class="list-group-item border-0 shadow-sm mb-2 rounded">
                     <div class="d-flex align-items-center mb-1">
-                        {% if skill.icon %}
-                        <img src="{{ skill.icon.url }}" class="me-2"
-                            style="width: 24px; height: 24px; object-fit: contain;">
-                        {% endif %}
+                        {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
+                            style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
                         <strong>{{ skill.name }}</strong>
                     </div>
-                    {% if skill.description %}
-                    <p class="mb-0 small text-muted">{{ skill.description }}</p>
-                    {% endif %}
+                    {% if skill.description %}<p class="mb-0 small text-muted">{{ skill.description }}</p>{% endif %}
                 </div>
                 {% empty %}
                 <p class="text-muted small">등록된 기술이 없습니다.</p>
@@ -124,27 +130,70 @@
         <!-- Experience Column -->
         <div class="col-md-4 mb-4">
             <h5 class="mb-3 d-flex align-items-center">
-                <span class="badge bg-secondary rounded-pill me-2">
-                    경험 있음 🕰️ {{ skills_experience.count }}
-                </span>
+                <span class="badge bg-secondary rounded-pill me-2">경험 있음 🕰️ {{ skills_experience.count }}</span>
             </h5>
             <div class="list-group">
                 {% for skill in skills_experience %}
                 <div class="list-group-item border-0 shadow-sm mb-2 rounded">
                     <div class="d-flex align-items-center mb-1">
-                        {% if skill.icon %}
-                        <img src="{{ skill.icon.url }}" class="me-2"
-                            style="width: 24px; height: 24px; object-fit: contain;">
-                        {% endif %}
+                        {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
+                            style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
                         <strong>{{ skill.name }}</strong>
                     </div>
-                    {% if skill.description %}
-                    <p class="mb-0 small text-muted">{{ skill.description }}</p>
-                    {% endif %}
+                    {% if skill.description %}<p class="mb-0 small text-muted">{{ skill.description }}</p>{% endif %}
                 </div>
                 {% empty %}
                 <p class="text-muted small">등록된 기술이 없습니다.</p>
                 {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile View Content (d-md-none) -->
+    <div class="tab-content d-md-none" id="pills-tabContent">
+        <!-- Using Pane -->
+        <div class="tab-pane fade show active" id="pills-using" role="tabpanel" aria-labelledby="using-tab">
+            <div class="list-group">
+                {% for skill in skills_using %}
+                <div class="list-group-item border-0 shadow-sm mb-2 rounded">
+                    <div class="d-flex align-items-center mb-1">
+                        {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
+                            style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
+                        <strong>{{ skill.name }}</strong>
+                    </div>
+                    {% if skill.description %}<p class="mb-0 small text-muted">{{ skill.description }}</p>{% endif %}
+                </div>
+                {% empty %}<p class="text-muted small">등록된 기술이 없습니다.</p>{% endfor %}
+            </div>
+        </div>
+        <!-- Maintain Pane -->
+        <div class="tab-pane fade" id="pills-maintain" role="tabpanel" aria-labelledby="maintain-tab">
+            <div class="list-group">
+                {% for skill in skills_maintain %}
+                <div class="list-group-item border-0 shadow-sm mb-2 rounded">
+                    <div class="d-flex align-items-center mb-1">
+                        {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
+                            style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
+                        <strong>{{ skill.name }}</strong>
+                    </div>
+                    {% if skill.description %}<p class="mb-0 small text-muted">{{ skill.description }}</p>{% endif %}
+                </div>
+                {% empty %}<p class="text-muted small">등록된 기술이 없습니다.</p>{% endfor %}
+            </div>
+        </div>
+        <!-- Experience Pane -->
+        <div class="tab-pane fade" id="pills-experience" role="tabpanel" aria-labelledby="experience-tab">
+            <div class="list-group">
+                {% for skill in skills_experience %}
+                <div class="list-group-item border-0 shadow-sm mb-2 rounded">
+                    <div class="d-flex align-items-center mb-1">
+                        {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
+                            style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
+                        <strong>{{ skill.name }}</strong>
+                    </div>
+                    {% if skill.description %}<p class="mb-0 small text-muted">{{ skill.description }}</p>{% endif %}
+                </div>
+                {% empty %}<p class="text-muted small">등록된 기술이 없습니다.</p>{% endfor %}
             </div>
         </div>
     </div>
