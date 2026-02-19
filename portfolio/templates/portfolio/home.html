@@ -21,24 +21,6 @@
                         min-width: 80px;
                         font-weight: bold;
                     }
-
-                    /* 프로젝트 및 리더십 모바일 가로 스크롤 스타일 */
-                    #project-list,
-                    #leadership-list {
-                        display: flex !important;
-                        flex-wrap: nowrap !important;
-                        overflow-x: auto !important;
-                        align-items: flex-start !important;
-                        /* 상단 정렬 강제 */
-                        scroll-snap-type: x mandatory;
-                        -webkit-overflow-scrolling: touch;
-                        padding-bottom: 20px;
-                        gap: 15px;
-                        scrollbar-width: none;
-                        /* Firefox */
-                        -ms-overflow-style: none;
-                        /* IE/Edge */
-                    }
                 </style>
                 <p class="mb-1">
                     <span class="profile-label">생년월일</span> {{ profile.birthdate }}
@@ -394,7 +376,7 @@
         const paginationControls = document.getElementById('pagination-controls');
 
         const isMobile = () => window.innerWidth < 768;
-        const itemsPerPage = 6;
+        const itemsPerPage = 6; // PC 버전 일람을 위해 6개로 복구
         let currentPage = 1;
         let currentType = 'all';
         let currentScope = 'all';
@@ -501,9 +483,8 @@
                     item.style.display = 'block';
                     item.classList.add('fade-in');
                 });
-                // Pagination is hidden via CSS
             } else {
-                // Desktop: Use pagination
+                // Desktop: Use premium pagination (6 per page)
                 const totalPages = Math.ceil(totalItems / itemsPerPage);
                 if (currentPage > totalPages && totalPages > 0) {
                     currentPage = 1;
