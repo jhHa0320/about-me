@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="개발자 하정훈의 포트폴리오입니다. (Jeonghun Ha's Portfolio) 끊임없이 성장하며 가치를 만들어냅니다.">
+    <meta name="author" content="하정훈 (Jeonghun Ha)">
+    <meta name="keywords" content="개발자, 포트폴리오, 소프트웨어 엔지니어, Developer, Portfolio, Django, Python">
+    <meta property="og:title" content="About Me - 하정훈 (Jeonghun Ha)">
+    <meta property="og:description" content="개발자 하정훈의 포트폴리오 사이트입니다. 끊임없이 성장하며 가치를 만들어냅니다.">
+    <meta property="og:type" content="website">
     <title>About Me - 하정훈</title>
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,12 +19,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --bs-body-font-size: 1.1rem;
-            /* 강조 색상: 노란색(Amber계열) */
-            --primary-yellow: #ffc107;
-            --primary-yellow-hover: #fff3cd;
-            /* 더 연한 파스텔톤 노란색 */
-            --primary-yellow-dark: #e0a800;
+            --bs-body-font-size: clamp(1rem, 1.2vw + 0.8rem, 1.15rem);
+            /* Custom Brand Colors: Actor-like Amber/Gold/Black vibe */
+            --primary-yellow: #f5a623;
+            /* Classic Amber Gold */
+            --primary-yellow-hover: #ffc107;
+            /* Brighter gold on hover */
+            --primary-yellow-dark: #d48a1b;
+            /* Deep amber */
         }
 
         /* 옐로우 기반의 프라이머리 컬러 스타일 재정의 */
@@ -371,10 +379,62 @@
             transition: transform 0.1s ease;
         }
 
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading Overlay / Skeleton */
+        .loading-skeleton {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bs-secondary-bg) !important;
+            border-color: transparent !important;
+        }
+
+        .loading-skeleton::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 1.2s infinite;
+        }
+
+        [data-bs-theme="light"] .loading-skeleton::after {
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+        }
+
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .loading-skeleton * {
+            opacity: 0 !important;
+        }
+
         body {
             padding-top: 56px;
             font-family: 'Nanum Gothic', sans-serif;
-            font-size: 1.1rem;
+            font-size: var(--bs-body-font-size);
             line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
         }
@@ -433,11 +493,11 @@
         }
 
         .section-title {
-            margin-bottom: 30px;
+            margin-bottom: clamp(20px, 4vw, 40px);
             border-bottom: 2px solid var(--bs-emphasis-color);
             padding-bottom: 10px;
             font-weight: 700;
-            font-size: 2rem;
+            font-size: clamp(1.75rem, 4vw + 1rem, 2.5rem);
             margin-left: 0;
             margin-right: 0;
         }
@@ -445,12 +505,11 @@
         /* 모바일 정렬 및 여백 보정 */
         @media (max-width: 767.98px) {
             .container {
-                padding-left: 20px !important;
-                padding-right: 20px !important;
+                padding-left: clamp(15px, 4vw, 25px) !important;
+                padding-right: clamp(15px, 4vw, 25px) !important;
             }
 
             .section-title {
-                font-size: 1.75rem;
                 text-align: left;
             }
         }
@@ -477,16 +536,29 @@
             font-size: 0.9rem;
         }
 
-        h3 {
-            font-size: 1.75rem;
+        h1,
+        .h1 {
+            font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
         }
 
-        h4 {
-            font-size: 1.5rem;
+        h2,
+        .h2 {
+            font-size: clamp(1.75rem, 4vw + 0.5rem, 2.5rem);
         }
 
-        h5 {
-            font-size: 1.25rem;
+        h3,
+        .h3 {
+            font-size: clamp(1.5rem, 3vw + 0.5rem, 2rem);
+        }
+
+        h4,
+        .h4 {
+            font-size: clamp(1.25rem, 2vw + 0.5rem, 1.75rem);
+        }
+
+        h5,
+        .h5 {
+            font-size: clamp(1.1rem, 1.5vw + 0.5rem, 1.25rem);
         }
 
         /* 리스트 아이템(스킬 카드 등) 호버 효과 추가 */

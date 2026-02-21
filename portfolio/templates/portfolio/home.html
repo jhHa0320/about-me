@@ -67,6 +67,100 @@
 <section id="skills" class="py-5">
     <h2 class="section-title">SKILLS</h2>
     <div class="bg-light rounded p-3 p-md-4">
+        <style>
+            .skills-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 30vw, 350px), 1fr));
+                gap: 2rem;
+            }
+
+            .skills-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .skill-card {
+                background-color: var(--bs-body-bg);
+                border: 1px solid var(--bs-border-color);
+                border-radius: 8px;
+                padding: 0.75rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                min-width: 0;
+                /* Ensures child ellipsis works */
+            }
+
+            .skill-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                background-color: var(--primary-yellow-hover) !important;
+                color: #000 !important;
+                border-color: var(--primary-yellow);
+            }
+
+            [data-bs-theme="dark"] .skill-card {
+                background-color: var(--bs-secondary-bg);
+            }
+
+            [data-bs-theme="dark"] .skill-card:hover {
+                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+            }
+
+            .skill-header {
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            .skill-name {
+                font-weight: 700;
+                font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .skill-desc {
+                font-size: 0.8rem;
+                color: var(--bs-secondary-color);
+                margin-top: 0.25rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .skill-card:hover .skill-desc {
+                color: #333 !important;
+            }
+
+            /* Custom Nav Pills for Mobile SKILLS Tabs */
+            #skillsTab .nav-link {
+                color: var(--bs-body-color);
+                border-radius: 8px;
+                margin: 0 2px;
+                padding: 0.5rem 1rem;
+                transition: background-color 0.2s, color 0.2s;
+            }
+
+            #skillsTab .nav-link:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+
+            [data-bs-theme="dark"] #skillsTab .nav-link:hover {
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            #skillsTab .nav-link.active {
+                background-color: var(--primary-yellow);
+                color: #000;
+                font-weight: bold;
+            }
+        </style>
+
         <!-- Mobile Tab Navigation (d-md-none) -->
         <ul class="nav nav-pills nav-justified mb-4 d-md-none" id="skillsTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -83,23 +177,24 @@
             </li>
         </ul>
 
-        <!-- PC View (d-none d-md-flex) -->
-        <div class="row d-none d-md-flex">
+        <!-- PC View (d-none d-md-grid) -->
+        <div class="skills-grid d-none d-md-grid">
             <!-- Using Column -->
-            <div class="col-md-4 mb-4">
+            <div>
                 <h5 class="mb-3 d-flex align-items-center">
                     <span class="badge bg-danger rounded-pill me-2">사용 중 🔥 {{ skills_using.count }}</span>
                 </h5>
-                <div class="list-group">
+                <div class="skills-list">
                     {% for skill in skills_using %}
-                    <div class="list-group-item border-0 shadow-sm mb-2 rounded">
-                        <div class="d-flex align-items-center mb-1">
+                    <div class="skill-card">
+                        <div class="skill-header mb-1">
                             {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
-                            <strong>{{ skill.name }}</strong>
+                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
+                                loading="lazy">{% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
                         </div>
                         {% if skill.description %}
-                        <p class="mb-0 small text-muted">{{ skill.description }}</p>
+                        <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
                     </div>
                     {% empty %}
@@ -109,20 +204,21 @@
             </div>
 
             <!-- Maintain Column -->
-            <div class="col-md-4 mb-4">
+            <div>
                 <h5 class="mb-3 d-flex align-items-center">
                     <span class="badge bg-success rounded-pill me-2">기능 유지 ✅ {{ skills_maintain.count }}</span>
                 </h5>
-                <div class="list-group">
+                <div class="skills-list">
                     {% for skill in skills_maintain %}
-                    <div class="list-group-item border-0 shadow-sm mb-2 rounded">
-                        <div class="d-flex align-items-center mb-1">
+                    <div class="skill-card">
+                        <div class="skill-header mb-1">
                             {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
-                            <strong>{{ skill.name }}</strong>
+                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
+                                loading="lazy">{% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
                         </div>
                         {% if skill.description %}
-                        <p class="mb-0 small text-muted">{{ skill.description }}</p>
+                        <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
                     </div>
                     {% empty %}
@@ -132,20 +228,21 @@
             </div>
 
             <!-- Experience Column -->
-            <div class="col-md-4 mb-4">
+            <div>
                 <h5 class="mb-3 d-flex align-items-center">
                     <span class="badge bg-secondary rounded-pill me-2">경험 있음 🕰️ {{ skills_experience.count }}</span>
                 </h5>
-                <div class="list-group">
+                <div class="skills-list">
                     {% for skill in skills_experience %}
-                    <div class="list-group-item border-0 shadow-sm mb-2 rounded">
-                        <div class="d-flex align-items-center mb-1">
+                    <div class="skill-card">
+                        <div class="skill-header mb-1">
                             {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
-                            <strong>{{ skill.name }}</strong>
+                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
+                                loading="lazy">{% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
                         </div>
                         {% if skill.description %}
-                        <p class="mb-0 small text-muted">{{ skill.description }}</p>
+                        <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
                     </div>
                     {% empty %}
@@ -159,16 +256,17 @@
         <div class="tab-content d-md-none" id="pills-tabContent">
             <!-- Using Pane -->
             <div class="tab-pane fade show active" id="pills-using" role="tabpanel" aria-labelledby="using-tab">
-                <div class="list-group">
+                <div class="skills-list">
                     {% for skill in skills_using %}
-                    <div class="list-group-item border-0 shadow-sm mb-2 rounded">
-                        <div class="d-flex align-items-center mb-1">
+                    <div class="skill-card">
+                        <div class="skill-header mb-1">
                             {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
-                            <strong>{{ skill.name }}</strong>
+                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
+                                loading="lazy">{% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
                         </div>
                         {% if skill.description %}
-                        <p class="mb-0 small text-muted">{{ skill.description }}</p>
+                        <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
                     </div>
                     {% empty %}
@@ -176,18 +274,20 @@
                     {% endfor %}
                 </div>
             </div>
+
             <!-- Maintain Pane -->
             <div class="tab-pane fade" id="pills-maintain" role="tabpanel" aria-labelledby="maintain-tab">
-                <div class="list-group">
+                <div class="skills-list">
                     {% for skill in skills_maintain %}
-                    <div class="list-group-item border-0 shadow-sm mb-2 rounded">
-                        <div class="d-flex align-items-center mb-1">
+                    <div class="skill-card">
+                        <div class="skill-header mb-1">
                             {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
-                            <strong>{{ skill.name }}</strong>
+                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
+                                loading="lazy">{% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
                         </div>
                         {% if skill.description %}
-                        <p class="mb-0 small text-muted">{{ skill.description }}</p>
+                        <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
                     </div>
                     {% empty %}
@@ -195,18 +295,20 @@
                     {% endfor %}
                 </div>
             </div>
+
             <!-- Experience Pane -->
             <div class="tab-pane fade" id="pills-experience" role="tabpanel" aria-labelledby="experience-tab">
-                <div class="list-group">
+                <div class="skills-list">
                     {% for skill in skills_experience %}
-                    <div class="list-group-item border-0 shadow-sm mb-2 rounded">
-                        <div class="d-flex align-items-center mb-1">
+                    <div class="skill-card">
+                        <div class="skill-header mb-1">
                             {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 24px; height: 24px; object-fit: contain;">{% endif %}
-                            <strong>{{ skill.name }}</strong>
+                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
+                                loading="lazy">{% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
                         </div>
                         {% if skill.description %}
-                        <p class="mb-0 small text-muted">{{ skill.description }}</p>
+                        <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
                     </div>
                     {% empty %}
@@ -300,7 +402,7 @@
                 <div class="card h-auto h-md-100 shadow border-0 position-relative project-card-hover">
                     {% if project.image %}
                     <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}"
-                        style="height: 200px; object-fit: cover;">
+                        style="height: 200px; object-fit: cover;" loading="lazy">
                     {% endif %}
                     <div class="card-body d-flex flex-column">
                         <div class="mb-2">
@@ -470,21 +572,50 @@
             paginationControls.appendChild(createPageItem('»»', totalPages, false, currentPage === totalPages));
         }
 
-        // --- 3. Update UI ---
-        function updateVisibility() {
+        // --- 3. Update UI (Refactored with Async & Micro-Animations) ---
+        async function updateVisibility() {
             const filteredItems = getFilteredItems();
             const totalItems = filteredItems.length;
 
-            projectItems.forEach(item => item.style.display = 'none');
+            // 1. Show Loading Skeleton State
+            let currentlyVisibleItems = [];
+            projectItems.forEach(item => {
+                if (item.style.display !== 'none') {
+                    item.classList.add('loading-skeleton');
+                    item.style.pointerEvents = 'none'; // Prevent clicks during loading
+                    currentlyVisibleItems.push(item);
+                }
+            });
 
+            // 2. Fake network delay for App-like UX
+            if (currentlyVisibleItems.length > 0) {
+                await new Promise(resolve => setTimeout(resolve, 300));
+            }
+
+            // 3. Reset all items
+            projectItems.forEach(item => {
+                item.style.display = 'none';
+                item.classList.remove('loading-skeleton', 'fade-in');
+                item.style.pointerEvents = 'auto';
+            });
+
+            if (totalItems === 0) {
+                renderPagination(0);
+                return;
+            }
+
+            // 4. Calculate pagination and render with staggered animation
             if (isMobile()) {
                 // Mobile: Show all filtered items for horizontal scroll
-                filteredItems.forEach(item => {
+                filteredItems.forEach((item, index) => {
                     item.style.display = 'block';
-                    item.classList.add('fade-in');
+                    // Staggered Fade-in
+                    setTimeout(() => {
+                        item.classList.add('fade-in');
+                    }, index * 40);
                 });
             } else {
-                // Desktop: Use premium pagination (6 per page)
+                // Desktop: Premium pagination
                 const totalPages = Math.ceil(totalItems / itemsPerPage);
                 if (currentPage > totalPages && totalPages > 0) {
                     currentPage = 1;
@@ -495,9 +626,12 @@
                 const startIndex = (currentPage - 1) * itemsPerPage;
                 const endIndex = startIndex + itemsPerPage;
 
-                filteredItems.slice(startIndex, endIndex).forEach(item => {
+                filteredItems.slice(startIndex, endIndex).forEach((item, index) => {
                     item.style.display = 'block';
-                    item.classList.add('fade-in');
+                    // Staggered Fade-in
+                    setTimeout(() => {
+                        item.classList.add('fade-in');
+                    }, index * 40);
                 });
 
                 renderPagination(totalItems);
@@ -508,7 +642,6 @@
 
         // Type Filter Click
         typeButtons.forEach(btn => {
-            // Hover Effect
             btn.addEventListener('mouseenter', () => {
                 descriptionText.textContent = btn.getAttribute('data-description');
                 descriptionText.classList.remove('text-muted');
@@ -516,7 +649,6 @@
             });
 
             btn.addEventListener('mouseleave', () => {
-                // Return to active button's description
                 const activeBtn = document.querySelector('#project-type-filters button.active');
                 if (activeBtn) {
                     descriptionText.textContent = activeBtn.getAttribute('data-description');
@@ -525,8 +657,8 @@
                 descriptionText.classList.remove('text-dark', 'fw-bold');
             });
 
-            // Click Event
-            btn.addEventListener('click', function () {
+            btn.addEventListener('click', async function () {
+                if (this.classList.contains('active')) return; // Prevent double trigger
                 typeButtons.forEach(b => {
                     b.classList.remove('active', 'btn-dark');
                     b.classList.add('btn-outline-dark');
@@ -536,14 +668,14 @@
 
                 currentType = this.getAttribute('data-type');
                 currentPage = 1;
-                updateVisibility();
+                await updateVisibility();
             });
         });
 
-
         // Scope Filter Click
         scopeButtons.forEach(btn => {
-            btn.addEventListener('click', function () {
+            btn.addEventListener('click', async function () {
+                if (this.classList.contains('active')) return;
                 scopeButtons.forEach(b => {
                     b.classList.remove('active', 'btn-dark');
                     b.classList.add('btn-outline-dark');
@@ -553,18 +685,19 @@
 
                 currentScope = this.getAttribute('data-scope');
                 currentPage = 1;
-                updateVisibility();
+                await updateVisibility();
             });
         });
 
-        // Tech Stack Filter Click (Multi-select Logic)
+        // Tech Stack Filter Click
         const techAllButton = document.querySelector('#project-filters button[data-filter="all"]');
 
         techButtons.forEach(btn => {
-            btn.addEventListener('click', function () {
+            btn.addEventListener('click', async function () {
                 const filterValue = this.getAttribute('data-filter');
 
                 if (filterValue === 'all') {
+                    if (this.classList.contains('active')) return;
                     currentTechFilters = [];
                     techButtons.forEach(b => {
                         b.classList.remove('active', 'btn-primary', 'btn-secondary');
@@ -595,7 +728,11 @@
                 }
 
                 currentPage = 1;
-                updateVisibility();
+                try {
+                    await updateVisibility();
+                } catch (e) {
+                    console.error("Error updating visibility:", e);
+                }
             });
         });
 
@@ -661,7 +798,7 @@
                 <div class="card h-auto h-md-100 shadow border-0 position-relative project-card-hover">
                     {% if leadership.image %}
                     <img src="{{ leadership.image.url }}" class="card-img-top" alt="{{ leadership.title }}"
-                        style="height: 200px; object-fit: cover;">
+                        style="height: 200px; object-fit: cover;" loading="lazy">
                     {% endif %}
                     <div class="card-body d-flex flex-column">
                         <div class="mb-2">

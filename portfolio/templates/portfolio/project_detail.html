@@ -57,7 +57,7 @@
                 {% if project.image %}
                 <figure class="figure w-100 mt-3">
                     <img src="{{ project.image.url }}" class="figure-img img-fluid rounded w-100 shadow-sm"
-                        alt="{{ project.title }}">
+                        alt="{{ project.title }}" loading="lazy">
                 </figure>
                 {% endif %}
             </header>
