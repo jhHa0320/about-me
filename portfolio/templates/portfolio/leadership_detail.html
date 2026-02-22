@@ -18,14 +18,14 @@
                     {% if leadership.link %}
                     <div class="d-flex gap-2">
                         <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm" target="_blank">
-                            <i class="bi bi-link-45deg"></i> 관련 링크
+                            관련 링크
                         </a>
                     </div>
                     {% endif %}
                 </div>
 
                 <div class="text-muted mb-3">
-                    <span class="me-3"><i class="bi bi-calendar-event"></i> {{ leadership.period }}</span>
+                    <span class="me-3"> {{ leadership.period }}</span>
                     <span class="badge bg-primary me-1">{{ leadership.organization }}</span>
                 </div>
 
@@ -33,7 +33,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 mb-2">
-                                <strong><i class="bi bi-person-badge"></i> Role:</strong> {{ leadership.role }}
+                                <strong> Role:</strong> {{ leadership.role }}
                             </div>
                         </div>
                     </div>

@@ -173,12 +173,7 @@
                 <div class="skills-list">
                     {% for skill in skills_using %}
                     <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
-                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
-                                loading="lazy">{% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
+                        <span class="skill-name">{{ skill.name }}</span>
                         {% if skill.description %}
                         <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
@@ -194,12 +189,7 @@
                 <div class="skills-list">
                     {% for skill in skills_maintain %}
                     <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
-                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
-                                loading="lazy">{% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
+                        <span class="skill-name">{{ skill.name }}</span>
                         {% if skill.description %}
                         <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
@@ -215,12 +205,7 @@
                 <div class="skills-list">
                     {% for skill in skills_experience %}
                     <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
-                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
-                                loading="lazy">{% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
+                        <span class="skill-name">{{ skill.name }}</span>
                         {% if skill.description %}
                         <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
@@ -236,12 +221,7 @@
                 <div class="skills-list">
                     {% for skill in skills_using %}
                     <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
-                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
-                                loading="lazy">{% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
+                        <span class="skill-name">{{ skill.name }}</span>
                         {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
                     </div>
                     {% endfor %}
@@ -759,7 +739,7 @@
                     <p class="mb-1">{{ activity.description|linebreaks }}</p>
                     {% if activity.attachment %}
                     <small class="text-primary">
-                        <i class="bi bi-paperclip"></i> 첨부파일 보기
+                        첨부파일 보기
                     </small>
                     {% endif %}
 

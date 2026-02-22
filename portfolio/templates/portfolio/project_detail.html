@@ -19,12 +19,12 @@
                     <div class="d-flex gap-2">
                         {% if project.github_url %}
                         <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm" target="_blank">
-                            <i class="bi bi-github"></i> GitHub
+                            GitHub
                         </a>
                         {% endif %}
                         {% if project.demo_url %}
                         <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm" target="_blank">
-                            <i class="bi bi-window"></i> Live Demo
+                            Live Demo
                         </a>
                         {% endif %}
                     </div>
@@ -32,7 +32,7 @@
                 </div>
 
                 <div class="text-muted mb-3">
-                    <span class="me-3"><i class="bi bi-calendar-event"></i> {{ project.period }}</span>
+                    <span class="me-3"> {{ project.period }}</span>
                     {% for category in project.categories.all %}
                     <span class="badge bg-secondary me-1">{{ category.name }}</span>
                     {% endfor %}
@@ -42,10 +42,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 mb-2">
-                                <strong><i class="bi bi-person-badge"></i> Role:</strong> {{ project.role }}
+                                <strong> Role:</strong> {{ project.role }}
                             </div>
                             <div class="col-md-6 mb-2">
-                                <strong><i class="bi bi-tools"></i> Tech Stack:</strong>
+                                <strong> Tech Stack:</strong>
                                 {% for tech in project.tech_stacks.all %}
                                 <span class="badge bg-white text-dark border">{{ tech.name }}</span>
                                 {% endfor %}

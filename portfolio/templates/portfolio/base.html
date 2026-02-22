@@ -462,19 +462,43 @@
             justify-content: center;
             color: var(--bs-body-color);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 500;
             width: 25%;
             height: 100%;
-            transition: color 0.2s;
+            transition: all 0.2s;
+            background-color: #f8f9fa;
+            /* 기본 회색 배경 */
+        }
+
+        .mobile-bottom-nav .nav-item:nth-child(odd) {
+            background-color: #ffffff;
+            /* 하양-회색 교차 */
         }
 
         .mobile-bottom-nav .nav-item i {
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             margin-bottom: 2px;
+            opacity: 0.6;
+            /* 비활성 시 더 연하게 */
         }
 
         .mobile-bottom-nav .nav-item.active {
-            color: var(--primary-yellow);
+            background-color: var(--primary-yellow) !important;
+            color: #000 !important;
+            font-weight: bold;
+        }
+
+        .mobile-bottom-nav .nav-item.active i {
+            opacity: 1;
+        }
+
+        [data-bs-theme="dark"] .mobile-bottom-nav .nav-item {
+            background-color: #1a1a1a;
+        }
+
+        [data-bs-theme="dark"] .mobile-bottom-nav .nav-item:nth-child(odd) {
+            background-color: #000000;
         }
 
         html {
@@ -636,19 +660,19 @@
     {% if request.resolver_match.url_name == 'home' %}
     <nav class="mobile-bottom-nav d-md-none">
         <a href="#profile" class="nav-item">
-            <i class="bi bi-house-door"></i>
+            <i class="bi bi-house"></i>
             <span>홈</span>
         </a>
         <a href="#skills" class="nav-item">
-            <i class="bi bi-tools"></i>
+            <i class="bi bi-code-slash"></i>
             <span>기술</span>
         </a>
         <a href="#projects" class="nav-item">
-            <i class="bi bi-code-square"></i>
+            <i class="bi bi-folder2"></i>
             <span>프로젝트</span>
         </a>
         <a href="#activities" class="nav-item">
-            <i class="bi bi-chat-quote"></i>
+            <i class="bi bi-chat-dots"></i>
             <span>활동</span>
         </a>
     </nav>
