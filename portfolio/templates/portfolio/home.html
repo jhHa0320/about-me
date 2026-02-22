@@ -68,34 +68,32 @@
     <h2 class="section-title">SKILLS</h2>
     <div class="bg-light rounded p-3 p-md-4">
         <style>
-            .skills-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 30vw, 350px), 1fr));
-                gap: 2rem;
-            }
-
             .skills-list {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-                gap: 0.75rem;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1.25rem;
             }
 
             .skill-card {
                 background-color: var(--bs-body-bg);
                 border: 1px solid var(--bs-border-color);
-                border-radius: 8px;
-                padding: 0.75rem;
+                border-radius: 12px;
+                padding: 1rem;
                 display: flex;
                 flex-direction: column;
+                align-items: center;
                 justify-content: center;
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                text-align: center;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                /* 카드 너비를 고정하거나 유연하게 조절 */
+                flex: 0 1 clamp(140px, 18vw, 180px);
                 min-width: 0;
-                /* Ensures child ellipsis works */
             }
 
             .skill-card:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
                 background-color: var(--primary-yellow-hover) !important;
                 color: #000 !important;
                 border-color: var(--primary-yellow);
@@ -105,163 +103,79 @@
                 background-color: var(--bs-secondary-bg);
             }
 
-            [data-bs-theme="dark"] .skill-card:hover {
-                box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
-            }
-
             .skill-header {
                 display: flex;
+                flex-direction: column;
+                /* 아이콘과 텍스트 유동적 배치 */
                 align-items: center;
-                white-space: nowrap;
-                overflow: hidden;
+                gap: 0.5rem;
             }
 
             .skill-name {
                 font-weight: 700;
-                font-size: clamp(0.9rem, 1.5vw, 1.05rem);
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                font-size: clamp(0.95rem, 1.2vw, 1.1rem);
             }
 
             .skill-desc {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
                 color: var(--bs-secondary-color);
-                margin-top: 0.25rem;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                margin-top: 0.4rem;
+                line-height: 1.4;
             }
 
-            .skill-card:hover .skill-desc {
-                color: #333 !important;
+            /* Unifed Nav Pills for SKILLS Tabs */
+            #skillsTab {
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+                background: rgba(0, 0, 0, 0.03);
+                padding: 5px;
+                border-radius: 12px;
             }
 
-            /* Custom Nav Pills for Mobile SKILLS Tabs */
+            [data-bs-theme="dark"] #skillsTab {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
             #skillsTab .nav-link {
                 color: var(--bs-body-color);
                 border-radius: 8px;
-                margin: 0 2px;
-                padding: 0.5rem 1rem;
-                transition: background-color 0.2s, color 0.2s;
-            }
-
-            #skillsTab .nav-link:hover {
-                background-color: rgba(0, 0, 0, 0.05);
-            }
-
-            [data-bs-theme="dark"] #skillsTab .nav-link:hover {
-                background-color: rgba(255, 255, 255, 0.05);
+                padding: 0.6rem 1.2rem;
+                transition: all 0.2s ease;
+                border: none;
             }
 
             #skillsTab .nav-link.active {
                 background-color: var(--primary-yellow);
                 color: #000;
-                font-weight: bold;
+                font-weight: 700;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             }
         </style>
 
-        <!-- Mobile Tab Navigation (d-md-none) -->
-        <ul class="nav nav-pills nav-justified mb-4 d-md-none" id="skillsTab" role="tablist">
+        <!-- Unified Tab Navigation -->
+        <ul class="nav nav-pills nav-justified mb-5" id="skillsTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="using-tab" data-bs-toggle="pill" data-bs-target="#pills-using"
-                    type="button" role="tab" aria-controls="pills-using" aria-selected="true">사용 중</button>
+                <button class="nav-link active" id="using-tab" type="button" role="tab">사용 중</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="maintain-tab" data-bs-toggle="pill" data-bs-target="#pills-maintain"
-                    type="button" role="tab" aria-controls="pills-maintain" aria-selected="false">기능 유지</button>
+                <button class="nav-link" id="maintain-tab" type="button" role="tab">기능 유지</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="experience-tab" data-bs-toggle="pill" data-bs-target="#pills-experience"
-                    type="button" role="tab" aria-controls="pills-experience" aria-selected="false">경험 있음</button>
+                <button class="nav-link" id="experience-tab" type="button" role="tab">경험 있음</button>
             </li>
         </ul>
 
-        <!-- PC View (d-none d-md-grid) -->
-        <div class="skills-grid d-none d-md-grid">
-            <!-- Using Column -->
-            <div>
-                <h5 class="mb-3 d-flex align-items-center">
-                    <span class="badge bg-danger rounded-pill me-2">사용 중 🔥 {{ skills_using.count }}</span>
-                </h5>
-                <div class="skills-list">
-                    {% for skill in skills_using %}
-                    <div class="skill-card">
-                        <div class="skill-header mb-1">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
-                                loading="lazy">{% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
-                        {% if skill.description %}
-                        <div class="skill-desc">{{ skill.description }}</div>
-                        {% endif %}
-                    </div>
-                    {% empty %}
-                    <p class="text-muted small">등록된 기술이 없습니다.</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- Maintain Column -->
-            <div>
-                <h5 class="mb-3 d-flex align-items-center">
-                    <span class="badge bg-success rounded-pill me-2">기능 유지 ✅ {{ skills_maintain.count }}</span>
-                </h5>
-                <div class="skills-list">
-                    {% for skill in skills_maintain %}
-                    <div class="skill-card">
-                        <div class="skill-header mb-1">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
-                                loading="lazy">{% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
-                        {% if skill.description %}
-                        <div class="skill-desc">{{ skill.description }}</div>
-                        {% endif %}
-                    </div>
-                    {% empty %}
-                    <p class="text-muted small">등록된 기술이 없습니다.</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- Experience Column -->
-            <div>
-                <h5 class="mb-3 d-flex align-items-center">
-                    <span class="badge bg-secondary rounded-pill me-2">경험 있음 🕰️ {{ skills_experience.count }}</span>
-                </h5>
-                <div class="skills-list">
-                    {% for skill in skills_experience %}
-                    <div class="skill-card">
-                        <div class="skill-header mb-1">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
-                                loading="lazy">{% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
-                        {% if skill.description %}
-                        <div class="skill-desc">{{ skill.description }}</div>
-                        {% endif %}
-                    </div>
-                    {% empty %}
-                    <p class="text-muted small">등록된 기술이 없습니다.</p>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile View Content (d-md-none) -->
-        <div class="tab-content d-md-none" id="pills-tabContent">
+        <!-- Unified Tab Content -->
+        <div class="tab-content" id="pills-tabContent">
             <!-- Using Pane -->
-            <div class="tab-pane fade show active" id="pills-using" role="tabpanel" aria-labelledby="using-tab">
+            <div class="tab-pane fade show active" id="pills-using" role="tabpanel">
                 <div class="skills-list">
                     {% for skill in skills_using %}
                     <div class="skill-card">
-                        <div class="skill-header mb-1">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
+                        <div class="skill-header">
+                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
+                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
                                 loading="lazy">{% endif %}
                             <span class="skill-name">{{ skill.name }}</span>
                         </div>
@@ -270,19 +184,19 @@
                         {% endif %}
                     </div>
                     {% empty %}
-                    <p class="text-muted small">등록된 기술이 없습니다.</p>
+                    <p class="text-center text-muted py-4">등록된 기술이 없습니다.</p>
                     {% endfor %}
                 </div>
             </div>
 
             <!-- Maintain Pane -->
-            <div class="tab-pane fade" id="pills-maintain" role="tabpanel" aria-labelledby="maintain-tab">
+            <div class="tab-pane fade" id="pills-maintain" role="tabpanel">
                 <div class="skills-list">
                     {% for skill in skills_maintain %}
                     <div class="skill-card">
-                        <div class="skill-header mb-1">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
+                        <div class="skill-header">
+                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
+                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
                                 loading="lazy">{% endif %}
                             <span class="skill-name">{{ skill.name }}</span>
                         </div>
@@ -291,19 +205,19 @@
                         {% endif %}
                     </div>
                     {% empty %}
-                    <p class="text-muted small">등록된 기술이 없습니다.</p>
+                    <p class="text-center text-muted py-4">등록된 기술이 없습니다.</p>
                     {% endfor %}
                 </div>
             </div>
 
             <!-- Experience Pane -->
-            <div class="tab-pane fade" id="pills-experience" role="tabpanel" aria-labelledby="experience-tab">
+            <div class="tab-pane fade" id="pills-experience" role="tabpanel">
                 <div class="skills-list">
                     {% for skill in skills_experience %}
                     <div class="skill-card">
-                        <div class="skill-header mb-1">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}" class="me-2"
-                                style="width: 22px; height: 22px; object-fit: contain;" alt="{{ skill.name }} icon"
+                        <div class="skill-header">
+                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
+                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
                                 loading="lazy">{% endif %}
                             <span class="skill-name">{{ skill.name }}</span>
                         </div>
@@ -312,11 +226,85 @@
                         {% endif %}
                     </div>
                     {% empty %}
-                    <p class="text-muted small">등록된 기술이 없습니다.</p>
+                    <p class="text-center text-muted py-4">등록된 기술이 없습니다.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- All Skills Pane -->
+            <div class="tab-pane fade" id="pills-all" role="tabpanel">
+                <div class="skills-list">
+                    {% for skill in skills_using %}
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
+                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
+                                loading="lazy">{% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
+                        </div>
+                        {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                    {% for skill in skills_maintain %}
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
+                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
+                                loading="lazy">{% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
+                        </div>
+                        {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                    {% for skill in skills_experience %}
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
+                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
+                                loading="lazy">{% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
+                        </div>
+                        {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                    </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const navLinks = document.querySelectorAll('#skillsTab .nav-link');
+                const tabPanes = document.querySelectorAll('.tab-content .tab-pane');
+                const allPane = document.getElementById('pills-all');
+
+                const tabMap = {
+                    'using-tab': 'pills-using',
+                    'maintain-tab': 'pills-maintain',
+                    'experience-tab': 'pills-experience'
+                };
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const isAlreadyActive = this.classList.contains('active');
+
+                        // 1. Reset all states
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        tabPanes.forEach(p => p.classList.remove('show', 'active'));
+
+                        if (isAlreadyActive) {
+                            // 2. Toggle OFF -> Show All Skills
+                            allPane.classList.add('show', 'active');
+                        } else {
+                            // 3. Toggle ON -> Show specific category
+                            this.classList.add('active');
+                            const targetId = tabMap[this.id];
+                            document.getElementById(targetId).classList.add('show', 'active');
+                        }
+                    });
+                });
+            });
+        </script>
     </div>
 </section>
 
