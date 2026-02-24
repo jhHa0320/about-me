@@ -154,17 +154,27 @@
         </style>
 
         <!-- Unified Tab Navigation -->
-        <ul class="nav nav-pills nav-justified mb-5" id="skillsTab" role="tablist">
+        <ul class="nav nav-pills nav-justified mb-4" id="skillsTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="using-tab" type="button" role="tab">사용 중</button>
+                <button class="nav-link active" id="using-tab" type="button" role="tab"
+                    data-description="현재 실무나 개인 프로젝트에서 활발하게 사용 중인 기술입니다.">사용 중</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="maintain-tab" type="button" role="tab">기능 유지</button>
+                <button class="nav-link" id="maintain-tab" type="button" role="tab"
+                    data-description="기존 코드를 유지보수하거나 필요시 문서를 참고하여 다룰 수 있는 기술입니다.">기능 유지</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="experience-tab" type="button" role="tab">경험 있음</button>
+                <button class="nav-link" id="experience-tab" type="button" role="tab"
+                    data-description="과거 프로젝트에서 사용해 본 경험이 있으며, 기본 개념을 이해하고 있는 기술입니다.">경험 있음</button>
             </li>
         </ul>
+
+        <!-- Dynamic Description Area for Skills -->
+        <div class="text-center mb-4" style="min-height: 24px;">
+            <p class="text-muted fst-italic" id="skills-description">
+                현재 실무나 개인 프로젝트에서 활발하게 사용 중인 기술입니다.
+            </p>
+        </div>
 
         <!-- Unified Tab Content -->
         <div class="tab-content" id="pills-tabContent">
@@ -263,7 +273,30 @@
                     'experience-tab': 'pills-experience'
                 };
 
+                const skillDescriptionText = document.getElementById('skills-description');
+
                 navLinks.forEach(link => {
+                    link.addEventListener('mouseenter', function () {
+                        if (skillDescriptionText) {
+                            skillDescriptionText.textContent = this.getAttribute('data-description');
+                            skillDescriptionText.classList.remove('text-muted');
+                            skillDescriptionText.classList.add('text-dark', 'fw-bold');
+                        }
+                    });
+
+                    link.addEventListener('mouseleave', function () {
+                        if (skillDescriptionText) {
+                            const activeLink = document.querySelector('#skillsTab .nav-link.active');
+                            if (activeLink) {
+                                skillDescriptionText.textContent = activeLink.getAttribute('data-description');
+                            } else {
+                                skillDescriptionText.textContent = '모든 기술 스택을 한눈에 모아봅니다.';
+                            }
+                            skillDescriptionText.classList.add('text-muted');
+                            skillDescriptionText.classList.remove('text-dark', 'fw-bold');
+                        }
+                    });
+
                     link.addEventListener('click', function (e) {
                         e.preventDefault();
                         const isAlreadyActive = this.classList.contains('active');
@@ -275,11 +308,17 @@
                         if (isAlreadyActive) {
                             // 2. Toggle OFF -> Show All Skills
                             allPane.classList.add('show', 'active');
+                            if (skillDescriptionText) {
+                                skillDescriptionText.textContent = '모든 기술 스택을 한눈에 모아봅니다.';
+                            }
                         } else {
                             // 3. Toggle ON -> Show specific category
                             this.classList.add('active');
                             const targetId = tabMap[this.id];
                             document.getElementById(targetId).classList.add('show', 'active');
+                            if (skillDescriptionText) {
+                                skillDescriptionText.textContent = this.getAttribute('data-description');
+                            }
                         }
                     });
                 });
@@ -403,16 +442,23 @@
                             </li>
                         </ul>
 
-                        <div class="mt-3 d-flex align-items-center justify-content-end gap-2"
+                        <div class="mt-3 d-flex align-items-center justify-content-between"
                             style="position: relative; z-index: 2;">
-                            {% if project.github_url %}
-                            <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm" target="_blank">View
-                                Code</a>
-                            {% endif %}
-                            {% if project.demo_url %}
-                            <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm" target="_blank">Live
-                                Demo</a>
-                            {% endif %}
+                            <a href="{% url 'project_detail' project.id %}"
+                                class="text-primary text-decoration-none fw-bold small">
+                                자세히 보기 <i class="bi bi-arrow-right"></i>
+                            </a>
+                            <div class="d-flex gap-2">
+                                {% if project.github_url %}
+                                <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm"
+                                    target="_blank">View
+                                    Code</a>
+                                {% endif %}
+                                {% if project.demo_url %}
+                                <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm" target="_blank">Live
+                                    Demo</a>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -453,9 +499,18 @@
         let currentTechFilters = [];
 
         // Resize listener to handle UI switch between scroll and pagination
+        let resizeTimeout;
+        let lastWidth = window.innerWidth;
         window.addEventListener('resize', () => {
-            currentPage = 1;
-            updateVisibility();
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const currentWidth = window.innerWidth;
+                if (currentWidth !== lastWidth) {
+                    lastWidth = currentWidth;
+                    currentPage = 1;
+                    updateVisibility();
+                }
+            }, 150);
         });
 
         // --- 1. Filter Logic ---

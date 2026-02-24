@@ -9,7 +9,7 @@
 - **Backend:** ![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white) 
 - **Frontend:** ![Bootstrap 5](https://img.shields.io/badge/Bootstrap_5-7952B3?style=flat-square&logo=bootstrap&logoColor=white) ![Vanilla JS](https://img.shields.io/badge/Vanilla_JS-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
 - **Data:** `JSON` / `SQLite3` (데이터 기반 동적 랜더링)
-- **Design:** CSS Grid, CSS `clamp()` (Fluid Typography)
+- **Design:** CSS Grid, CSS `clamp()` (F  luid Typography)
 
 ---
 
