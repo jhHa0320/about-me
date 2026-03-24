@@ -15,6 +15,9 @@ class ProjectCategoryAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('name', 'email')
 
+    def has_add_permission(self, request):
+        return not Profile.objects.exists()
+
 @admin.register(Education)
 class EducationAdmin(admin.ModelAdmin):
     list_display = ('school', 'period', 'status')
@@ -33,14 +36,14 @@ class CareerAdmin(admin.ModelAdmin):
 @admin.register(Project)
 class ProjectAdmin(SummernoteModelAdmin):
     summernote_fields = ('content',)
-    list_display = ('order', 'title', 'period', 'type', 'scope', 'role', 'is_active')
-    list_editable = ('order', 'is_active', 'type', 'scope')
+    list_display = ('order', 'title', 'period', 'start_date', 'type', 'scope', 'role', 'is_active')
+    list_editable = ('order', 'is_active', 'type', 'scope', 'start_date')
     list_display_links = ('title',)
     list_filter = ('type', 'scope', 'categories', 'tech_stacks', 'is_active')
     filter_horizontal = ('categories', 'tech_stacks')
     fieldsets = (
         ('기본 정보', {
-            'fields': ('title', 'type', 'scope', 'period', 'categories', 'tech_stacks', 'role', 'order', 'is_active')
+            'fields': ('title', 'type', 'scope', 'period', 'start_date', 'categories', 'tech_stacks', 'role', 'order', 'is_active')
         }),
         ('상세 내용', {
             'fields': ('description', 'outcome', 'content', 'image')
