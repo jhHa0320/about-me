@@ -88,6 +88,7 @@ class Project(models.Model):
     type = models.ForeignKey(ProjectType, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="프로젝트 유형")
     title = models.CharField(max_length=100, verbose_name="프로젝트명")
     period = models.CharField(max_length=50, default='', verbose_name="기간")
+    start_date = models.DateField(null=True, blank=True, verbose_name="시작일 (정렬용)")
     categories = models.ManyToManyField(ProjectCategory, verbose_name="분류 (복수선택 가능)")
     tech_stacks = models.ManyToManyField(Skill, verbose_name="사용 기술 (복수선택 가능)")
     role = models.CharField(max_length=100, default='', verbose_name="나의 역할")
@@ -107,10 +108,13 @@ class Project(models.Model):
     
     is_active = models.BooleanField(default=True, verbose_name="활성화 여부")
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name = "프로젝트"
         verbose_name_plural = "프로젝트"
-        ordering = ['-order', '-period', '-id']
+        ordering = ['-order', '-start_date', '-id']
 
 class Activity(models.Model):
     title = models.CharField(max_length=100, verbose_name="활동/자격증명")
