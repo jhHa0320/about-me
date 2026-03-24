@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -17,602 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <style>
-        :root {
-            --bs-body-font-size: clamp(1rem, 1.2vw + 0.8rem, 1.15rem);
-            /* Custom Brand Colors: Actor-like Amber/Gold/Black vibe */
-            --primary-yellow: #f5a623;
-            /* Classic Amber Gold */
-            --primary-yellow-hover: #ffc107;
-            /* Brighter gold on hover */
-            --primary-yellow-dark: #d48a1b;
-            /* Deep amber */
-        }
-
-        /* 옐로우 기반의 프라이머리 컬러 스타일 재정의 */
-        .text-primary {
-            color: var(--primary-yellow) !important;
-        }
-
-        .bg-primary {
-            background-color: var(--primary-yellow) !important;
-            color: #000 !important;
-        }
-
-        a {
-            color: var(--primary-yellow-dark);
-        }
-
-        a:hover {
-            color: var(--primary-yellow);
-        }
-
-        /* 버튼 스타일 전반 */
-        .btn-primary {
-            background-color: var(--primary-yellow) !important;
-            border-color: var(--primary-yellow) !important;
-            color: #000 !important;
-            font-weight: 600;
-        }
-
-        .btn-primary:hover,
-        .btn-primary:active,
-        .btn-primary.active {
-            background-color: var(--primary-yellow-hover) !important;
-            border-color: var(--primary-yellow) !important;
-            color: #000 !important;
-        }
-
-        .btn-outline-primary {
-            color: var(--primary-yellow) !important;
-            border-color: var(--primary-yellow) !important;
-        }
-
-        .btn-outline-primary:hover,
-        .btn-outline-primary:active,
-        .btn-outline-primary.active {
-            background-color: var(--primary-yellow-hover) !important;
-            border-color: var(--primary-yellow) !important;
-            color: #000 !important;
-        }
-
-        /* 네비게이션 탭 (Nav Pills) 노란색 테마 적용 */
-        .nav-pills .nav-link.active,
-        .nav-pills .show>.nav-link {
-            background-color: var(--primary-yellow) !important;
-            color: #000 !important;
-            font-weight: bold;
-        }
-
-        .nav-pills .nav-link {
-            color: var(--bs-body-color);
-        }
-
-        .nav-pills .nav-link:hover {
-            color: var(--primary-yellow);
-        }
-
-        /* 일반 다크 버튼(주요, 개인, 팀 등) 및 기술 버튼(secondary)의 호버 색상도 노란색 계열로 통일 */
-        .btn-outline-dark:hover,
-        .btn-outline-secondary:hover {
-            background-color: var(--primary-yellow-hover) !important;
-            color: #000 !important;
-            border-color: var(--primary-yellow) !important;
-        }
-
-        /* 폼 요소 포커스 등 기타 파란색 제거 */
-        .form-control:focus {
-            border-color: var(--primary-yellow);
-            box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
-        }
-
-        [data-bs-theme="dark"] {
-            --bs-body-bg: #000000;
-            /* 확 블랙 배경 */
-            --bs-body-color: #ffffff;
-            /* 완전 하얀색 텍스트 */
-            --bs-tertiary-bg: #121212;
-            /* 더 어두운 회색 (섹션 배경) */
-            --bs-secondary-bg: #1e1e1e;
-            /* 카드/리스트 아이템 배경 */
-            --bs-emphasis-color: var(--primary-yellow);
-            /* 강조 색상 */
-            --bs-border-color: #333;
-            --bs-primary: var(--primary-yellow);
-        }
-
-        /* 다크모드 제목 강조 */
-        [data-bs-theme="dark"] .section-title,
-        [data-bs-theme="dark"] .card-title,
-        [data-bs-theme="dark"] .card-title a {
-            color: #ffffff !important;
-        }
-
-        /* 다크모드 컴포넌트 강제 적용 */
-        [data-bs-theme="dark"] .card,
-        [data-bs-theme="dark"] .list-group-item {
-            background-color: #1e1e1e !important;
-            color: #ffffff !important;
-            border-color: #333 !important;
-        }
-
-        /* 다크모드 필터 버튼(outline-dark) 글씨색 하얀색으로 강제 및 호버 개선 */
-        [data-bs-theme="dark"] .btn-outline-dark {
-            color: #fff;
-            border-color: #444;
-        }
-
-        [data-bs-theme="dark"] .btn-outline-dark:hover {
-            background-color: var(--primary-yellow-hover) !important;
-            color: #000 !important;
-            border-color: var(--primary-yellow) !important;
-        }
-
-        [data-bs-theme="dark"] .bg-light {
-            background-color: #121212 !important;
-        }
-
-        /* 페이지네이션 (노란색 강조) */
-        .page-item.active .page-link {
-            background-color: var(--primary-yellow) !important;
-            border-color: var(--primary-yellow) !important;
-            color: #000 !important;
-            font-weight: bold;
-        }
-
-        .page-link {
-            color: var(--bs-emphasis-color);
-            background-color: var(--bs-body-bg);
-            border-color: var(--bs-border-color);
-        }
-
-        .page-link:hover {
-            background-color: var(--bs-secondary-bg);
-            color: var(--primary-yellow);
-        }
-
-        /* 프로젝트 사용 기술 배지 조정 */
-        [data-bs-theme="dark"] .badge.bg-light.text-dark {
-            background-color: #333 !important;
-            color: #fff !important;
-            border: 1px solid #444 !important;
-        }
-
-        /* Back to Top 버튼 스타일 */
-        #btn-back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: none;
-            z-index: 1000;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background-color: var(--primary-yellow) !important;
-            color: #000 !important;
-            border: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease-in-out;
-        }
-
-        /* 터치 기기에서 클릭 후 색상 유지 방지 및 마우스 호버 효과 */
-        @media (hover: hover) {
-            #btn-back-to-top:hover {
-                background-color: var(--primary-yellow-dark) !important;
-                transform: scale(1.1);
-            }
-        }
-
-        /* 클릭 시 피드백만 짧게 */
-        #btn-back-to-top:active {
-            transform: scale(0.9);
-            background-color: var(--primary-yellow-dark) !important;
-        }
-
-        /* 포커스 시 배경색 유지 방지 */
-        #btn-back-to-top:focus,
-        #btn-back-page:focus {
-            outline: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            background-color: var(--primary-yellow) !important;
-        }
-
-        /* 뒤로 가기 플로팅 버튼 스타일 */
-        #btn-back-page {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            display: block;
-            z-index: 1000;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background-color: #333 !important;
-            color: #fff !important;
-            border: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease-in-out;
-        }
-
-        @media (hover: hover) {
-            #btn-back-page:hover {
-                background-color: #000 !important;
-                transform: scale(1.1);
-            }
-        }
-
-        #btn-back-page:active {
-            transform: scale(0.9);
-        }
-
-        /* 기술 스택 리스트 아이템의 설명 텍스트 대비 향상 */
-        [data-bs-theme="dark"] .text-muted {
-            color: #bbb !important;
-        }
-
-        /* 가로 스크롤 필터 (반응형: 모바일에서만 2줄 스크롤) */
-        .filter-scroll-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        @media (max-width: 767.98px) {
-            .filter-scroll-container {
-                display: grid;
-                grid-template-rows: repeat(2, auto);
-                grid-auto-columns: 140px;
-                /* 모바일에서는 좀 더 작게 */
-                grid-auto-flow: column;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 15px;
-                margin-bottom: -5px;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-                scroll-snap-type: x proximity;
-            }
-
-            .filter-scroll-container::-webkit-scrollbar {
-                display: none;
-            }
-
-            .filter-scroll-container .btn {
-                white-space: nowrap;
-                width: 100%;
-                text-align: center;
-                font-size: 0.85rem;
-                /* 모바일 필터 글자 크기 축소 */
-                padding: 0.4rem 0.5rem;
-            }
-
-            /* 모바일 전용 프로필 텍스트 크기 */
-            .profile-details-responsive {
-                font-size: 0.9rem !important;
-            }
-
-            .profile-name-responsive {
-                font-size: 1.25rem !important;
-            }
-
-            #project-list,
-            #leadership-list {
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important;
-                align-items: flex-start !important;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 20px;
-                gap: 15px;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-            }
-
-            #project-list::-webkit-scrollbar,
-            #leadership-list::-webkit-scrollbar {
-                display: none;
-                /* Chrome, Safari, Opera */
-            }
-
-            .project-item,
-            #leadership-list>.col-md-6 {
-                flex: 0 0 85% !important;
-                max-width: 85% !important;
-                scroll-snap-align: center;
-                margin-bottom: 0 !important;
-            }
-
-            /* 모바일에서 전용 페이지네이션 숨김 (스크롤이 이를 대체) */
-            #pagination-controls-wrapper {
-                display: none !important;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .profile-details-responsive {
-                font-size: 1.05rem;
-            }
-
-            .profile-name-responsive {
-                font-size: 1.75rem;
-            }
-
-            /* PC 버전 스타일 복구 및 하나씩 보기 기조 */
-            #project-list,
-            #leadership-list {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                overflow-x: visible !important;
-                justify-content: center;
-                gap: 0;
-            }
-
-            .project-item,
-            #leadership-list>.col-md-6 {
-                flex: 0 0 50% !important;
-                /* PC에서 2열로 배치하여 6개 표시 */
-                max-width: 50% !important;
-                scroll-snap-align: none;
-                margin-bottom: 2rem !important;
-            }
-
-            #pagination-controls-wrapper {
-                display: block !important;
-            }
-        }
-
-        /* 카드 호버 효과 */
-        .project-card-hover {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            cursor: pointer;
-        }
-
-        .project-card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
-        }
-
-        .project-card-hover:active {
-            transform: translateY(-2px) scale(0.98);
-            /* 클릭 시 살짝 눌리는 효과 */
-            transition: transform 0.1s ease;
-        }
-
-        /* Animations */
-        .fade-in {
-            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Loading Overlay / Skeleton */
-        .loading-skeleton {
-            position: relative;
-            overflow: hidden;
-            background-color: var(--bs-secondary-bg) !important;
-            border-color: transparent !important;
-        }
-
-        .loading-skeleton::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-            transform: translateX(-100%);
-            animation: shimmer 1.2s infinite;
-        }
-
-        [data-bs-theme="light"] .loading-skeleton::after {
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-        }
-
-        @keyframes shimmer {
-            100% {
-                transform: translateX(100%);
-            }
-        }
-
-        .loading-skeleton * {
-            opacity: 0 !important;
-        }
-
-        body {
-            padding-top: 56px;
-            font-family: 'Nanum Gothic', sans-serif;
-            font-size: var(--bs-body-font-size);
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* 모바일 하단 바 스타일 */
-        .mobile-bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 65px;
-            background-color: var(--bs-body-bg);
-            border-top: 1px solid var(--bs-border-color);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 1030;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .mobile-bottom-nav .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--bs-body-color);
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 500;
-            width: 25%;
-            height: 100%;
-            transition: all 0.2s;
-            background-color: #f8f9fa;
-            /* 기본 회색 배경 */
-        }
-
-        .mobile-bottom-nav .nav-item:nth-child(odd) {
-            background-color: #ffffff;
-            /* 하양-회색 교차 */
-        }
-
-        .mobile-bottom-nav .nav-item i {
-            font-size: 1.1rem;
-            margin-bottom: 2px;
-            opacity: 0.6;
-            /* 비활성 시 더 연하게 */
-        }
-
-        .mobile-bottom-nav .nav-item.active {
-            background-color: var(--primary-yellow) !important;
-            color: #000 !important;
-            font-weight: bold;
-        }
-
-        .mobile-bottom-nav .nav-item.active i {
-            opacity: 1;
-        }
-
-        [data-bs-theme="dark"] .mobile-bottom-nav .nav-item {
-            background-color: #1a1a1a;
-        }
-
-        [data-bs-theme="dark"] .mobile-bottom-nav .nav-item:nth-child(odd) {
-            background-color: #000000;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 95px;
-            /* 네비게이션 클릭 시 제목 가림 방지 */
-        }
-
-        @media (max-width: 767.98px) {
-            body {
-                padding-top: 90px !important;
-                /* 상단 바 겹침 방지 강제 적용 */
-                padding-bottom: 70px;
-                /* 하단 바 높이만큼 여백 추가 */
-            }
-        }
-
-        .section-title {
-            margin-bottom: clamp(20px, 4vw, 40px);
-            border-bottom: 2px solid var(--bs-emphasis-color);
-            padding-bottom: 10px;
-            font-weight: 700;
-            font-size: clamp(1.75rem, 4vw + 1rem, 2.5rem);
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        /* 모바일 정렬 및 여백 보정 */
-        @media (max-width: 767.98px) {
-            .container {
-                padding-left: clamp(15px, 4vw, 25px) !important;
-                padding-right: clamp(15px, 4vw, 25px) !important;
-            }
-
-            .section-title {
-                text-align: left;
-            }
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: #000 !important;
-            /* 제목 About Me는 검정 */
-        }
-
-        [data-bs-theme="dark"] .navbar-brand {
-            color: #fff !important;
-            /* 다크모드에서는 흰색으로 유지 */
-        }
-
-        /* 가독성 개선 */
-        .text-muted {
-            font-size: 0.95rem;
-        }
-
-        small,
-        .small {
-            font-size: 0.9rem;
-        }
-
-        h1,
-        .h1 {
-            font-size: clamp(2rem, 5vw + 1rem, 3.5rem);
-        }
-
-        h2,
-        .h2 {
-            font-size: clamp(1.75rem, 4vw + 0.5rem, 2.5rem);
-        }
-
-        h3,
-        .h3 {
-            font-size: clamp(1.5rem, 3vw + 0.5rem, 2rem);
-        }
-
-        h4,
-        .h4 {
-            font-size: clamp(1.25rem, 2vw + 0.5rem, 1.75rem);
-        }
-
-        h5,
-        .h5 {
-            font-size: clamp(1.1rem, 1.5vw + 0.5rem, 1.25rem);
-        }
-
-        /* 리스트 아이템(스킬 카드 등) 호버 효과 추가 */
-        .list-group-item {
-            transition: all 0.2s ease;
-        }
-
-        .list-group-item:hover {
-            background-color: var(--primary-yellow-hover) !important;
-            color: #000 !important;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-            cursor: default;
-        }
-
-        [data-bs-theme="dark"] .list-group-item:hover {
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05) !important;
-        }
-
-        /* 스킬 배지 색상 조정 */
-        .badge.bg-primary {
-            background-color: var(--primary-yellow) !important;
-            color: #000 !important;
-        }
-
-        /* 테마 전환 애니메이션 */
-        .theme-icon-active {
-            display: none;
-        }
-    </style>
+    <!-- Portfolio Styles -->
+    <link rel="stylesheet" href="{% static 'portfolio/css/style.css' %}">
     <script>
         // 초기 테마 설정 (페이지 깜빡임 방지)
         (function () {
@@ -645,6 +52,7 @@
                     <li class="nav-item"><a class="nav-link" href="#career">Career</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                     <li class="nav-item"><a class="nav-link" href="#activities">Activities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#leadership">Leadership</a></li>
                 </ul>
             </div>
         </div>
@@ -677,6 +85,10 @@
             <i class="bi bi-chat-dots"></i>
             <span>활동</span>
         </a>
+        <a href="#leadership" class="nav-item">
+            <i class="bi bi-award"></i>
+            <span>리더십</span>
+        </a>
     </nav>
     {% endif %}
 
@@ -696,35 +108,27 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Back to Top 기능
-        let mybutton = document.getElementById("btn-back-to-top");
+        const mybutton = document.getElementById("btn-back-to-top");
 
-        window.onscroll = function () {
+        window.addEventListener('scroll', function () {
             scrollFunction();
             updateActiveTab();
-        };
+        });
 
         function scrollFunction() {
-            if (
-                document.body.scrollTop > 300 ||
-                document.documentElement.scrollTop > 300
-            ) {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 mybutton.style.display = "block";
             } else {
                 mybutton.style.display = "none";
             }
         }
 
-        mybutton.addEventListener("click", backToTop);
-
-        function backToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
+        mybutton.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
 
         // 뒤로 가기 기능
-        let backButton = document.getElementById("btn-back-page");
+        const backButton = document.getElementById("btn-back-page");
         if (backButton) {
             backButton.addEventListener("click", function () {
                 if (window.history.length > 1) {
@@ -737,7 +141,7 @@
 
         // 모바일 하단 바 활성화 상태 업데이트
         function updateActiveTab() {
-            const sections = ['profile', 'skills', 'projects', 'activities'];
+            const sections = ['profile', 'skills', 'projects', 'activities', 'leadership'];
             const navItems = document.querySelectorAll('.mobile-bottom-nav .nav-item');
 
             let currentSection = "";
@@ -773,9 +177,7 @@
 
             const getPreferredTheme = () => {
                 const storedTheme = getStoredTheme()
-                if (storedTheme) {
-                    return storedTheme
-                }
+                if (storedTheme) return storedTheme
                 return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
             }
 

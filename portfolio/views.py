@@ -9,12 +9,13 @@ def project_detail(request, project_id):
 
 def home(request):
     profile = Profile.objects.first()
-    skills_using = Skill.objects.filter(category='USING')
-    skills_maintain = Skill.objects.filter(category='MAINTAIN')
-    skills_experience = Skill.objects.filter(category='EXPERIENCE')
+    all_skills = list(Skill.objects.all())
+    skills_using = [s for s in all_skills if s.category == 'USING']
+    skills_maintain = [s for s in all_skills if s.category == 'MAINTAIN']
+    skills_experience = [s for s in all_skills if s.category == 'EXPERIENCE']
     educations = profile.educations.all() if profile else []
-    careers = Career.objects.all()    # Project (Active only)
-    projects = Project.objects.filter(is_active=True).prefetch_related('categories', 'tech_stacks', 'type')
+    careers = Career.objects.all()
+    projects = Project.objects.filter(is_active=True).select_related('type').prefetch_related('categories', 'tech_stacks')
     project_types = ProjectType.objects.all()
     project_skills = Skill.objects.filter(project__isnull=False).distinct()
     activities = Activity.objects.all()

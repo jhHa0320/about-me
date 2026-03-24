@@ -1,4 +1,5 @@
 {% extends 'portfolio/base.html' %}
+{% load bleach_tags %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -80,7 +81,7 @@
             <section class="mb-5">
                 <h3 class="h4 mb-3 border-bottom pb-2">상세 내용 (Report)</h3>
                 <div class="project-content">
-                    {{ project.content|safe }}
+                    {{ project.content|bleach }}
                 </div>
             </section>
             {% endif %}
@@ -95,26 +96,4 @@
     </div>
 </div>
 
-<style>
-    .project-content {
-        line-height: 1.8;
-        font-size: 1.1rem;
-    }
-
-    .project-content img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        margin: 20px 0;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .project-content h1,
-    .project-content h2,
-    .project-content h3 {
-        margin-top: 40px;
-        margin-bottom: 20px;
-        font-weight: bold;
-    }
-</style>
 {% endblock %}

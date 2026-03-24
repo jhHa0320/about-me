@@ -1,24 +1,9 @@
-﻿{% extends 'portfolio/base.html' %}
+{% extends 'portfolio/base.html' %}
 
 {% block content %}
 <!-- Profile Section -->
 <section id="profile" class="py-5">
     <h2 class="section-title">PROFILE</h2>
-    <style>
-        .profile-image-container {
-            width: 100%;
-            max-width: 280px;
-            aspect-ratio: 1 / 1;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-
-        .profile-placeholder {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            color: #adb5bd;
-        }
-    </style>
     <div class="row align-items-center">
         <div class="col-md-4 mb-4 mb-md-0 text-center d-flex justify-content-center">
             <div class="profile-image-container">
@@ -37,13 +22,6 @@
             {% if profile %}
             <h3 class="fw-bold mb-2 profile-name-responsive">{{ profile.name }}</h3>
             <div class="profile-details profile-details-responsive">
-                <style>
-                    .profile-label {
-                        display: inline-block;
-                        min-width: 80px;
-                        font-weight: bold;
-                    }
-                </style>
                 <p class="mb-1">
                     <span class="profile-label">생년월일</span> {{ profile.birthdate }}
                 </p>
@@ -89,92 +67,6 @@
 <section id="skills" class="py-5">
     <h2 class="section-title">SKILLS</h2>
     <div class="bg-light rounded p-3 p-md-4">
-        <style>
-            .skills-list {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 1.25rem;
-            }
-
-            .skill-card {
-                background-color: var(--bs-body-bg);
-                border: 1px solid var(--bs-border-color);
-                border-radius: 12px;
-                padding: 1rem;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                /* 카드 너비를 고정하거나 유연하게 조절 */
-                flex: 0 1 clamp(140px, 18vw, 180px);
-                min-width: 0;
-            }
-
-            .skill-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-                background-color: var(--primary-yellow-hover) !important;
-                color: #000 !important;
-                border-color: var(--primary-yellow);
-            }
-
-            [data-bs-theme="dark"] .skill-card {
-                background-color: var(--bs-secondary-bg);
-            }
-
-            .skill-header {
-                display: flex;
-                flex-direction: column;
-                /* 아이콘과 텍스트 유동적 배치 */
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .skill-name {
-                font-weight: 700;
-                font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-            }
-
-            .skill-desc {
-                font-size: 0.85rem;
-                color: var(--bs-secondary-color);
-                margin-top: 0.4rem;
-                line-height: 1.4;
-            }
-
-            /* Unifed Nav Pills for SKILLS Tabs */
-            #skillsTab {
-                max-width: 600px;
-                margin-left: auto;
-                margin-right: auto;
-                background: rgba(0, 0, 0, 0.03);
-                padding: 5px;
-                border-radius: 12px;
-            }
-
-            [data-bs-theme="dark"] #skillsTab {
-                background: rgba(255, 255, 255, 0.05);
-            }
-
-            #skillsTab .nav-link {
-                color: var(--bs-body-color);
-                border-radius: 8px;
-                padding: 0.6rem 1.2rem;
-                transition: all 0.2s ease;
-                border: none;
-            }
-
-            #skillsTab .nav-link.active {
-                background-color: var(--primary-yellow);
-                color: #000;
-                font-weight: 700;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            }
-        </style>
-
         <!-- Unified Tab Navigation -->
         <ul class="nav nav-pills nav-justified mb-4" id="skillsTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -205,7 +97,13 @@
                 <div class="skills-list">
                     {% for skill in skills_using %}
                     <div class="skill-card">
-                        <span class="skill-name">{{ skill.name }}</span>
+                        <div class="skill-header">
+                            {% if skill.icon %}
+                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
+                                alt="{{ skill.name }} 아이콘" loading="lazy">
+                            {% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
+                        </div>
                         {% if skill.description %}
                         <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
@@ -221,7 +119,13 @@
                 <div class="skills-list">
                     {% for skill in skills_maintain %}
                     <div class="skill-card">
-                        <span class="skill-name">{{ skill.name }}</span>
+                        <div class="skill-header">
+                            {% if skill.icon %}
+                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
+                                alt="{{ skill.name }} 아이콘" loading="lazy">
+                            {% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
+                        </div>
                         {% if skill.description %}
                         <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
@@ -237,7 +141,13 @@
                 <div class="skills-list">
                     {% for skill in skills_experience %}
                     <div class="skill-card">
-                        <span class="skill-name">{{ skill.name }}</span>
+                        <div class="skill-header">
+                            {% if skill.icon %}
+                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
+                                alt="{{ skill.name }} 아이콘" loading="lazy">
+                            {% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
+                        </div>
                         {% if skill.description %}
                         <div class="skill-desc">{{ skill.description }}</div>
                         {% endif %}
@@ -253,16 +163,23 @@
                 <div class="skills-list">
                     {% for skill in skills_using %}
                     <div class="skill-card">
-                        <span class="skill-name">{{ skill.name }}</span>
+                        <div class="skill-header">
+                            {% if skill.icon %}
+                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
+                                alt="{{ skill.name }} 아이콘" loading="lazy">
+                            {% endif %}
+                            <span class="skill-name">{{ skill.name }}</span>
+                        </div>
                         {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
                     </div>
                     {% endfor %}
                     {% for skill in skills_maintain %}
                     <div class="skill-card">
                         <div class="skill-header">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
-                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
-                                loading="lazy">{% endif %}
+                            {% if skill.icon %}
+                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
+                                alt="{{ skill.name }} 아이콘" loading="lazy">
+                            {% endif %}
                             <span class="skill-name">{{ skill.name }}</span>
                         </div>
                         {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
@@ -271,9 +188,10 @@
                     {% for skill in skills_experience %}
                     <div class="skill-card">
                         <div class="skill-header">
-                            {% if skill.icon %}<img src="{{ skill.icon.url }}"
-                                style="width: 24px; height: 24px; object-fit: contain;" alt="{{ skill.name }} icon"
-                                loading="lazy">{% endif %}
+                            {% if skill.icon %}
+                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
+                                alt="{{ skill.name }} 아이콘" loading="lazy">
+                            {% endif %}
                             <span class="skill-name">{{ skill.name }}</span>
                         </div>
                         {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
@@ -323,21 +241,17 @@
                         e.preventDefault();
                         const isAlreadyActive = this.classList.contains('active');
 
-                        // 1. Reset all states
                         navLinks.forEach(l => l.classList.remove('active'));
                         tabPanes.forEach(p => p.classList.remove('show', 'active'));
 
                         if (isAlreadyActive) {
-                            // 2. Toggle OFF -> Show All Skills
                             allPane.classList.add('show', 'active');
                             if (skillDescriptionText) {
                                 skillDescriptionText.textContent = '모든 기술 스택을 한눈에 모아봅니다.';
                             }
                         } else {
-                            // 3. Toggle ON -> Show specific category
                             this.classList.add('active');
-                            const targetId = tabMap[this.id];
-                            document.getElementById(targetId).classList.add('show', 'active');
+                            document.getElementById(tabMap[this.id]).classList.add('show', 'active');
                             if (skillDescriptionText) {
                                 skillDescriptionText.textContent = this.getAttribute('data-description');
                             }
@@ -473,12 +387,11 @@
                             <div class="d-flex gap-2">
                                 {% if project.github_url %}
                                 <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm"
-                                    target="_blank">View
-                                    Code</a>
+                                    target="_blank">View Code</a>
                                 {% endif %}
                                 {% if project.demo_url %}
-                                <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm" target="_blank">Live
-                                    Demo</a>
+                                <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm"
+                                    target="_blank">Live Demo</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -514,13 +427,12 @@
         const paginationControls = document.getElementById('pagination-controls');
 
         const isMobile = () => window.innerWidth < 768;
-        const itemsPerPage = 6; // PC 버전 일람을 위해 6개로 복구
+        const itemsPerPage = 6;
         let currentPage = 1;
         let currentType = 'all';
         let currentScope = 'all';
         let currentTechFilters = [];
 
-        // Resize listener to handle UI switch between scroll and pagination
         let resizeTimeout;
         let lastWidth = window.innerWidth;
         window.addEventListener('resize', () => {
@@ -537,29 +449,18 @@
 
         // --- 1. Filter Logic ---
         function getFilteredItems() {
-            let filtered = [];
-
+            const filtered = [];
             projectItems.forEach(item => {
                 const itemType = item.getAttribute('data-type');
                 const itemScope = item.getAttribute('data-scope');
                 const itemTechStacks = item.getAttribute('data-tech-stacks').trim().split(/\s+/);
 
-                // Type Filter Check
-                const typeMatch = (currentType === 'all') || (itemType === currentType);
+                const typeMatch = currentType === 'all' || itemType === currentType;
+                const scopeMatch = currentScope === 'all' || itemScope === currentScope;
+                const techMatch = currentTechFilters.length === 0 ||
+                    currentTechFilters.some(f => itemTechStacks.includes(f));
 
-                // Scope Filter Check
-                const scopeMatch = (currentScope === 'all') || (itemScope === currentScope);
-
-                // Tech Filter Check
-                let techMatch = true;
-                if (currentTechFilters.length > 0) {
-                    // OR Logic for tech stacks
-                    techMatch = currentTechFilters.some(filter => itemTechStacks.includes(filter));
-                }
-
-                if (typeMatch && scopeMatch && techMatch) {
-                    filtered.push(item);
-                }
+                if (typeMatch && scopeMatch && techMatch) filtered.push(item);
             });
             return filtered;
         }
@@ -568,7 +469,6 @@
         function renderPagination(totalItems) {
             paginationControls.innerHTML = '';
             const totalPages = Math.ceil(totalItems / itemsPerPage);
-
             if (totalPages <= 1) return;
 
             const pageGroupSize = 5;
@@ -591,57 +491,25 @@
                 return li;
             };
 
-            // First Page (««)
             paginationControls.appendChild(createPageItem('««', 1, false, currentPage === 1));
-
-            // Prev Group («) - Move 5 pages back
-            const prevGroupPage = Math.max(1, startPage - pageGroupSize);
-            paginationControls.appendChild(createPageItem('«', prevGroupPage, false, startPage === 1));
-
-            // Prev Page (‹)
+            paginationControls.appendChild(createPageItem('«', Math.max(1, startPage - pageGroupSize), false, startPage === 1));
             paginationControls.appendChild(createPageItem('‹', currentPage - 1, false, currentPage === 1));
-
-            // Numbers (Current Group)
             for (let i = startPage; i <= endPage; i++) {
                 paginationControls.appendChild(createPageItem(i, i, i === currentPage));
             }
-
-            // Next Page (›)
             paginationControls.appendChild(createPageItem('›', currentPage + 1, false, currentPage === totalPages));
-
-            // Next Group (») - Move 5 pages forward
-            const nextGroupPage = Math.min(totalPages, startPage + pageGroupSize);
-            paginationControls.appendChild(createPageItem('»', nextGroupPage, false, endPage >= totalPages));
-
-            // Last Page (»»)
+            paginationControls.appendChild(createPageItem('»', Math.min(totalPages, startPage + pageGroupSize), false, endPage >= totalPages));
             paginationControls.appendChild(createPageItem('»»', totalPages, false, currentPage === totalPages));
         }
 
-        // --- 3. Update UI (Refactored with Async & Micro-Animations) ---
-        async function updateVisibility() {
+        // --- 3. Update UI ---
+        function updateVisibility() {
             const filteredItems = getFilteredItems();
             const totalItems = filteredItems.length;
 
-            // 1. Show Loading Skeleton State
-            let currentlyVisibleItems = [];
-            projectItems.forEach(item => {
-                if (item.style.display !== 'none') {
-                    item.classList.add('loading-skeleton');
-                    item.style.pointerEvents = 'none'; // Prevent clicks during loading
-                    currentlyVisibleItems.push(item);
-                }
-            });
-
-            // 2. Fake network delay for App-like UX
-            if (currentlyVisibleItems.length > 0) {
-                await new Promise(resolve => setTimeout(resolve, 300));
-            }
-
-            // 3. Reset all items
             projectItems.forEach(item => {
                 item.style.display = 'none';
-                item.classList.remove('loading-skeleton', 'fade-in');
-                item.style.pointerEvents = 'auto';
+                item.classList.remove('fade-in');
             });
 
             if (totalItems === 0) {
@@ -649,109 +517,76 @@
                 return;
             }
 
-            // 4. Calculate pagination and render with staggered animation
             if (isMobile()) {
-                // Mobile: Show all filtered items for horizontal scroll
                 filteredItems.forEach((item, index) => {
                     item.style.display = 'block';
-                    // Staggered Fade-in
-                    setTimeout(() => {
-                        item.classList.add('fade-in');
-                    }, index * 40);
+                    setTimeout(() => item.classList.add('fade-in'), index * 40);
                 });
             } else {
-                // Desktop: Premium pagination
                 const totalPages = Math.ceil(totalItems / itemsPerPage);
-                if (currentPage > totalPages && totalPages > 0) {
-                    currentPage = 1;
-                } else if (currentPage < 1) {
-                    currentPage = 1;
-                }
+                if (currentPage > totalPages) currentPage = 1;
+                else if (currentPage < 1) currentPage = 1;
 
                 const startIndex = (currentPage - 1) * itemsPerPage;
-                const endIndex = startIndex + itemsPerPage;
-
-                filteredItems.slice(startIndex, endIndex).forEach((item, index) => {
+                filteredItems.slice(startIndex, startIndex + itemsPerPage).forEach((item, index) => {
                     item.style.display = 'block';
-                    // Staggered Fade-in
-                    setTimeout(() => {
-                        item.classList.add('fade-in');
-                    }, index * 40);
+                    setTimeout(() => item.classList.add('fade-in'), index * 40);
                 });
-
                 renderPagination(totalItems);
             }
         }
 
         // --- 4. Event Listeners ---
 
-        // Type Filter Click
+        // Type Filter
         typeButtons.forEach(btn => {
             btn.addEventListener('mouseenter', () => {
                 descriptionText.textContent = btn.getAttribute('data-description');
                 descriptionText.classList.remove('text-muted');
                 descriptionText.classList.add('text-dark', 'fw-bold');
             });
-
             btn.addEventListener('mouseleave', () => {
                 const activeBtn = document.querySelector('#project-type-filters button.active');
-                if (activeBtn) {
-                    descriptionText.textContent = activeBtn.getAttribute('data-description');
-                }
+                if (activeBtn) descriptionText.textContent = activeBtn.getAttribute('data-description');
                 descriptionText.classList.add('text-muted');
                 descriptionText.classList.remove('text-dark', 'fw-bold');
             });
-
-            btn.addEventListener('click', async function () {
-                if (this.classList.contains('active')) return; // Prevent double trigger
-                typeButtons.forEach(b => {
-                    b.classList.remove('active', 'btn-dark');
-                    b.classList.add('btn-outline-dark');
-                });
+            btn.addEventListener('click', function () {
+                if (this.classList.contains('active')) return;
+                typeButtons.forEach(b => { b.classList.remove('active', 'btn-dark'); b.classList.add('btn-outline-dark'); });
                 this.classList.remove('btn-outline-dark');
                 this.classList.add('active', 'btn-dark');
-
                 currentType = this.getAttribute('data-type');
                 currentPage = 1;
-                await updateVisibility();
+                updateVisibility();
             });
         });
 
-        // Scope Filter Click
+        // Scope Filter
         scopeButtons.forEach(btn => {
-            btn.addEventListener('click', async function () {
+            btn.addEventListener('click', function () {
                 if (this.classList.contains('active')) return;
-                scopeButtons.forEach(b => {
-                    b.classList.remove('active', 'btn-dark');
-                    b.classList.add('btn-outline-dark');
-                });
+                scopeButtons.forEach(b => { b.classList.remove('active', 'btn-dark'); b.classList.add('btn-outline-dark'); });
                 this.classList.remove('btn-outline-dark');
                 this.classList.add('active', 'btn-dark');
-
                 currentScope = this.getAttribute('data-scope');
                 currentPage = 1;
-                await updateVisibility();
+                updateVisibility();
             });
         });
 
-        // Tech Stack Filter Click
+        // Tech Stack Filter
         const techAllButton = document.querySelector('#project-filters button[data-filter="all"]');
-
         techButtons.forEach(btn => {
-            btn.addEventListener('click', async function () {
+            btn.addEventListener('click', function () {
                 const filterValue = this.getAttribute('data-filter');
-
                 if (filterValue === 'all') {
                     if (this.classList.contains('active')) return;
                     currentTechFilters = [];
-                    techButtons.forEach(b => {
-                        b.classList.remove('active', 'btn-primary', 'btn-secondary');
-                        b.classList.add('btn-outline-secondary');
-                    });
+                    techButtons.forEach(b => { b.classList.remove('active', 'btn-primary', 'btn-secondary'); b.classList.add('btn-outline-secondary'); });
                     this.classList.remove('btn-outline-secondary');
                     this.classList.add('active', 'btn-secondary');
                 } else {
-                    // Toggle current filter
                     if (currentTechFilters.includes(filterValue)) {
                         currentTechFilters = currentTechFilters.filter(f => f !== filterValue);
                         this.classList.remove('active', 'btn-primary');
@@ -761,8 +596,6 @@
                         this.classList.remove('btn-outline-secondary');
                         this.classList.add('active', 'btn-primary');
                     }
-
-                    // Update 'All' button state
                     if (currentTechFilters.length === 0) {
                         techAllButton.classList.remove('btn-outline-secondary');
                         techAllButton.classList.add('active', 'btn-secondary');
@@ -771,13 +604,8 @@
                         techAllButton.classList.add('btn-outline-secondary');
                     }
                 }
-
                 currentPage = 1;
-                try {
-                    await updateVisibility();
-                } catch (e) {
-                    console.error("Error updating visibility:", e);
-                }
+                updateVisibility();
             });
         });
 
@@ -792,40 +620,29 @@
     {% if activities %}
     <div class="list-group">
         {% for activity in activities %}
-        {% if activity.link %}
-        <a href="{{ activity.link }}" class="list-group-item list-group-item-action py-3" target="_blank">
+        <div class="list-group-item py-3 position-relative{% if activity.link or activity.attachment %} list-group-item-action{% endif %}">
+            {% if activity.link %}
+            <a href="{{ activity.link }}" class="stretched-link" target="_blank" aria-label="{{ activity.title }}"></a>
             {% elif activity.attachment %}
-            <a href="{{ activity.attachment.url }}" class="list-group-item list-group-item-action py-3" target="_blank">
-                {% else %}
-                <div class="list-group-item py-3">
+            <a href="{{ activity.attachment.url }}" class="stretched-link" target="_blank" aria-label="{{ activity.title }}"></a>
+            {% endif %}
+            <div class="d-flex w-100 justify-content-between align-items-center">
+                <h5 class="mb-1 fw-bold">
+                    {{ activity.title }}
+                    {% if activity.organization %}
+                    <span class="badge bg-secondary ms-2" style="font-size: 0.8em;">{{ activity.organization }}</span>
                     {% endif %}
-
-                    <div class="d-flex w-100 justify-content-between align-items-center">
-                        <h5 class="mb-1 fw-bold">
-                            {{ activity.title }}
-                            {% if activity.organization %}
-                            <span class="badge bg-secondary ms-2" style="font-size: 0.8em;">
-                                {{ activity.organization }}
-                            </span>
-                            {% endif %}
-                        </h5>
-                        {% if activity.period %}
-                        <small>{{ activity.period }}</small>
-                        {% endif %}
-                    </div>
-                    <p class="mb-1">{{ activity.description|linebreaks }}</p>
-                    {% if activity.attachment %}
-                    <small class="text-primary">
-                        첨부파일 보기
-                    </small>
-                    {% endif %}
-
-                    {% if activity.link or activity.attachment %}
-            </a>
-            {% else %}
-    </div>
-    {% endif %}
-    {% endfor %}
+                </h5>
+                {% if activity.period %}
+                <small>{{ activity.period }}</small>
+                {% endif %}
+            </div>
+            <p class="mb-1">{{ activity.description|linebreaks }}</p>
+            {% if activity.attachment %}
+            <small class="text-primary">첨부파일 보기</small>
+            {% endif %}
+        </div>
+        {% endfor %}
     </div>
     {% else %}
     <p class="text-muted">등록된 활동 내역이 없습니다.</p>
@@ -839,7 +656,7 @@
         {% if leaderships %}
         <div class="row" id="leadership-list">
             {% for leadership in leaderships %}
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6 mb-4" data-leadership-item>
                 <div class="card h-auto h-md-100 shadow border-0 position-relative project-card-hover">
                     {% if leadership.image %}
                     <img src="{{ leadership.image.url }}" class="card-img-top" alt="{{ leadership.title }}"
@@ -876,8 +693,8 @@
                         <div class="mt-3 d-flex align-items-center justify-content-end"
                             style="position: relative; z-index: 2;">
                             {% if leadership.link %}
-                            <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm" target="_blank">관련
-                                링크</a>
+                            <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm"
+                                target="_blank">관련 링크</a>
                             {% endif %}
                         </div>
                     </div>
@@ -885,9 +702,91 @@
             </div>
             {% endfor %}
         </div>
+        <!-- Leadership Pagination (desktop only) -->
+        <div class="row mt-2 d-none d-md-block" id="leadership-pagination-wrapper">
+            <div class="col-12">
+                <nav aria-label="Leadership pagination">
+                    <ul class="pagination justify-content-center" id="leadership-pagination"></ul>
+                </nav>
+            </div>
+        </div>
         {% else %}
         <p class="text-muted">등록된 리더십 및 경험 활동이 없습니다.</p>
         {% endif %}
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const items = document.querySelectorAll('[data-leadership-item]');
+        const paginationEl = document.getElementById('leadership-pagination');
+        const isMobile = () => window.innerWidth < 768;
+        const ITEMS_PER_PAGE = 4;
+        let currentPage = 1;
+
+        if (!items.length) return;
+
+        function updateVisibility() {
+            items.forEach(item => {
+                item.style.display = 'none';
+                item.classList.remove('fade-in');
+            });
+
+            if (isMobile()) {
+                items.forEach((item, i) => {
+                    item.style.display = 'block';
+                    setTimeout(() => item.classList.add('fade-in'), i * 40);
+                });
+                if (paginationEl) paginationEl.innerHTML = '';
+                return;
+            }
+
+            const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
+            if (currentPage > totalPages) currentPage = 1;
+
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            Array.from(items).slice(start, start + ITEMS_PER_PAGE).forEach((item, i) => {
+                item.style.display = 'block';
+                setTimeout(() => item.classList.add('fade-in'), i * 40);
+            });
+
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            if (!paginationEl) return;
+            paginationEl.innerHTML = '';
+            if (totalPages <= 1) return;
+
+            const createItem = (text, page, isActive, isDisabled) => {
+                const li = document.createElement('li');
+                li.className = `page-item ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`;
+                li.innerHTML = `<a class="page-link" href="#leadership">${text}</a>`;
+                if (!isDisabled && !isActive) {
+                    li.addEventListener('click', e => {
+                        e.preventDefault();
+                        currentPage = page;
+                        updateVisibility();
+                        document.getElementById('leadership').scrollIntoView({ behavior: 'smooth' });
+                    });
+                }
+                return li;
+            };
+
+            paginationEl.appendChild(createItem('‹', currentPage - 1, false, currentPage === 1));
+            for (let i = 1; i <= totalPages; i++) {
+                paginationEl.appendChild(createItem(i, i, i === currentPage));
+            }
+            paginationEl.appendChild(createItem('›', currentPage + 1, false, currentPage === totalPages));
+        }
+
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(updateVisibility, 150);
+        });
+
+        updateVisibility();
+    });
+</script>
 {% endblock %}
