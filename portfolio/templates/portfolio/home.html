@@ -1,718 +1,132 @@
 {% extends 'portfolio/base.html' %}
+{% load portfolio_extras %}
 
 {% block content %}
-<!-- Profile Section -->
-<section id="profile" class="py-5">
-    <h2 class="section-title">PROFILE</h2>
-    <div class="row align-items-center">
-        <div class="col-md-4 mb-4 mb-md-0 text-center d-flex justify-content-center">
-            <div class="profile-image-container">
-                {% if profile and profile.profile_image %}
-                <img src="{{ profile.profile_image.url }}" class="img-fluid rounded-3 shadow-sm profile-img"
-                    style="width: 100%; height: 100%; object-fit: cover;">
-                {% else %}
-                <div class="profile-placeholder rounded-3 shadow-sm d-flex flex-column align-items-center justify-content-center"
-                    style="width: 100%; height: 100%;">
-                    <i class="bi bi-person-fill" style="font-size: 4rem;"></i>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="col-md-8">
-            {% if profile %}
-            <h3 class="fw-bold mb-2 profile-name-responsive">{{ profile.name }}</h3>
-            <div class="profile-details profile-details-responsive">
-                <p class="mb-1">
-                    <span class="profile-label">생년월일</span> {{ profile.birthdate }}
-                </p>
-                <div class="mb-2">
-                    <span class="profile-label d-block mb-1">학력</span>
-                    {% if educations %}
-                    <ul class="list-unstyled ms-2 mb-0">
-                        {% for edu in educations %}
-                        <li class="mb-1">
-                            <span class="text-muted me-1 small" style="display: inline-block; min-width: 80px;">
-                                {{ edu.period }}</span>
-                            <span><strong>{{ edu.school }}</strong> {{ edu.status }}</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
+
+<!-- ① Profile ─ light bg -->
+<section id="profile" class="section-block section-light">
+    <div class="container py-5">
+        <h2 class="section-title">PROFILE</h2>
+        <div class="row align-items-center">
+            <div class="col-md-4 mb-4 mb-md-0 text-center d-flex justify-content-center reveal">
+                <div class="profile-image-container">
+                    {% if profile and profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" class="img-fluid profile-img"
+                        style="width:100%;height:100%;object-fit:cover;" loading="eager">
                     {% else %}
-                    <span class="text-muted ms-2 small">학력 정보가 없습니다.</span>
+                    <div class="profile-placeholder d-flex flex-column align-items-center justify-content-center"
+                        style="width:100%;height:100%;">
+                        <i class="bi bi-person-fill" style="font-size:4rem;"></i>
+                    </div>
                     {% endif %}
                 </div>
-                <p class="mb-1">
-                    <span class="profile-label">이메일</span>
-                    <a href="mailto:{{ profile.email }}" class="text-decoration-none">{{ profile.email }}</a>
-                </p>
-                {% if profile.github_url %}
-                <p class="mb-1">
-                    <span class="profile-label">Github</span>
-                    <a href="{{ profile.github_url }}" target="_blank" class="text-decoration-none">
-                        {{ profile.github_url }}</a>
-                </p>
+            </div>
+            <div class="col-md-8 reveal">
+                {% if profile %}
+                <span class="hero-overline">Student Developer</span>
+                <h1 class="hero-title">{{ profile.name }}</h1>
+                {% if profile.introduction %}
+                <p class="hero-tagline">{{ profile.introduction }}</p>
                 {% endif %}
-                <p class="mt-3 text-secondary" style="line-height: 1.5;">{{ profile.introduction|linebreaks }}</p>
-            </div>
-            {% else %}
-            <div class="alert alert-warning">
-                프로필 정보가 없습니다. 관리자 페이지에서 프로필을 추가해주세요.
-            </div>
-            {% endif %}
-        </div>
-    </div>
-</section>
-
-<!-- Skills Section -->
-<section id="skills" class="py-5">
-    <h2 class="section-title">SKILLS</h2>
-    <div class="bg-light rounded p-3 p-md-4">
-        <!-- Unified Tab Navigation -->
-        <ul class="nav nav-pills nav-justified mb-4" id="skillsTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="using-tab" type="button" role="tab"
-                    data-description="현재 실무나 개인 프로젝트에서 활발하게 사용 중인 기술입니다.">사용 중</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="maintain-tab" type="button" role="tab"
-                    data-description="기존 코드를 유지보수하거나 필요시 문서를 참고하여 다룰 수 있는 기술입니다.">기능 유지</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="experience-tab" type="button" role="tab"
-                    data-description="과거 프로젝트에서 사용해 본 경험이 있으며, 기본 개념을 이해하고 있는 기술입니다.">경험 있음</button>
-            </li>
-        </ul>
-
-        <!-- Dynamic Description Area for Skills -->
-        <div class="text-center mb-4" style="min-height: 24px;">
-            <p class="text-muted fst-italic" id="skills-description">
-                현재 실무나 개인 프로젝트에서 활발하게 사용 중인 기술입니다.
-            </p>
-        </div>
-
-        <!-- Unified Tab Content -->
-        <div class="tab-content" id="pills-tabContent">
-            <!-- Using Pane -->
-            <div class="tab-pane fade show active" id="pills-using" role="tabpanel">
-                <div class="skills-list">
-                    {% for skill in skills_using %}
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}
-                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
-                                alt="{{ skill.name }} 아이콘" loading="lazy">
-                            {% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
-                        {% if skill.description %}
-                        <div class="skill-desc">{{ skill.description }}</div>
-                        {% endif %}
-                    </div>
-                    {% empty %}
-                    <p class="text-center text-muted py-4">등록된 기술이 없습니다.</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- Maintain Pane -->
-            <div class="tab-pane fade" id="pills-maintain" role="tabpanel">
-                <div class="skills-list">
-                    {% for skill in skills_maintain %}
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}
-                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
-                                alt="{{ skill.name }} 아이콘" loading="lazy">
-                            {% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
-                        {% if skill.description %}
-                        <div class="skill-desc">{{ skill.description }}</div>
-                        {% endif %}
-                    </div>
-                    {% empty %}
-                    <p class="text-center text-muted py-4">등록된 기술이 없습니다.</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- Experience Pane -->
-            <div class="tab-pane fade" id="pills-experience" role="tabpanel">
-                <div class="skills-list">
-                    {% for skill in skills_experience %}
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}
-                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
-                                alt="{{ skill.name }} 아이콘" loading="lazy">
-                            {% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
-                        {% if skill.description %}
-                        <div class="skill-desc">{{ skill.description }}</div>
-                        {% endif %}
-                    </div>
-                    {% empty %}
-                    <p class="text-center text-muted py-4">등록된 기술이 없습니다.</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- All Skills Pane -->
-            <div class="tab-pane fade" id="pills-all" role="tabpanel">
-                <div class="skills-list">
-                    {% for skill in skills_using %}
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}
-                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
-                                alt="{{ skill.name }} 아이콘" loading="lazy">
-                            {% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
-                        {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
-                    </div>
-                    {% endfor %}
-                    {% for skill in skills_maintain %}
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}
-                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
-                                alt="{{ skill.name }} 아이콘" loading="lazy">
-                            {% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
-                        {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
-                    </div>
-                    {% endfor %}
-                    {% for skill in skills_experience %}
-                    <div class="skill-card">
-                        <div class="skill-header">
-                            {% if skill.icon %}
-                            <img src="{{ skill.icon.url }}" style="width: 24px; height: 24px; object-fit: contain;"
-                                alt="{{ skill.name }} 아이콘" loading="lazy">
-                            {% endif %}
-                            <span class="skill-name">{{ skill.name }}</span>
-                        </div>
-                        {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const navLinks = document.querySelectorAll('#skillsTab .nav-link');
-                const tabPanes = document.querySelectorAll('.tab-content .tab-pane');
-                const allPane = document.getElementById('pills-all');
-
-                const tabMap = {
-                    'using-tab': 'pills-using',
-                    'maintain-tab': 'pills-maintain',
-                    'experience-tab': 'pills-experience'
-                };
-
-                const skillDescriptionText = document.getElementById('skills-description');
-
-                navLinks.forEach(link => {
-                    link.addEventListener('mouseenter', function () {
-                        if (skillDescriptionText) {
-                            skillDescriptionText.textContent = this.getAttribute('data-description');
-                            skillDescriptionText.classList.remove('text-muted');
-                            skillDescriptionText.classList.add('text-dark', 'fw-bold');
-                        }
-                    });
-
-                    link.addEventListener('mouseleave', function () {
-                        if (skillDescriptionText) {
-                            const activeLink = document.querySelector('#skillsTab .nav-link.active');
-                            if (activeLink) {
-                                skillDescriptionText.textContent = activeLink.getAttribute('data-description');
-                            } else {
-                                skillDescriptionText.textContent = '모든 기술 스택을 한눈에 모아봅니다.';
-                            }
-                            skillDescriptionText.classList.add('text-muted');
-                            skillDescriptionText.classList.remove('text-dark', 'fw-bold');
-                        }
-                    });
-
-                    link.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const isAlreadyActive = this.classList.contains('active');
-
-                        navLinks.forEach(l => l.classList.remove('active'));
-                        tabPanes.forEach(p => p.classList.remove('show', 'active'));
-
-                        if (isAlreadyActive) {
-                            allPane.classList.add('show', 'active');
-                            if (skillDescriptionText) {
-                                skillDescriptionText.textContent = '모든 기술 스택을 한눈에 모아봅니다.';
-                            }
-                        } else {
-                            this.classList.add('active');
-                            document.getElementById(tabMap[this.id]).classList.add('show', 'active');
-                            if (skillDescriptionText) {
-                                skillDescriptionText.textContent = this.getAttribute('data-description');
-                            }
-                        }
-                    });
-                });
-            });
-        </script>
-    </div>
-</section>
-
-<!-- Career Section -->
-<section id="career" class="py-5">
-    <h2 class="section-title">CAREER</h2>
-    {% if careers %}
-    <ul class="list-group list-group-flush border-top">
-        {% for career in careers %}
-        <li class="list-group-item py-4">
-            <div class="d-flex w-100 justify-content-between">
-                <h4 class="mb-1">{{ career.organization }}</h4>
-                <small class="text-muted d-inline-block" style="min-width: 90px;">{{ career.period }}</small>
-            </div>
-            <h5 class="text-primary">{{ career.role }}</h5>
-            <p class="mb-1">{{ career.description|linebreaks }}</p>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p class="text-muted">등록된 경력이 없습니다.</p>
-    {% endif %}
-</section>
-
-<!-- Projects Section -->
-<section id="projects" class="py-5">
-    <h2 class="section-title">PROJECTS</h2>
-    <div class="bg-light rounded p-3 p-md-4">
-        <div class="row mb-4">
-            <div class="col-12">
-                <!-- Project Filters (Type & Scope combined in one line) -->
-                <div class="d-flex flex-wrap gap-3 align-items-center mb-3">
-                    <!-- Project Type Filters -->
-                    <div class="d-flex gap-2" id="project-type-filters">
-                        <button class="btn btn-dark btn-sm active" data-type="all"
-                            data-description="모든 프로젝트를 한눈에 모아봅니다.">
-                            전체
-                        </button>
-                        {% for type in project_types %}
-                        <button class="btn btn-outline-dark btn-sm" data-type="{{ type.id }}"
-                            data-description="{{ type.description }}">
-                            {{ type.name }}
-                        </button>
-                        {% endfor %}
-                    </div>
-
-                    <div class="text-muted fw-light">|</div>
-
-                    <!-- Project Scope Filters -->
-                    <div class="d-flex gap-2" id="project-scope-filters">
-                        <button class="btn btn-dark btn-sm active" data-scope="all">전체</button>
-                        <button class="btn btn-outline-dark btn-sm" data-scope="INDIVIDUAL">개인</button>
-                        <button class="btn btn-outline-dark btn-sm" data-scope="TEAM">팀</button>
-                    </div>
-                </div>
-
-                <!-- Dynamic Description Area -->
-                <div class="text-start mb-4" style="min-height: 24px;">
-                    <p class="text-muted fst-italic" id="type-description">
-                        모든 프로젝트를 한눈에 모아봅니다.
-                    </p>
-                </div>
-
-                <!-- Tech Stack Filters -->
-                <div class="filter-scroll-container mb-3" id="project-filters">
-                    <button class="btn btn-outline-secondary active" data-filter="all">All</button>
-                    {% for skill in project_skills %}
-                    <button class="btn btn-outline-secondary" data-filter="{{ skill.id }}">
-                        {{ skill.name }}
-                    </button>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        {% if projects %}
-        <div class="row" id="project-list">
-            {% for project in projects %}
-            <div class="col-md-6 mb-4 project-item"
-                data-type="{% if project.type %}{{ project.type.id }}{% else %}none{% endif %}"
-                data-scope="{{ project.scope }}"
-                data-tech-stacks="{% for tech in project.tech_stacks.all %}{{ tech.id }} {% endfor %}">
-                <div class="card h-auto h-md-100 shadow border-0 position-relative project-card-hover">
-                    {% if project.image %}
-                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}"
-                        style="height: 200px; object-fit: cover;" loading="lazy">
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <a href="mailto:{{ profile.email }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-envelope-fill me-1"></i>{{ profile.email }}
+                    </a>
+                    {% if profile.github_url %}
+                    <a href="{{ profile.github_url }}" target="_blank" rel="noopener" class="btn btn-outline-dark btn-sm">
+                        <i class="bi bi-github me-1"></i>GitHub
+                    </a>
                     {% endif %}
-                    <div class="card-body d-flex flex-column">
-                        <div class="mb-2">
-                            {% for category in project.categories.all %}
-                            <span class="badge bg-secondary me-1">{{ category.name }}</span>
-                            {% endfor %}
+                </div>
+                <div class="profile-details profile-details-responsive">
+                    <div class="row g-2">
+                        <div class="col-sm-4">
+                            <span class="profile-label">생년월일</span>
+                            <span class="ms-2 small">{{ profile.birthdate }}</span>
                         </div>
-
-                        <div class="mb-2">
-                            <h5 class="card-title fw-bold mb-1">
-                                <a href="{% url 'project_detail' project.id %}"
-                                    class="text-body text-decoration-none stretched-link">
-                                    {{ project.title }}
-                                </a>
-                            </h5>
-                            <small class="text-muted">{{ project.period }}</small>
-                        </div>
-
-                        <p class="card-text">{{ project.description|linebreaks }}</p>
-
-                        <ul class="list-group list-group-flush mb-3 small">
-                            <li class="list-group-item px-0">
-                                <strong>사용 기술:</strong>
-                                {% for tech in project.tech_stacks.all %}
-                                <span class="badge bg-light text-dark border">{{ tech.name }}</span>
+                        <div class="col-sm-8">
+                            <span class="profile-label">학력</span>
+                            {% if educations %}
+                            <ul class="list-unstyled ms-2 mb-0 mt-1">
+                                {% for edu in educations %}
+                                <li class="mb-1">
+                                    <span class="text-muted small" style="display:inline-block;min-width:80px;">{{ edu.period }}</span>
+                                    <span class="small"><strong>{{ edu.school }}</strong> {{ edu.status }}</span>
+                                </li>
                                 {% endfor %}
-                            </li>
-                            <li class="list-group-item px-0">
-                                <strong>역할:</strong> {{ project.role }}
-                            </li>
-                        </ul>
+                            </ul>
+                            {% else %}
+                            <span class="text-muted ms-2 small">학력 정보가 없습니다.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="alert alert-warning">프로필 정보가 없습니다. 관리자 페이지에서 추가해주세요.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
 
-                        <div class="mt-3 d-flex align-items-center justify-content-between"
-                            style="position: relative; z-index: 2;">
-                            <a href="{% url 'project_detail' project.id %}"
-                                class="text-primary text-decoration-none fw-bold small">
-                                자세히 보기 <i class="bi bi-arrow-right"></i>
-                            </a>
-                            <div class="d-flex gap-2">
-                                {% if project.github_url %}
-                                <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm"
-                                    target="_blank">View Code</a>
-                                {% endif %}
-                                {% if project.demo_url %}
-                                <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm"
-                                    target="_blank">Live Demo</a>
+<!-- ② Leadership ─ muted bg -->
+<section id="leadership" class="section-block section-muted">
+    <div class="container py-5">
+        <h2 class="section-title">LEADERSHIP & EXPERIENCES</h2>
+        <div class="section-inner">
+            {% if leaderships %}
+            <div class="row" id="leadership-list">
+                {% for leadership in leaderships %}
+                <div class="col-md-6 mb-4" data-leadership-item>
+                    <div class="card h-auto h-md-100 shadow-sm border-0 position-relative project-card-hover">
+                        {% if leadership.image %}
+                        <img src="{{ leadership.image.url }}" class="card-img-top" alt="{{ leadership.title }}"
+                            style="height:200px;object-fit:cover;" loading="lazy">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <span class="badge bg-secondary">{{ leadership.organization }}</span>
+                                <small class="text-muted font-numeric">{{ leadership.period }}</small>
+                            </div>
+                            <h5 class="card-title fw-bold mb-2">
+                                <a href="{% url 'leadership_detail' leadership.id %}"
+                                    class="text-body text-decoration-none stretched-link">{{ leadership.title }}</a>
+                            </h5>
+                            <p class="card-text card-text-clamp text-secondary mb-3">{{ leadership.description }}</p>
+                            {% if leadership.outcome %}
+                            <div class="mb-3" style="position:relative;z-index:2;">
+                                <span class="card-outcome-badge">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                    {{ leadership.outcome|truncatechars:60 }}
+                                </span>
+                            </div>
+                            {% endif %}
+                            <div class="small mb-3">
+                                <span class="text-muted">역할:</span>
+                                <span class="ms-1 fw-semibold">{{ leadership.role }}</span>
+                            </div>
+                            <div class="mt-auto d-flex justify-content-end" style="position:relative;z-index:2;">
+                                {% if leadership.link %}
+                                <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm"
+                                    target="_blank" rel="noopener">관련 링크</a>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-
-        <!-- Pagination Controls -->
-        <div class="row mt-4" id="pagination-controls-wrapper">
-            <div class="col-12">
-                <nav aria-label="Project pagination">
-                    <ul class="pagination justify-content-center" id="pagination-controls">
-                        <!-- Pagination buttons will be generated by JavaScript -->
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        {% else %}
-        <p class="text-muted">등록된 프로젝트가 없습니다.</p>
-        {% endif %}
-    </div>
-</section>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const typeButtons = document.querySelectorAll('#project-type-filters button');
-        const scopeButtons = document.querySelectorAll('#project-scope-filters button');
-        const techButtons = document.querySelectorAll('#project-filters button');
-        const descriptionText = document.getElementById('type-description');
-        const projectItems = document.querySelectorAll('.project-item');
-        const paginationControls = document.getElementById('pagination-controls');
-
-        const isMobile = () => window.innerWidth < 768;
-        const itemsPerPage = 6;
-        let currentPage = 1;
-        let currentType = 'all';
-        let currentScope = 'all';
-        let currentTechFilters = [];
-
-        let resizeTimeout;
-        let lastWidth = window.innerWidth;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                const currentWidth = window.innerWidth;
-                if (currentWidth !== lastWidth) {
-                    lastWidth = currentWidth;
-                    currentPage = 1;
-                    updateVisibility();
-                }
-            }, 150);
-        });
-
-        // --- 1. Filter Logic ---
-        function getFilteredItems() {
-            const filtered = [];
-            projectItems.forEach(item => {
-                const itemType = item.getAttribute('data-type');
-                const itemScope = item.getAttribute('data-scope');
-                const itemTechStacks = item.getAttribute('data-tech-stacks').trim().split(/\s+/);
-
-                const typeMatch = currentType === 'all' || itemType === currentType;
-                const scopeMatch = currentScope === 'all' || itemScope === currentScope;
-                const techMatch = currentTechFilters.length === 0 ||
-                    currentTechFilters.some(f => itemTechStacks.includes(f));
-
-                if (typeMatch && scopeMatch && techMatch) filtered.push(item);
-            });
-            return filtered;
-        }
-
-        // --- 2. Pagination Logic ---
-        function renderPagination(totalItems) {
-            paginationControls.innerHTML = '';
-            const totalPages = Math.ceil(totalItems / itemsPerPage);
-            if (totalPages <= 1) return;
-
-            const pageGroupSize = 5;
-            const currentGroup = Math.ceil(currentPage / pageGroupSize);
-            const startPage = (currentGroup - 1) * pageGroupSize + 1;
-            const endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
-
-            const createPageItem = (text, page, isActive = false, isDisabled = false) => {
-                const li = document.createElement('li');
-                li.className = `page-item ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`;
-                li.innerHTML = `<a class="page-link" href="#projects">${text}</a>`;
-                if (!isDisabled && !isActive) {
-                    li.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        currentPage = page;
-                        updateVisibility();
-                        document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-                    });
-                }
-                return li;
-            };
-
-            paginationControls.appendChild(createPageItem('««', 1, false, currentPage === 1));
-            paginationControls.appendChild(createPageItem('«', Math.max(1, startPage - pageGroupSize), false, startPage === 1));
-            paginationControls.appendChild(createPageItem('‹', currentPage - 1, false, currentPage === 1));
-            for (let i = startPage; i <= endPage; i++) {
-                paginationControls.appendChild(createPageItem(i, i, i === currentPage));
-            }
-            paginationControls.appendChild(createPageItem('›', currentPage + 1, false, currentPage === totalPages));
-            paginationControls.appendChild(createPageItem('»', Math.min(totalPages, startPage + pageGroupSize), false, endPage >= totalPages));
-            paginationControls.appendChild(createPageItem('»»', totalPages, false, currentPage === totalPages));
-        }
-
-        // --- 3. Update UI ---
-        function updateVisibility() {
-            const filteredItems = getFilteredItems();
-            const totalItems = filteredItems.length;
-
-            projectItems.forEach(item => {
-                item.style.display = 'none';
-                item.classList.remove('fade-in');
-            });
-
-            if (totalItems === 0) {
-                renderPagination(0);
-                return;
-            }
-
-            if (isMobile()) {
-                filteredItems.forEach((item, index) => {
-                    item.style.display = 'block';
-                    setTimeout(() => item.classList.add('fade-in'), index * 40);
-                });
-            } else {
-                const totalPages = Math.ceil(totalItems / itemsPerPage);
-                if (currentPage > totalPages) currentPage = 1;
-                else if (currentPage < 1) currentPage = 1;
-
-                const startIndex = (currentPage - 1) * itemsPerPage;
-                filteredItems.slice(startIndex, startIndex + itemsPerPage).forEach((item, index) => {
-                    item.style.display = 'block';
-                    setTimeout(() => item.classList.add('fade-in'), index * 40);
-                });
-                renderPagination(totalItems);
-            }
-        }
-
-        // --- 4. Event Listeners ---
-
-        // Type Filter
-        typeButtons.forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                descriptionText.textContent = btn.getAttribute('data-description');
-                descriptionText.classList.remove('text-muted');
-                descriptionText.classList.add('text-dark', 'fw-bold');
-            });
-            btn.addEventListener('mouseleave', () => {
-                const activeBtn = document.querySelector('#project-type-filters button.active');
-                if (activeBtn) descriptionText.textContent = activeBtn.getAttribute('data-description');
-                descriptionText.classList.add('text-muted');
-                descriptionText.classList.remove('text-dark', 'fw-bold');
-            });
-            btn.addEventListener('click', function () {
-                if (this.classList.contains('active')) return;
-                typeButtons.forEach(b => { b.classList.remove('active', 'btn-dark'); b.classList.add('btn-outline-dark'); });
-                this.classList.remove('btn-outline-dark');
-                this.classList.add('active', 'btn-dark');
-                currentType = this.getAttribute('data-type');
-                currentPage = 1;
-                updateVisibility();
-            });
-        });
-
-        // Scope Filter
-        scopeButtons.forEach(btn => {
-            btn.addEventListener('click', function () {
-                if (this.classList.contains('active')) return;
-                scopeButtons.forEach(b => { b.classList.remove('active', 'btn-dark'); b.classList.add('btn-outline-dark'); });
-                this.classList.remove('btn-outline-dark');
-                this.classList.add('active', 'btn-dark');
-                currentScope = this.getAttribute('data-scope');
-                currentPage = 1;
-                updateVisibility();
-            });
-        });
-
-        // Tech Stack Filter
-        const techAllButton = document.querySelector('#project-filters button[data-filter="all"]');
-        techButtons.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const filterValue = this.getAttribute('data-filter');
-                if (filterValue === 'all') {
-                    if (this.classList.contains('active')) return;
-                    currentTechFilters = [];
-                    techButtons.forEach(b => { b.classList.remove('active', 'btn-primary', 'btn-secondary'); b.classList.add('btn-outline-secondary'); });
-                    this.classList.remove('btn-outline-secondary');
-                    this.classList.add('active', 'btn-secondary');
-                } else {
-                    if (currentTechFilters.includes(filterValue)) {
-                        currentTechFilters = currentTechFilters.filter(f => f !== filterValue);
-                        this.classList.remove('active', 'btn-primary');
-                        this.classList.add('btn-outline-secondary');
-                    } else {
-                        currentTechFilters.push(filterValue);
-                        this.classList.remove('btn-outline-secondary');
-                        this.classList.add('active', 'btn-primary');
-                    }
-                    if (currentTechFilters.length === 0) {
-                        techAllButton.classList.remove('btn-outline-secondary');
-                        techAllButton.classList.add('active', 'btn-secondary');
-                    } else {
-                        techAllButton.classList.remove('active', 'btn-secondary');
-                        techAllButton.classList.add('btn-outline-secondary');
-                    }
-                }
-                currentPage = 1;
-                updateVisibility();
-            });
-        });
-
-        // Initial render
-        updateVisibility();
-    });
-</script>
-
-<!-- Activities Section -->
-<section id="activities" class="py-5">
-    <h2 class="section-title">ACTIVITIES</h2>
-    {% if activities %}
-    <div class="list-group">
-        {% for activity in activities %}
-        <div class="list-group-item py-3 position-relative{% if activity.link or activity.attachment %} list-group-item-action{% endif %}">
-            {% if activity.link %}
-            <a href="{{ activity.link }}" class="stretched-link" target="_blank" aria-label="{{ activity.title }}"></a>
-            {% elif activity.attachment %}
-            <a href="{{ activity.attachment.url }}" class="stretched-link" target="_blank" aria-label="{{ activity.title }}"></a>
-            {% endif %}
-            <div class="d-flex w-100 justify-content-between align-items-center">
-                <h5 class="mb-1 fw-bold">
-                    {{ activity.title }}
-                    {% if activity.organization %}
-                    <span class="badge bg-secondary ms-2" style="font-size: 0.8em;">{{ activity.organization }}</span>
-                    {% endif %}
-                </h5>
-                {% if activity.period %}
-                <small>{{ activity.period }}</small>
-                {% endif %}
-            </div>
-            <p class="mb-1">{{ activity.description|linebreaks }}</p>
-            {% if activity.attachment %}
-            <small class="text-primary">첨부파일 보기</small>
-            {% endif %}
-        </div>
-        {% endfor %}
-    </div>
-    {% else %}
-    <p class="text-muted">등록된 활동 내역이 없습니다.</p>
-    {% endif %}
-</section>
-
-<!-- Leadership & Experiences Section -->
-<section id="leadership" class="py-5">
-    <h2 class="section-title">LEADERSHIP & EXPERIENCES</h2>
-    <div class="bg-light rounded p-3 p-md-4">
-        {% if leaderships %}
-        <div class="row" id="leadership-list">
-            {% for leadership in leaderships %}
-            <div class="col-md-6 mb-4" data-leadership-item>
-                <div class="card h-auto h-md-100 shadow border-0 position-relative project-card-hover">
-                    {% if leadership.image %}
-                    <img src="{{ leadership.image.url }}" class="card-img-top" alt="{{ leadership.title }}"
-                        style="height: 200px; object-fit: cover;" loading="lazy">
-                    {% endif %}
-                    <div class="card-body d-flex flex-column">
-                        <div class="mb-2">
-                            <span class="badge bg-secondary me-1">{{ leadership.organization }}</span>
-                        </div>
-
-                        <div class="mb-2">
-                            <h5 class="card-title fw-bold mb-1">
-                                <a href="{% url 'leadership_detail' leadership.id %}"
-                                    class="text-body text-decoration-none stretched-link">
-                                    {{ leadership.title }}
-                                </a>
-                            </h5>
-                            <small class="text-muted">{{ leadership.period }}</small>
-                        </div>
-
-                        <p class="card-text">{{ leadership.description|linebreaks }}</p>
-
-                        <ul class="list-group list-group-flush mb-3 small">
-                            <li class="list-group-item px-0">
-                                <strong>역할:</strong> {{ leadership.role }}
-                            </li>
-                            {% if leadership.outcome %}
-                            <li class="list-group-item px-0">
-                                <strong>성과:</strong> {{ leadership.outcome|linebreaks }}
-                            </li>
-                            {% endif %}
-                        </ul>
-
-                        <div class="mt-3 d-flex align-items-center justify-content-end"
-                            style="position: relative; z-index: 2;">
-                            {% if leadership.link %}
-                            <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm"
-                                target="_blank">관련 링크</a>
-                            {% endif %}
-                        </div>
-                    </div>
+            <div class="row mt-2 d-none d-md-block" id="leadership-pagination-wrapper">
+                <div class="col-12">
+                    <nav aria-label="Leadership pagination">
+                        <ul class="pagination justify-content-center" id="leadership-pagination"></ul>
+                    </nav>
                 </div>
             </div>
-            {% endfor %}
+            {% else %}
+            <p class="text-muted">등록된 리더십 및 경험 활동이 없습니다.</p>
+            {% endif %}
         </div>
-        <!-- Leadership Pagination (desktop only) -->
-        <div class="row mt-2 d-none d-md-block" id="leadership-pagination-wrapper">
-            <div class="col-12">
-                <nav aria-label="Leadership pagination">
-                    <ul class="pagination justify-content-center" id="leadership-pagination"></ul>
-                </nav>
-            </div>
-        </div>
-        {% else %}
-        <p class="text-muted">등록된 리더십 및 경험 활동이 없습니다.</p>
-        {% endif %}
     </div>
 </section>
 
@@ -721,72 +135,475 @@
         const items = document.querySelectorAll('[data-leadership-item]');
         const paginationEl = document.getElementById('leadership-pagination');
         const isMobile = () => window.innerWidth < 768;
-        const ITEMS_PER_PAGE = 4;
+        const PER_PAGE = 4;
         let currentPage = 1;
-
         if (!items.length) return;
 
         function updateVisibility() {
-            items.forEach(item => {
-                item.style.display = 'none';
-                item.classList.remove('fade-in');
-            });
-
-            if (isMobile()) {
-                items.forEach((item, i) => {
-                    item.style.display = 'block';
-                    setTimeout(() => item.classList.add('fade-in'), i * 40);
-                });
-                if (paginationEl) paginationEl.innerHTML = '';
-                return;
-            }
-
-            const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
-            if (currentPage > totalPages) currentPage = 1;
-
-            const start = (currentPage - 1) * ITEMS_PER_PAGE;
-            Array.from(items).slice(start, start + ITEMS_PER_PAGE).forEach((item, i) => {
-                item.style.display = 'block';
-                setTimeout(() => item.classList.add('fade-in'), i * 40);
-            });
-
-            renderPagination(totalPages);
+            items.forEach(item => { item.style.display = 'none'; item.classList.remove('fade-in'); });
+            if (isMobile()) { items.forEach((item, i) => { item.style.display = 'block'; setTimeout(() => item.classList.add('fade-in'), i * 40); }); if (paginationEl) paginationEl.innerHTML = ''; return; }
+            const pages = Math.ceil(items.length / PER_PAGE);
+            if (currentPage > pages) currentPage = 1;
+            Array.from(items).slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE).forEach((item, i) => { item.style.display = 'block'; setTimeout(() => item.classList.add('fade-in'), i * 40); });
+            renderPagination(pages);
         }
 
-        function renderPagination(totalPages) {
+        function renderPagination(pages) {
             if (!paginationEl) return;
             paginationEl.innerHTML = '';
-            if (totalPages <= 1) return;
-
-            const createItem = (text, page, isActive, isDisabled) => {
+            if (pages <= 1) return;
+            const mk = (text, page, active, disabled) => {
                 const li = document.createElement('li');
-                li.className = `page-item ${isActive ? 'active' : ''} ${isDisabled ? 'disabled' : ''}`;
+                li.className = `page-item ${active ? 'active' : ''} ${disabled ? 'disabled' : ''}`;
                 li.innerHTML = `<a class="page-link" href="#leadership">${text}</a>`;
-                if (!isDisabled && !isActive) {
-                    li.addEventListener('click', e => {
-                        e.preventDefault();
-                        currentPage = page;
-                        updateVisibility();
-                        document.getElementById('leadership').scrollIntoView({ behavior: 'smooth' });
-                    });
-                }
+                if (!disabled && !active) li.addEventListener('click', e => { e.preventDefault(); currentPage = page; updateVisibility(); document.getElementById('leadership').scrollIntoView({ behavior: 'smooth' }); });
                 return li;
             };
-
-            paginationEl.appendChild(createItem('‹', currentPage - 1, false, currentPage === 1));
-            for (let i = 1; i <= totalPages; i++) {
-                paginationEl.appendChild(createItem(i, i, i === currentPage));
-            }
-            paginationEl.appendChild(createItem('›', currentPage + 1, false, currentPage === totalPages));
+            paginationEl.append(mk('‹', currentPage - 1, false, currentPage === 1));
+            for (let i = 1; i <= pages; i++) paginationEl.append(mk(i, i, i === currentPage));
+            paginationEl.append(mk('›', currentPage + 1, false, currentPage === pages));
         }
 
-        let resizeTimeout;
+        let rt;
+        window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(updateVisibility, 150); });
+        updateVisibility();
+    });
+</script>
+
+<!-- ③ Activities & Certifications ─ muted bg -->
+<section id="activities" class="section-block section-muted">
+    <div class="container py-5">
+        <h2 class="section-title">ACTIVITIES</h2>
+
+        <!-- Certifications -->
+        <h3 class="activity-sub-title">
+            <i class="bi bi-patch-check-fill me-2" style="color:var(--accent);"></i>Certifications
+        </h3>
+        <div class="row g-3 mb-5">
+            <!-- 개발 -->
+            <div class="col-md-6">
+                <p class="cert-category-label">개발</p>
+                {% if cert_dev %}
+                <div class="d-flex flex-column gap-2">
+                    {% for cert in cert_dev %}
+                    <div class="cert-row position-relative{% if cert.link or cert.attachment %} cert-row-link{% endif %}">
+                        {% if cert.link %}<a href="{{ cert.link }}" class="stretched-link" target="_blank" rel="noopener" aria-label="{{ cert.title }}"></a>
+                        {% elif cert.attachment %}<a href="{{ cert.attachment.url }}" class="stretched-link" target="_blank" aria-label="{{ cert.title }}"></a>{% endif %}
+                        <span class="cert-period font-numeric">{{ cert.period }}</span>
+                        <div class="cert-info">
+                            <span class="cert-title">{{ cert.title }}</span>
+                            {% if cert.organization %}<span class="cert-org">{{ cert.organization }}</span>{% endif %}
+                        </div>
+                        {% if cert.attachment %}<i class="bi bi-paperclip cert-attach-icon"></i>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted small">등록된 자격증이 없습니다.</p>
+                {% endif %}
+            </div>
+            <!-- 외국어 -->
+            <div class="col-md-6">
+                <p class="cert-category-label">외국어</p>
+                {% if cert_lang %}
+                <div class="d-flex flex-column gap-2">
+                    {% for cert in cert_lang %}
+                    <div class="cert-row position-relative{% if cert.link or cert.attachment %} cert-row-link{% endif %}">
+                        {% if cert.link %}<a href="{{ cert.link }}" class="stretched-link" target="_blank" rel="noopener" aria-label="{{ cert.title }}"></a>
+                        {% elif cert.attachment %}<a href="{{ cert.attachment.url }}" class="stretched-link" target="_blank" aria-label="{{ cert.title }}"></a>{% endif %}
+                        <span class="cert-period font-numeric">{{ cert.period }}</span>
+                        <div class="cert-info">
+                            <span class="cert-title">{{ cert.title }}</span>
+                            {% if cert.organization %}<span class="cert-org">{{ cert.organization }}</span>{% endif %}
+                        </div>
+                        {% if cert.attachment %}<i class="bi bi-paperclip cert-attach-icon"></i>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted small">등록된 자격증이 없습니다.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Activities -->
+        <h3 class="activity-sub-title">
+            <i class="bi bi-lightning-charge-fill me-2" style="color:var(--accent);"></i>Activities
+        </h3>
+        {% if activities %}
+        <div class="d-flex flex-column gap-2">
+            {% for activity in activities %}
+            <div class="activity-row position-relative{% if activity.link or activity.attachment %} activity-row-link{% endif %}">
+                {% if activity.link %}<a href="{{ activity.link }}" class="stretched-link" target="_blank" rel="noopener" aria-label="{{ activity.title }}"></a>
+                {% elif activity.attachment %}<a href="{{ activity.attachment.url }}" class="stretched-link" target="_blank" aria-label="{{ activity.title }}"></a>{% endif %}
+                <span class="activity-period font-numeric">{{ activity.period }}</span>
+                <div class="activity-main">
+                    <span class="activity-title">{{ activity.title }}</span>
+                    {% if activity.description %}<span class="activity-desc">{{ activity.description }}</span>{% endif %}
+                </div>
+                {% if activity.organization %}<span class="activity-org">{{ activity.organization }}</span>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted small">등록된 활동이 없습니다.</p>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- ⑤ Skills ─ light bg -->
+<section id="skills" class="section-block section-light">
+    <div class="container py-5">
+        <h2 class="section-title">SKILLS</h2>
+        <div class="section-inner">
+            <ul class="nav nav-pills nav-justified mb-4" id="skillsTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="using-tab" type="button" role="tab">주력</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="maintain-tab" type="button" role="tab">활용 가능</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="experience-tab" type="button" role="tab">경험 보유</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="pills-tabContent">
+
+                <!-- 주력 -->
+                <div class="tab-pane fade show active" id="pills-using" role="tabpanel">
+                    <div class="skills-list">
+                        {% for skill in skills_using %}
+                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
+                            <div class="skill-header">
+                                {% with devicon=skill.name|to_devicon %}
+                                {% if devicon %}
+                                <i class="{{ devicon }} skill-devicon"></i>
+                                {% elif skill.icon %}
+                                <img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
+                                {% else %}
+                                <span class="skill-initial">{{ skill.name|first|upper }}</span>
+                                {% endif %}
+                                {% endwith %}
+                                <span class="skill-name">{{ skill.name }}</span>
+                            </div>
+                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                        </a>
+                        {% empty %}
+                        <p class="text-center text-muted py-4 w-100">등록된 기술이 없습니다.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- 활용 가능 -->
+                <div class="tab-pane fade" id="pills-maintain" role="tabpanel">
+                    <div class="skills-list">
+                        {% for skill in skills_maintain %}
+                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
+                            <div class="skill-header">
+                                {% with devicon=skill.name|to_devicon %}
+                                {% if devicon %}
+                                <i class="{{ devicon }} skill-devicon"></i>
+                                {% elif skill.icon %}
+                                <img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
+                                {% else %}
+                                <span class="skill-initial">{{ skill.name|first|upper }}</span>
+                                {% endif %}
+                                {% endwith %}
+                                <span class="skill-name">{{ skill.name }}</span>
+                            </div>
+                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                        </a>
+                        {% empty %}
+                        <p class="text-center text-muted py-4 w-100">등록된 기술이 없습니다.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- 경험 보유 -->
+                <div class="tab-pane fade" id="pills-experience" role="tabpanel">
+                    <div class="skills-list">
+                        {% for skill in skills_experience %}
+                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
+                            <div class="skill-header">
+                                {% with devicon=skill.name|to_devicon %}
+                                {% if devicon %}
+                                <i class="{{ devicon }} skill-devicon"></i>
+                                {% elif skill.icon %}
+                                <img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
+                                {% else %}
+                                <span class="skill-initial">{{ skill.name|first|upper }}</span>
+                                {% endif %}
+                                {% endwith %}
+                                <span class="skill-name">{{ skill.name }}</span>
+                            </div>
+                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                        </a>
+                        {% empty %}
+                        <p class="text-center text-muted py-4 w-100">등록된 기술이 없습니다.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- All (toggle) -->
+                <div class="tab-pane fade" id="pills-all" role="tabpanel">
+                    <div class="skills-list">
+                        {% for skill in skills_using %}
+                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
+                            <div class="skill-header">
+                                {% with devicon=skill.name|to_devicon %}
+                                {% if devicon %}<i class="{{ devicon }} skill-devicon"></i>
+                                {% elif skill.icon %}<img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
+                                {% else %}<span class="skill-initial">{{ skill.name|first|upper }}</span>
+                                {% endif %}
+                                {% endwith %}
+                                <span class="skill-name">{{ skill.name }}</span>
+                            </div>
+                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                        </a>
+                        {% endfor %}
+                        {% for skill in skills_maintain %}
+                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
+                            <div class="skill-header">
+                                {% with devicon=skill.name|to_devicon %}
+                                {% if devicon %}<i class="{{ devicon }} skill-devicon"></i>
+                                {% elif skill.icon %}<img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
+                                {% else %}<span class="skill-initial">{{ skill.name|first|upper }}</span>
+                                {% endif %}
+                                {% endwith %}
+                                <span class="skill-name">{{ skill.name }}</span>
+                            </div>
+                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                        </a>
+                        {% endfor %}
+                        {% for skill in skills_experience %}
+                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
+                            <div class="skill-header">
+                                {% with devicon=skill.name|to_devicon %}
+                                {% if devicon %}<i class="{{ devicon }} skill-devicon"></i>
+                                {% elif skill.icon %}<img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
+                                {% else %}<span class="skill-initial">{{ skill.name|first|upper }}</span>
+                                {% endif %}
+                                {% endwith %}
+                                <span class="skill-name">{{ skill.name }}</span>
+                            </div>
+                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const navLinks = document.querySelectorAll('#skillsTab .nav-link');
+                    const tabPanes = document.querySelectorAll('#pills-tabContent .tab-pane');
+                    const allPane = document.getElementById('pills-all');
+                    const tabMap = { 'using-tab': 'pills-using', 'maintain-tab': 'pills-maintain', 'experience-tab': 'pills-experience' };
+
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const already = this.classList.contains('active');
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            tabPanes.forEach(p => p.classList.remove('show', 'active'));
+                            if (already) {
+                                allPane.classList.add('show', 'active');
+                            } else {
+                                this.classList.add('active');
+                                document.getElementById(tabMap[this.id]).classList.add('show', 'active');
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</section>
+
+<!-- ⑥ Projects ─ muted bg -->
+<section id="projects" class="section-block section-muted">
+    <div class="container py-5">
+        <h2 class="section-title">PROJECTS</h2>
+        <div class="section-inner">
+            <div class="filter-scroll-container mb-4" id="project-filters">
+                <button class="btn btn-outline-secondary btn-sm active" data-filter="all">All</button>
+                {% for skill in project_skills %}
+                <button class="btn btn-outline-secondary btn-sm" data-filter="{{ skill.id }}">{{ skill.name }}</button>
+                {% endfor %}
+            </div>
+
+            {% if projects %}
+            <div class="row g-3" id="project-list">
+                {% for project in projects %}
+                <div class="col-md-4 project-item"
+                    data-type="{% if project.type %}{{ project.type.id }}{% else %}none{% endif %}"
+                    data-scope="{{ project.scope }}"
+                    data-tech-stacks="{% for tech in project.tech_stacks.all %}{{ tech.id }} {% endfor %}">
+                    <div class="card h-100 border position-relative project-card-hover project-card-compact">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" loading="lazy">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <!-- 개인/팀 배지 + 카테고리 + 기간 -->
+                            <div class="d-flex align-items-center justify-content-between mb-1">
+                                <div class="d-flex align-items-center gap-1 flex-wrap">
+                                    {% if project.scope == 'INDIVIDUAL' %}
+                                    <span class="scope-badge scope-individual">개인</span>
+                                    {% else %}
+                                    <span class="scope-badge scope-team">팀</span>
+                                    {% endif %}
+                                    {% for category in project.categories.all %}
+                                    <span class="badge bg-secondary" style="font-size:0.7rem;">{{ category.name }}</span>
+                                    {% endfor %}
+                                </div>
+                                <small class="text-muted font-numeric" style="font-size:0.72rem;">{{ project.period }}</small>
+                            </div>
+                            <!-- 제목 -->
+                            <h5 class="card-title">
+                                <a href="{% url 'project_detail' project.id %}"
+                                    class="text-body text-decoration-none stretched-link">{{ project.title }}</a>
+                            </h5>
+                            <!-- 설명 (2줄) -->
+                            <p class="card-desc">{{ project.description }}</p>
+                            <!-- 성과 -->
+                            {% if project.outcome %}
+                            <div class="mb-2" style="position:relative;z-index:2;">
+                                <span class="card-outcome-badge" style="font-size:0.72rem;">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                    {{ project.outcome|truncatechars:50 }}
+                                </span>
+                            </div>
+                            {% endif %}
+                            <!-- 기술 배지 -->
+                            <div class="mb-2 d-flex flex-wrap gap-1">
+                                {% for tech in project.tech_stacks.all %}
+                                <span class="badge bg-light text-dark border" style="font-size:0.7rem;">{{ tech.name }}</span>
+                                {% endfor %}
+                            </div>
+                            <!-- 링크 -->
+                            <div class="mt-auto d-flex align-items-center justify-content-between pt-2"
+                                style="position:relative;z-index:2;">
+                                <a href="{% url 'project_detail' project.id %}"
+                                    class="text-decoration-none fw-semibold" style="font-size:0.8rem;color:var(--accent-dark);">
+                                    자세히 보기 <i class="bi bi-arrow-right"></i>
+                                </a>
+                                <div class="d-flex gap-1">
+                                    {% if project.github_url %}
+                                    <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm py-0 px-2"
+                                        target="_blank" rel="noopener" style="font-size:0.8rem;"><i class="bi bi-github"></i></a>
+                                    {% endif %}
+                                    {% if project.demo_url %}
+                                    <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm py-0 px-2"
+                                        target="_blank" rel="noopener" style="font-size:0.8rem;">Demo</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="row mt-4" id="pagination-controls-wrapper">
+                <div class="col-12">
+                    <nav aria-label="Project pagination">
+                        <ul class="pagination justify-content-center" id="pagination-controls"></ul>
+                    </nav>
+                </div>
+            </div>
+            {% else %}
+            <p class="text-muted">등록된 프로젝트가 없습니다.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const techButtons = document.querySelectorAll('#project-filters button');
+        const projectItems = document.querySelectorAll('.project-item');
+        const paginationControls = document.getElementById('pagination-controls');
+        const isMobile = () => window.innerWidth < 768;
+        const itemsPerPage = 6;
+        let currentPage = 1, currentTechFilters = [];
+
+        let resizeTimeout, lastWidth = window.innerWidth;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(updateVisibility, 150);
+            resizeTimeout = setTimeout(() => {
+                if (window.innerWidth !== lastWidth) { lastWidth = window.innerWidth; currentPage = 1; updateVisibility(); }
+            }, 150);
+        });
+
+        function getFilteredItems() {
+            return Array.from(projectItems).filter(item => {
+                const stacks = item.dataset.techStacks.trim().split(/\s+/);
+                return currentTechFilters.length === 0 || currentTechFilters.some(f => stacks.includes(f));
+            });
+        }
+
+        function renderPagination(total) {
+            paginationControls.innerHTML = '';
+            const pages = Math.ceil(total / itemsPerPage);
+            if (pages <= 1) return;
+            const groupSize = 5, group = Math.ceil(currentPage / groupSize);
+            const start = (group - 1) * groupSize + 1, end = Math.min(start + groupSize - 1, pages);
+            const mk = (text, page, active, disabled) => {
+                const li = document.createElement('li');
+                li.className = `page-item ${active ? 'active' : ''} ${disabled ? 'disabled' : ''}`;
+                li.innerHTML = `<a class="page-link" href="#projects">${text}</a>`;
+                if (!disabled && !active) li.addEventListener('click', e => { e.preventDefault(); currentPage = page; updateVisibility(); document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }); });
+                return li;
+            };
+            paginationControls.append(mk('‹', currentPage - 1, false, currentPage === 1));
+            for (let i = start; i <= end; i++) paginationControls.append(mk(i, i, i === currentPage));
+            paginationControls.append(mk('›', currentPage + 1, false, currentPage === pages));
+        }
+
+        function updateVisibility() {
+            const filtered = getFilteredItems();
+            projectItems.forEach(item => { item.style.display = 'none'; item.classList.remove('fade-in'); });
+            if (!filtered.length) { renderPagination(0); return; }
+            if (isMobile()) {
+                filtered.forEach((item, i) => { item.style.display = 'block'; setTimeout(() => item.classList.add('fade-in'), i * 40); });
+            } else {
+                const pages = Math.ceil(filtered.length / itemsPerPage);
+                if (currentPage > pages) currentPage = 1;
+                filtered.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).forEach((item, i) => {
+                    item.style.display = 'block'; setTimeout(() => item.classList.add('fade-in'), i * 40);
+                });
+                renderPagination(filtered.length);
+            }
+        }
+
+        const techAllBtn = document.querySelector('#project-filters button[data-filter="all"]');
+        techButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const val = this.dataset.filter;
+                if (val === 'all') {
+                    if (this.classList.contains('active')) return;
+                    currentTechFilters = [];
+                    techButtons.forEach(b => { b.classList.remove('active', 'btn-primary', 'btn-secondary'); b.classList.add('btn-outline-secondary'); });
+                    this.classList.remove('btn-outline-secondary'); this.classList.add('active', 'btn-secondary');
+                } else {
+                    if (currentTechFilters.includes(val)) {
+                        currentTechFilters = currentTechFilters.filter(f => f !== val);
+                        this.classList.remove('active', 'btn-primary'); this.classList.add('btn-outline-secondary');
+                    } else {
+                        currentTechFilters.push(val);
+                        this.classList.remove('btn-outline-secondary'); this.classList.add('active', 'btn-primary');
+                    }
+                    if (!currentTechFilters.length) { techAllBtn.classList.remove('btn-outline-secondary'); techAllBtn.classList.add('active', 'btn-secondary'); }
+                    else { techAllBtn.classList.remove('active', 'btn-secondary'); techAllBtn.classList.add('btn-outline-secondary'); }
+                }
+                currentPage = 1; updateVisibility();
+            });
         });
 
         updateVisibility();
     });
 </script>
+
 {% endblock %}

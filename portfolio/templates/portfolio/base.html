@@ -14,10 +14,12 @@
     <title>About Me - 하정훈</title>
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Inter (영문 숫자) + Noto Sans KR (한글) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Devicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <!-- Portfolio Styles -->
     <link rel="stylesheet" href="{% static 'portfolio/css/style.css' %}">
     <script>
@@ -46,23 +48,22 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto navbar-nav-equal">
                     <li class="nav-item"><a class="nav-link" href="#profile">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#career">Career</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#activities">Activities</a></li>
                     <li class="nav-item"><a class="nav-link" href="#leadership">Leadership</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#activities">Activities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container mt-5">
+    <main>
         {% block content %}{% endblock %}
-    </div>
+    </main>
 
-    <footer class="bg-body-tertiary text-center py-4 mt-5">
+    <footer class="bg-body-tertiary text-center py-4 mt-0 border-top">
         <p class="mb-0">&copy; 2026 Jeonghun Ha. All rights reserved.</p>
     </footer>
 
@@ -71,7 +72,15 @@
     <nav class="mobile-bottom-nav d-md-none">
         <a href="#profile" class="nav-item">
             <i class="bi bi-house"></i>
-            <span>홈</span>
+            <span>프로필</span>
+        </a>
+        <a href="#leadership" class="nav-item">
+            <i class="bi bi-award"></i>
+            <span>리더십</span>
+        </a>
+        <a href="#activities" class="nav-item">
+            <i class="bi bi-chat-dots"></i>
+            <span>활동</span>
         </a>
         <a href="#skills" class="nav-item">
             <i class="bi bi-code-slash"></i>
@@ -81,67 +90,57 @@
             <i class="bi bi-folder2"></i>
             <span>프로젝트</span>
         </a>
-        <a href="#activities" class="nav-item">
-            <i class="bi bi-chat-dots"></i>
-            <span>활동</span>
-        </a>
-        <a href="#leadership" class="nav-item">
-            <i class="bi bi-award"></i>
-            <span>리더십</span>
-        </a>
     </nav>
     {% endif %}
 
-    <!-- 뒤로 가기 플로팅 버튼 (홈 화면이 아닐 때만 표시) -->
-    {% if request.resolver_match.url_name != 'home' %}
-    <button type="button" class="btn btn-secondary btn-floating" id="btn-back-page">
-        <i class="bi bi-chevron-left"></i>
-    </button>
-    {% endif %}
-
-    <!-- Back to Top 버튼 -->
-    <button type="button" class="btn btn-primary btn-floating" id="btn-back-to-top">
-        <i class="bi bi-arrow-up"></i>
-    </button>
+    <!-- 플로팅 액션 그룹 (우하단 통합) -->
+    <div class="fab-group" id="fab-group">
+        <!-- 이메일 -->
+        {% if global_profile and global_profile.email %}
+        <a href="mailto:{{ global_profile.email }}" class="fab-btn fab-contact" title="{{ global_profile.email }}" aria-label="이메일 보내기">
+            <i class="bi bi-envelope-fill"></i>
+        </a>
+        {% endif %}
+        <!-- GitHub -->
+        {% if global_profile and global_profile.github_url %}
+        <a href="{{ global_profile.github_url }}" target="_blank" rel="noopener" class="fab-btn fab-contact" title="GitHub" aria-label="GitHub 프로필">
+            <i class="bi bi-github"></i>
+        </a>
+        {% endif %}
+        <!-- 뒤로 가기 (상세 페이지만) -->
+        {% if request.resolver_match.url_name != 'home' %}
+        <button type="button" class="fab-btn fab-back" id="btn-back-page" title="이전 페이지" aria-label="이전 페이지">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        {% endif %}
+        <!-- TOP -->
+        <button type="button" class="fab-btn fab-top" id="btn-back-to-top" title="맨 위로" aria-label="맨 위로" style="display:none;">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+    </div>
 
     <!-- Bootstrap 5.3 Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Back to Top 기능
-        const mybutton = document.getElementById("btn-back-to-top");
-
+        // TOP 버튼
+        const topBtn = document.getElementById("btn-back-to-top");
         window.addEventListener('scroll', function () {
-            scrollFunction();
+            if (topBtn) topBtn.style.display = (window.scrollY > 300) ? "flex" : "none";
             updateActiveTab();
         });
+        if (topBtn) topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-        function scrollFunction() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-
-        mybutton.addEventListener("click", function () {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
-
-        // 뒤로 가기 기능
-        const backButton = document.getElementById("btn-back-page");
-        if (backButton) {
-            backButton.addEventListener("click", function () {
-                if (window.history.length > 1) {
-                    window.history.back();
-                } else {
-                    window.location.href = "/";
-                }
+        // 뒤로 가기 버튼
+        const backBtn = document.getElementById("btn-back-page");
+        if (backBtn) {
+            backBtn.addEventListener("click", function () {
+                window.history.length > 1 ? window.history.back() : (window.location.href = "/");
             });
         }
 
         // 모바일 하단 바 활성화 상태 업데이트
         function updateActiveTab() {
-            const sections = ['profile', 'skills', 'projects', 'activities', 'leadership'];
+            const sections = ['profile', 'leadership', 'activities', 'skills', 'projects'];
             const navItems = document.querySelectorAll('.mobile-bottom-nav .nav-item');
 
             let currentSection = "";
@@ -162,6 +161,29 @@
                 }
             });
         }
+    </script>
+    <script>
+        /* --- IntersectionObserver: .reveal 요소 스크롤 애니메이션 --- */
+        (function () {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                /* section 단위 reveal */
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.add('reveal');
+                    observer.observe(section);
+                });
+                /* 개별 .reveal 클래스 요소 */
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            });
+        })();
     </script>
     <script>
         /*!

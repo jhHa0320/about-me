@@ -55,9 +55,10 @@ class ProjectAdmin(SummernoteModelAdmin):
 
 @admin.register(Activity)
 class ActivityAdmin(admin.ModelAdmin):
-    list_display = ('order', 'title', 'organization', 'period')
-    list_editable = ('order',)
+    list_display = ('order', 'type', 'title', 'organization', 'period')
+    list_editable = ('order', 'type')
     list_display_links = ('title',)
+    list_filter = ('type',)
 
 @admin.register(Leadership)
 class LeadershipAdmin(SummernoteModelAdmin):

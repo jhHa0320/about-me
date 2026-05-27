@@ -1,0 +1,125 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'home' %}#skills">Skills</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ skill.name }}</li>
+        </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-5">
+        <span class="hero-overline">Skill → Projects</span>
+        <h1 class="hero-title mb-2">
+            {% if skill.icon %}
+            <img src="{{ skill.icon.url }}" style="width:40px;height:40px;object-fit:contain;vertical-align:middle;" alt="{{ skill.name }}" class="me-2">
+            {% endif %}
+            {{ skill.name }}
+        </h1>
+        {% if skill.description %}
+        <p class="hero-tagline">{{ skill.description }}</p>
+        {% endif %}
+        <p class="text-muted small">
+            <span class="badge" style="background:var(--accent);color:#000;font-weight:600;">
+                {{ skill.get_category_display }}
+            </span>
+            <span class="ms-2">총 {{ projects.count }}개 프로젝트</span>
+        </p>
+    </div>
+
+    <!-- Other skills quick nav -->
+    {% if all_skills %}
+    <div class="mb-4">
+        <p class="text-muted small fw-semibold mb-2">다른 기술로 보기</p>
+        <div class="d-flex flex-wrap gap-2">
+            {% for s in all_skills %}
+            <a href="{% url 'skill_projects' s.id %}"
+               class="btn btn-sm {% if s.id == skill.id %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+                {{ s.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Project Grid -->
+    {% if projects %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for project in projects %}
+        <div class="col reveal">
+            <div class="card h-100 shadow-sm border-0 project-card-hover">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}"
+                    style="height:180px;object-fit:cover;" loading="lazy">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div>
+                            {% for category in project.categories.all %}
+                            <span class="badge bg-secondary me-1">{{ category.name }}</span>
+                            {% endfor %}
+                        </div>
+                        <small class="text-muted font-numeric">{{ project.period }}</small>
+                    </div>
+                    <h5 class="card-title fw-bold mb-2">
+                        <a href="{% url 'project_detail' project.id %}"
+                            class="text-body text-decoration-none stretched-link">{{ project.title }}</a>
+                    </h5>
+                    <p class="card-text card-text-clamp text-secondary mb-3">{{ project.description }}</p>
+                    {% if project.outcome %}
+                    <div class="mb-3" style="position:relative;z-index:2;">
+                        <span class="card-outcome-badge">
+                            <i class="bi bi-graph-up-arrow"></i>
+                            {{ project.outcome|truncatechars:55 }}
+                        </span>
+                    </div>
+                    {% endif %}
+                    <div class="small mb-3">
+                        {% for tech in project.tech_stacks.all %}
+                        <span class="badge me-1 {% if tech.id == skill.id %}bg-primary text-dark{% else %}bg-light text-dark border{% endif %}">
+                            {{ tech.name }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-auto d-flex align-items-center justify-content-between"
+                        style="position:relative;z-index:2;">
+                        <a href="{% url 'project_detail' project.id %}"
+                            class="text-decoration-none fw-semibold small" style="color:var(--accent-dark);">
+                            자세히 보기 <i class="bi bi-arrow-right"></i>
+                        </a>
+                        <div class="d-flex gap-2">
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm"
+                                target="_blank" rel="noopener"><i class="bi bi-github"></i></a>
+                            {% endif %}
+                            {% if project.demo_url %}
+                            <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm"
+                                target="_blank" rel="noopener">Demo</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="bi bi-folder2-open" style="font-size:3rem;color:var(--text-muted-color);"></i>
+        <p class="mt-3 text-muted">{{ skill.name }}을(를) 사용한 프로젝트가 없습니다.</p>
+        <a href="{% url 'home' %}#projects" class="btn btn-outline-secondary mt-2">전체 프로젝트 보기</a>
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-5">
+        <a href="{% url 'home' %}#skills" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Skills로 돌아가기
+        </a>
+    </div>
+</div>
+{% endblock %}

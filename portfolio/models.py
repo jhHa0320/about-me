@@ -117,6 +117,20 @@ class Project(models.Model):
         ordering = ['-order', '-start_date', '-id']
 
 class Activity(models.Model):
+    TYPE_CHOICES = [
+        ('CERTIFICATION', 'Certification'),
+        ('ACTIVITY', 'Activity'),
+    ]
+    CERT_CATEGORY_CHOICES = [
+        ('DEV', '개발'),
+        ('LANG', '외국어'),
+        ('ETC', '기타'),
+    ]
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='ACTIVITY', verbose_name="구분")
+    cert_category = models.CharField(
+        max_length=10, choices=CERT_CATEGORY_CHOICES, blank=True, default='',
+        verbose_name="자격증 분류 (Certification일 때만)"
+    )
     title = models.CharField(max_length=100, verbose_name="활동/자격증명")
     organization = models.CharField(max_length=100, blank=True, verbose_name="주최/시행 기관")
     description = models.TextField(blank=True, verbose_name="설명")
@@ -126,7 +140,7 @@ class Activity(models.Model):
     order = models.IntegerField(default=0, verbose_name="정렬 순서")
 
     def __str__(self):
-        return self.title
+        return f"[{self.get_type_display()}] {self.title}"
 
     class Meta:
         verbose_name = "활동/자격증"
