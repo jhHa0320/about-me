@@ -21,6 +21,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TIMEOUT = 60
 RETRIES = 3
 
+#: PythonAnywhere API 는 분당 요청 수를 제한합니다. 파일을 연속으로 올릴 때
+#: 429 로 끊기지 않도록 호출 사이에 최소 간격을 둡니다. PA_API_DELAY 로 조정.
+MIN_INTERVAL = float(os.environ.get("PA_API_DELAY", "1.6"))
+RATE_LIMIT_RETRIES = 8
+
+_last_call = [0.0]
+
+
+def _throttle():
+    elapsed = time.monotonic() - _last_call[0]
+    if elapsed < MIN_INTERVAL:
+        time.sleep(MIN_INTERVAL - elapsed)
+    _last_call[0] = time.monotonic()
+
 #: 훑을 때 통째로 건너뛸 디렉터리/파일 이름
 SKIP_NAMES = {
     "__pycache__", ".git", ".github", ".venv", "venv", "node_modules",
@@ -75,15 +89,31 @@ def connect():
 
 
 def request(session, method, url, **kwargs):
-    """네트워크 오류와 429 만 재시도합니다. 인증 오류는 즉시 중단합니다."""
+    """네트워크 오류와 429 만 재시도합니다. 인증 오류는 즉시 중단합니다.
+
+    업로드는 파일 하나당 한 번씩 호출되므로 429 를 넉넉히 견뎌야 합니다.
+    서버가 Retry-After 를 주면 그 값을 따릅니다.
+    """
     kwargs.setdefault("timeout", TIMEOUT)
+    body = kwargs.get("files") or kwargs.get("data")
     last = None
-    for attempt in range(RETRIES):
+    net_attempt = 0
+    rate_attempt = 0
+
+    while net_attempt < RETRIES and rate_attempt < RATE_LIMIT_RETRIES:
+        # 재시도 시 파일 핸들이 이미 소진되었으면 되감습니다.
+        if isinstance(body, dict):
+            for value in body.values():
+                if hasattr(value, "seek"):
+                    value.seek(0)
+
+        _throttle()
         try:
             response = session.request(method, url, **kwargs)
         except requests.RequestException as exc:
             last = exc
-            time.sleep(2 ** attempt)
+            net_attempt += 1
+            time.sleep(2 ** net_attempt)
             continue
 
         if response.status_code == 401:
@@ -91,7 +121,12 @@ def request(session, method, url, **kwargs):
         if response.status_code == 403:
             die(f"접근이 거부되었습니다 (403). 계정/호스트를 확인하세요: {HOST}")
         if response.status_code == 429:
-            time.sleep(5 * (attempt + 1))
+            rate_attempt += 1
+            wait = response.headers.get("Retry-After")
+            delay = float(wait) if wait and wait.isdigit() else min(15 * rate_attempt, 90)
+            print(f"    · rate limit — {delay:.0f}초 대기 후 재시도 "
+                  f"({rate_attempt}/{RATE_LIMIT_RETRIES})", flush=True)
+            time.sleep(delay)
             last = RuntimeError("rate limited")
             continue
         return response

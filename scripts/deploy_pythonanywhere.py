@@ -202,12 +202,17 @@ def main():
 
     print()
     uploaded = 0
-    for relative, local, checksum in plan:
-        status = pa.upload(session, base, local, f"{remote_dir}/{relative}")
-        state[relative] = checksum
-        uploaded += 1
-        print(f"  [{status}] {relative}")
-    save_state(state)
+    try:
+        for index, (relative, local, checksum) in enumerate(plan, 1):
+            status = pa.upload(session, base, local, f"{remote_dir}/{relative}")
+            state[relative] = checksum
+            uploaded += 1
+            print(f"  [{status}] {index:>3}/{len(plan)}  {relative}", flush=True)
+            # 중단되더라도 다시 실행하면 남은 것부터 이어갑니다.
+            if index % 10 == 0:
+                save_state(state)
+    finally:
+        save_state(state)
 
     print(f"\n{uploaded}개 업로드 완료")
 
