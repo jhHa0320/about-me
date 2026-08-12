@@ -112,51 +112,185 @@ python manage.py test portfolio
 
 ## 콘텐츠 동기화
 
-콘텐츠(DB·이미지)는 git 으로 추적하지 않습니다. **운영 서버의
-`/admin` 이 유일한 원본**이고, 로컬은 내려받아 쓰기만 합니다.
+콘텐츠(DB·이미지)는 git 으로 추적하지 않습니다. **운영 서버의 `/admin` 이
+유일한 원본**이고, 로컬은 내려받아 쓰기만 합니다.
 
-> 로컬 `/admin` 에서 글을 쓰지 마세요. 다음 `--apply` 때 덮어써집니다.
+> ⚠️ 로컬 `/admin` 에서는 글을 쓰지 마세요. 다음 `--apply` 때 덮어써집니다.
 > (덮어쓰기 전 `_pa_backup/` 에 백업되므로 복구는 가능합니다.)
 
-```bash
-# 1. 뭐가 다른지 먼저 본다 — 아무것도 바꾸지 않는다
-python scripts/fetch_pythonanywhere.py --check
+### 준비 — 처음 한 번만
 
-# 2. 받아온다
-python scripts/fetch_pythonanywhere.py --apply
-python manage.py migrate        # 새 마이그레이션이 있으면
+```bash
+pip install -r requirements-dev.txt
 ```
 
-`--check` 는 운영 DB 를 임시로 내려받아 테이블별 행 수, 한쪽에만 있는 행,
-필드 단위 변경을 보여주고 종료합니다. **로컬에만 있는 데이터가 있으면
-경고**하므로, 모르고 덮어쓰는 일을 막을 수 있습니다.
+그리고 `.env` 에 아래 두 줄을 추가합니다. 토큰은
+[계정 페이지](https://www.pythonanywhere.com/account/#api_token)에서 발급합니다.
+`.env` 는 `.gitignore` 에 있어 커밋되지 않습니다.
 
-### 백업
+```bash
+PA_USERNAME=hjh0320
+PA_TOKEN=여기에_발급받은_토큰
+```
+
+제대로 붙었는지 확인:
+
+```bash
+python scripts/fetch_pythonanywhere.py --list
+```
+
+서버의 홈 디렉터리 목록이 나오면 성공입니다. `PA_USERNAME / PA_TOKEN 이
+설정되지 않았습니다` 가 나오면 `.env` 를 다시 확인하세요.
+
+---
+
+### 도구 1 — 운영과 로컬 비교 `--check`
+
+**언제**: 로컬에서 코드 작업을 시작하기 전. 그리고 `--apply` 하기 직전에 항상.
+
+```bash
+python scripts/fetch_pythonanywhere.py --check
+```
+
+운영 DB 를 임시 폴더로 내려받아 비교만 하고 끝냅니다.
+**로컬 파일도 서버도 건드리지 않습니다.**
+
+출력 예시:
+
+```
+마이그레이션   로컬: 0025_seed_featured_and_key_results
+               운영: 0025_seed_featured_and_key_results
+
+테이블                 로컬      운영   차이
+  ────────────────────────────────────────────
+  프로젝트                14      15   운영에 +1
+  활동·자격증               6       6
+
+■ 프로젝트
+    + 운영에만  #15  새로 추가한 프로젝트
+    ~ 내용 다름  #12  픽합주(실시간 합주실 예약 보조 서비스)
+        key_result
+          로컬: 서울 25개 구 합주실 데이터 통합
+          운영: 응답 2.0s → 70ms
+
+요약: 운영에만 1건 · 로컬에만 0건 · 내용 다름 1건
+
+로컬에만 있는 데이터는 없습니다. 안전하게 받아올 수 있습니다:
+  python scripts/fetch_pythonanywhere.py --apply
+```
+
+읽는 법:
+
+| 표시 | 뜻 | 해야 할 일 |
+| --- | --- | --- |
+| `+ 운영에만` | 서버에서 새로 쓴 내용 | `--apply` 로 받아오면 됨 |
+| `- 로컬에만` | **로컬에서만 있는 내용** | `--apply` 하면 사라짐. 운영 `/admin` 에 다시 입력하거나 포기 |
+| `~ 내용 다름` | 양쪽에 있으나 값이 다름 | 운영 값으로 덮어써짐 |
+| `두 DB 의 내용이 같습니다` | 동일 | 받아올 것 없음 |
+
+마이그레이션 줄이 서로 다르면 스키마가 어긋난 상태라 경고가 뜹니다.
+그때는 `--apply` 후 `python manage.py migrate` 를 실행하세요.
+
+**받아오기**
+
+```bash
+python scripts/fetch_pythonanywhere.py --apply
+python manage.py migrate        # 새 마이그레이션이 있을 때만
+```
+
+기존 로컬 `db.sqlite3` 와 `media/` 는 `_pa_backup/<시각>/` 에 백업된 뒤
+교체됩니다. 잘못 받았으면 그 폴더에서 되돌리면 됩니다.
+
+---
+
+### 도구 2 — 콘텐츠 백업 `backup_content.py`
+
+**언제**: `/admin` 에서 글을 여러 개 쓰거나 고친 다음. 주 1회 정도면 충분합니다.
 
 모든 콘텐츠가 서버의 SQLite 파일 하나에 들어 있습니다. 그 파일이 사라지면
-프로젝트 설명과 보고서가 전부 사라지므로, 주기적으로 스냅샷을 남깁니다.
+프로젝트 설명과 상세 보고서가 전부 사라지므로 스냅샷을 남겨 둡니다.
 
 ```bash
-python scripts/backup_content.py                # 변경됐을 때만 저장
-python scripts/backup_content.py --git-commit   # 저장 + 커밋
-python scripts/backup_content.py --with-media   # 이미지까지 (git 밖)
-python scripts/backup_content.py --prune 20     # 최근 20개만 유지
+python scripts/backup_content.py
 ```
 
-운영 DB 를 내려받아 **로컬에서** `dumpdata` 를 돌리므로 서버 콘솔이
-필요 없습니다. 결과는 `backups/portfolio-<시각>.json` 이고, JSON 이라
-`git diff` 로 무엇이 언제 바뀌었는지 볼 수 있습니다. 직전 스냅샷과
-내용이 같으면 저장하지 않습니다.
+출력:
 
-복원:
+```
+운영 DB 내려받는 중… (/home/hjh0320/about_me/db.sqlite3)
+  512.0 KB
+dumpdata 실행 중…
+  activity 6 · career 1 · education 3 · leadership 4 · profile 1
+  · project 14 · projectcategory 7 · projecttype 3 · skill 26
+
+저장: backups\portfolio-20260812-230818.json  (140.1 KB)
+```
+
+운영 DB 를 받아 **로컬에서** `dumpdata` 를 돌리므로 서버 콘솔이 필요
+없습니다. 결과는 JSON 이라 `git diff` 로 무엇이 언제 바뀌었는지 보입니다.
+직전 스냅샷과 내용이 같으면 저장하지 않습니다.
+
+자주 쓰는 조합:
 
 ```bash
-python scripts/backup_content.py --restore backups/portfolio-....json
+# 백업하고 git 커밋까지 한 번에 (가장 실용적)
+python scripts/backup_content.py --git-commit
+
+# 이미지까지 (용량이 커서 git 밖 _pa_backup/media-snapshots/ 에 저장)
+python scripts/backup_content.py --with-media
+
+# 최근 20개만 남기고 오래된 스냅샷 정리
+python scripts/backup_content.py --prune 20
+
+# 내용이 같아도 강제로 새로 저장
+python scripts/backup_content.py --force
 ```
 
-로컬 DB 를 대상으로 동작하며, 실행 전 현재 DB 를 `_pa_backup/` 에
-백업합니다. 운영에 되돌릴 때는 파일을 서버로 올린 뒤 콘솔에서
-`python manage.py loaddata <파일>.json` 을 실행하세요.
+**복원**
+
+```bash
+python scripts/backup_content.py --restore backups/portfolio-20260812-230818.json
+```
+
+로컬 DB 를 대상으로 동작합니다. 실행 전 현재 로컬 DB 를 `_pa_backup/` 에
+백업하고 확인 프롬프트를 띄웁니다. `loaddata` 는 같은 pk 의 행을
+덮어쓰며, 스냅샷에 없는 행은 그대로 남습니다(완전 초기화가 아닙니다).
+
+운영에 되돌릴 때는 스냅샷 파일을 서버로 올린 뒤 콘솔에서:
+
+```bash
+python scripts/deploy_pythonanywhere.py --push backups/portfolio-....json
+# 그다음 서버 Bash 콘솔에서
+cd /home/hjh0320/about_me
+python manage.py loaddata backups/portfolio-....json
+```
+
+---
+
+### 한눈에 보기
+
+| 하고 싶은 것 | 명령 |
+| --- | --- |
+| 서버에 뭐가 있는지 보기 | `python scripts/fetch_pythonanywhere.py --list` |
+| 운영과 로컬 차이 확인 | `python scripts/fetch_pythonanywhere.py --check` |
+| 운영 콘텐츠 받아오기 | `python scripts/fetch_pythonanywhere.py --apply` |
+| 콘텐츠 백업 + 커밋 | `python scripts/backup_content.py --git-commit` |
+| 백업 복원 (로컬) | `python scripts/backup_content.py --restore <파일>` |
+| 코드 배포 | `python scripts/deploy_pythonanywhere.py` |
+| 올릴 목록만 미리 보기 | `python scripts/deploy_pythonanywhere.py --dry-run` |
+
+`--help` 를 붙이면 각 스크립트의 전체 옵션을 볼 수 있습니다.
+
+### 잘 안 될 때
+
+| 증상 | 원인과 해결 |
+| --- | --- |
+| `PA_USERNAME / PA_TOKEN 이 설정되지 않았습니다` | `.env` 에 두 값을 넣었는지 확인 |
+| `토큰이 거부되었습니다 (401)` | 토큰이 만료·재발급됨. 새로 발급해 `.env` 갱신 |
+| `rate limit — N초 대기 후 재시도` | 정상입니다. API 분당 제한에 걸려 자동으로 기다립니다 |
+| `requests 가 필요합니다` | `pip install -r requirements-dev.txt` |
+| `원격 프로젝트 폴더를 찾지 못했습니다` | `.env` 에 `PA_REMOTE_DIR=/home/hjh0320/about_me` 추가 |
+| 배포 후 화면이 옛날 그대로 | 정적 파일을 바꿨다면 서버 콘솔에서 `DEBUG=False python manage.py collectstatic --noinput` 후 리로드 |
 
 ### 외부 DB 는 왜 안 쓰나
 

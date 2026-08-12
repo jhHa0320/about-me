@@ -49,6 +49,20 @@ NEEDS_MIGRATE_PREFIX = "portfolio/migrations/"
 NEEDS_COLLECTSTATIC_PREFIX = "static/"
 
 
+def confirm(message):
+    """되돌리기 어려운 동작 전 확인. 비대화 환경에서는 거부합니다."""
+    print(message)
+    try:
+        answer = input("  정말 진행할까요? [y/N] ")
+    except EOFError:
+        print("  → 입력을 받을 수 없어 취소했습니다. (대화형 터미널에서 실행하세요)")
+        return False
+    if answer.strip().lower() == "y":
+        return True
+    print("  → 취소했습니다.")
+    return False
+
+
 def git_tracked_files():
     try:
         output = subprocess.run(
@@ -125,6 +139,9 @@ def main():
                         help="업로드 없이 웹앱만 리로드 (migrate 를 끝낸 뒤)")
     parser.add_argument("--list-webapps", action="store_true",
                         help="웹앱 도메인 목록을 출력하고 종료")
+    parser.add_argument("--push", metavar="FILE",
+                        help="파일 1개를 서버의 같은 상대경로로 올리고 종료 "
+                             "(백업 스냅샷 등). 리로드하지 않습니다.")
     parser.add_argument("--remote-dir", help="원격 프로젝트 경로 (기본: 자동 탐색)")
     parser.add_argument("--domain", help=f"리로드할 도메인 (기본: {pa.DOMAIN})")
     args = parser.parse_args()
@@ -156,6 +173,27 @@ def main():
 
         remote_dir = pa.resolve_remote_dir(session, base, args.remote_dir)
         domain = args.domain or pa.DOMAIN
+
+        if args.push:
+            local = Path(args.push).resolve()
+            if not local.is_file():
+                pa.die(f"파일이 없습니다: {local}")
+            try:
+                relative = local.relative_to(pa.BASE_DIR).as_posix()
+            except ValueError:
+                pa.die("저장소 안의 파일만 올릴 수 있습니다.")
+
+            # 명시적으로 지정한 파일이라도, 운영 데이터를 덮어쓰는 경로면 확인받는다.
+            if not allowed(relative) and not confirm(
+                f"⚠ '{relative}' 은(는) 평소 업로드에서 제외되는 경로입니다.\n"
+                "  운영 데이터나 비밀값을 덮어쓸 수 있습니다."
+            ):
+                return
+
+            status = pa.upload(session, base, local, f"{remote_dir}/{relative}")
+            print(f"[{status}] {relative} → {remote_dir}/{relative}")
+            print("(200=덮어씀, 201=새로 만듦 · 리로드는 하지 않았습니다)")
+            return
 
     candidates = [f for f in git_tracked_files() if allowed(f)]
     skipped = [f for f in git_tracked_files() if not allowed(f)]
