@@ -57,22 +57,40 @@ MIDDLEWARE = [
 
 # Security Settings
 if not DEBUG:
+    # PythonAnywhere 는 프론트엔드에서 TLS 를 끊고 뒤로는 HTTP 로 넘깁니다.
+    # 이 설정이 없으면 Django 가 모든 요청을 비보안으로 판단해
+    # SECURE_SSL_REDIRECT 가 무한 리다이렉트 루프를 만듭니다.
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
     # HTTPS settings
-    SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=True, cast=bool)
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    
-    # HSTS settings
-    SECURE_HSTS_SECONDS = 31536000  # 1 year
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
+
+    # Django 4+ 는 HTTPS 폼 전송(관리자 로그인 등)에 Origin 검사를 합니다.
+    CSRF_TRUSTED_ORIGINS = [
+        f"https://{host}" for host in ALLOWED_HOSTS
+        if host not in ("*", "localhost") and not host.startswith("127.")
+    ]
+
+    # HSTS: 한 번 배포되면 브라우저가 기간 내내 기억하므로 되돌리기 어렵습니다.
+    # 기본값을 1시간으로 두고, HTTPS 가 안정적인 것을 확인한 뒤 .env 에서
+    # SECURE_HSTS_SECONDS=31536000 으로 늘리세요.
+    SECURE_HSTS_SECONDS = config("SECURE_HSTS_SECONDS", default=3600, cast=int)
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = config(
+        "SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False, cast=bool
+    )
+    SECURE_HSTS_PRELOAD = config("SECURE_HSTS_PRELOAD", default=False, cast=bool)
 
     # Other security headers
-    SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    X_FRAME_OPTIONS = 'SAMEORIGIN'
+    SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+    # DENY 로 하면 관리자에서 django-summernote 편집기(same-origin iframe)가
+    # 뜨지 않습니다. SAMEORIGIN 으로도 외부 사이트의 클릭재킹은 막힙니다.
+    X_FRAME_OPTIONS = "SAMEORIGIN"
 
-    # Static files compression (whitenoise)
+    # 정적 파일 해시(캐시 무효화). 이 백엔드는 staticfiles.json 매니페스트를
+    # 요구하므로, 배포 시 반드시 collectstatic 을 먼저 실행해야 합니다.
     STORAGES = {
         "default": {
             "BACKEND": "django.core.files.storage.FileSystemStorage",
