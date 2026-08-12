@@ -36,7 +36,8 @@ import pa_api as pa  # noqa: E402
 
 #: git 이 추적하더라도 절대 올리지 않을 것. 운영 데이터/비밀값 보호용.
 DENY_EXACT = {"db.sqlite3", ".env", "data.json", "home.hex", "profile_image.jpg"}
-DENY_PREFIXES = ("media/", "_pa_sync/", "_pa_backup/", ".github/", "staticfiles/")
+DENY_PREFIXES = ("media/", "_pa_sync/", "_pa_backup/", ".github/", "staticfiles/",
+                 "backups/")   # 콘텐츠 스냅샷은 git 에만 두고 서버에는 올리지 않는다
 DENY_SUFFIXES = (".pyc", ".pyo", ".log", ".sqlite3")
 
 #: 업로드한 파일의 해시를 기록해 다음 배포에서 변경분만 올립니다.

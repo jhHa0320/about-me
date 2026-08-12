@@ -22,11 +22,13 @@ from __future__ import annotations
 import argparse
 import shutil
 import sys
+import tempfile
 from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import db_compare  # noqa: E402
 import pa_api as pa  # noqa: E402
 
 #: (원격 상대경로, 로컬 상대경로, 재귀 여부)
@@ -48,6 +50,50 @@ def cmd_list(session, base, path):
         print(f"  {'DIR ' if is_dir else 'file'}  {name}{'/' if is_dir else ''}"
               f"{'  ' + pa.human(size) if size else ''}")
     print()
+
+
+def cmd_check(session, base, remote_dir):
+    """운영 DB 를 임시로 내려받아 로컬과 비교합니다. 아무것도 바꾸지 않습니다."""
+    local_db = pa.BASE_DIR / "db.sqlite3"
+    if not local_db.exists():
+        pa.die(f"로컬 DB 가 없습니다: {local_db}")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        remote_db = Path(tmp) / "remote.sqlite3"
+        print(f"운영 DB 내려받는 중… ({remote_dir}/db.sqlite3)")
+        size = pa.download(session, base, f"{remote_dir}/db.sqlite3", remote_db)
+        if size is None:
+            pa.die("운영 서버에 db.sqlite3 가 없습니다.")
+        print(f"  {pa.human(size)}\n")
+
+        lm = db_compare.last_migration(local_db)
+        rm = db_compare.last_migration(remote_db)
+        print(f"마이그레이션   로컬: {lm}")
+        print(f"               운영: {rm}")
+        if lm != rm:
+            print("  ⚠ 마이그레이션이 어긋나 있습니다. 스키마가 달라 비교가")
+            print("    부정확할 수 있고, 반영 후 migrate 가 필요합니다.")
+        print()
+
+        lines, summary = db_compare.compare(local_db, remote_db, "로컬", "운영")
+        for line in lines:
+            print(line)
+
+        print()
+        if summary["identical"]:
+            print("두 DB 의 내용이 같습니다. 받아올 것이 없습니다.")
+            return
+
+        print(f"요약: 운영에만 {summary['only_right']}건 · "
+              f"로컬에만 {summary['only_left']}건 · 내용 다름 {summary['modified']}건")
+        print()
+        if summary["only_left"]:
+            print("⚠ 로컬에만 있는 데이터가 있습니다. --apply 하면 사라집니다.")
+            print("  로컬 /admin 에서 작업하신 내용이면, 먼저 운영에 다시 입력하세요.")
+            print("  (--apply 는 기존 로컬 파일을 _pa_backup/ 에 백업하므로 복구는 가능합니다.)")
+        else:
+            print("로컬에만 있는 데이터는 없습니다. 안전하게 받아올 수 있습니다:")
+            print("  python scripts/fetch_pythonanywhere.py --apply")
 
 
 def cmd_pull(session, base, remote_dir, dest, apply_changes):
@@ -118,6 +164,8 @@ def main():
     parser = argparse.ArgumentParser(description="PythonAnywhere 운영 데이터 내려받기")
     parser.add_argument("--list", nargs="?", const="", metavar="PATH",
                         help="원격 디렉터리 내용을 출력하고 종료")
+    parser.add_argument("--check", action="store_true",
+                        help="로컬과 운영 DB 를 비교만 하고 종료 (아무것도 바꾸지 않음)")
     parser.add_argument("--remote-dir", help="원격 프로젝트 경로 (기본: 자동 탐색)")
     parser.add_argument("--dest", help="스테이징 폴더 (기본: _pa_sync/<시각>)")
     parser.add_argument("--apply", action="store_true",
@@ -131,6 +179,11 @@ def main():
         return
 
     remote_dir = pa.resolve_remote_dir(session, base, args.remote_dir)
+
+    if args.check:
+        cmd_check(session, base, remote_dir)
+        return
+
     stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     dest = Path(args.dest) if args.dest else pa.BASE_DIR / "_pa_sync" / stamp
     cmd_pull(session, base, remote_dir, dest, args.apply)

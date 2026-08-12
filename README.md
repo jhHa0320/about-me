@@ -110,6 +110,63 @@ python manage.py test portfolio
 
 ---
 
+## 콘텐츠 동기화
+
+콘텐츠(DB·이미지)는 git 으로 추적하지 않습니다. **운영 서버의
+`/admin` 이 유일한 원본**이고, 로컬은 내려받아 쓰기만 합니다.
+
+> 로컬 `/admin` 에서 글을 쓰지 마세요. 다음 `--apply` 때 덮어써집니다.
+> (덮어쓰기 전 `_pa_backup/` 에 백업되므로 복구는 가능합니다.)
+
+```bash
+# 1. 뭐가 다른지 먼저 본다 — 아무것도 바꾸지 않는다
+python scripts/fetch_pythonanywhere.py --check
+
+# 2. 받아온다
+python scripts/fetch_pythonanywhere.py --apply
+python manage.py migrate        # 새 마이그레이션이 있으면
+```
+
+`--check` 는 운영 DB 를 임시로 내려받아 테이블별 행 수, 한쪽에만 있는 행,
+필드 단위 변경을 보여주고 종료합니다. **로컬에만 있는 데이터가 있으면
+경고**하므로, 모르고 덮어쓰는 일을 막을 수 있습니다.
+
+### 백업
+
+모든 콘텐츠가 서버의 SQLite 파일 하나에 들어 있습니다. 그 파일이 사라지면
+프로젝트 설명과 보고서가 전부 사라지므로, 주기적으로 스냅샷을 남깁니다.
+
+```bash
+python scripts/backup_content.py                # 변경됐을 때만 저장
+python scripts/backup_content.py --git-commit   # 저장 + 커밋
+python scripts/backup_content.py --with-media   # 이미지까지 (git 밖)
+python scripts/backup_content.py --prune 20     # 최근 20개만 유지
+```
+
+운영 DB 를 내려받아 **로컬에서** `dumpdata` 를 돌리므로 서버 콘솔이
+필요 없습니다. 결과는 `backups/portfolio-<시각>.json` 이고, JSON 이라
+`git diff` 로 무엇이 언제 바뀌었는지 볼 수 있습니다. 직전 스냅샷과
+내용이 같으면 저장하지 않습니다.
+
+복원:
+
+```bash
+python scripts/backup_content.py --restore backups/portfolio-....json
+```
+
+로컬 DB 를 대상으로 동작하며, 실행 전 현재 DB 를 `_pa_backup/` 에
+백업합니다. 운영에 되돌릴 때는 파일을 서버로 올린 뒤 콘솔에서
+`python manage.py loaddata <파일>.json` 을 실행하세요.
+
+### 외부 DB 는 왜 안 쓰나
+
+로컬과 운영이 같은 DB 를 보면 동기화 문제 자체가 사라지지만,
+**PythonAnywhere 무료 계정은 외부 아웃바운드가 프록시 화이트리스트로
+제한**되어 Postgres/MySQL 같은 일반 TCP 연결이 나가지 않습니다.
+자체 MySQL 은 서버에서만 접근 가능하고, 로컬에서 붙으려면 SSH 터널이
+필요한데 SSH 는 유료 전용입니다. 유료 전환 시에는 외부 Postgres 공유가
+정답이며, 그때는 이미지도 오브젝트 스토리지로 옮겨야 합니다.
+
 ## 접근성 · 성능 기준
 
 이 저장소에서 지키려는 선입니다.
