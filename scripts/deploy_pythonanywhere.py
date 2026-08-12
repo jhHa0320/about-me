@@ -234,9 +234,12 @@ def main():
             # Actions UI 로그에 묻히지 않도록 경고 어노테이션을 남깁니다.
             print(f"::warning title=수동 작업 필요::업로드는 끝났지만 리로드를 건너뛰었습니다. "
                   f"서버 콘솔에서 실행하세요: {'; '.join(todo)}")
+        migrating = any("migrate" in line for line in todo)
         print("\n" + "!" * 62)
         print("리로드를 건너뛰었습니다 — 먼저 서버에서 처리해야 할 작업이 있습니다.")
-        print("지금 리로드하면 DB 스키마가 코드와 어긋나 사이트가 죽을 수 있습니다.\n")
+        print("지금 리로드하면 DB 스키마가 코드와 어긋나 사이트가 죽을 수 있습니다.\n"
+              if migrating else
+              "지금 리로드하면 정적 파일이 옛 버전이라 화면이 깨질 수 있습니다.\n")
         print("PythonAnywhere Bash 콘솔에서:")
         print(f"  cd {remote_dir}")
         for line in todo:

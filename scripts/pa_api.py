@@ -214,6 +214,11 @@ def reload_webapp(session, base, domain):
             f"웹앱을 찾을 수 없습니다: {domain}\n"
             "       --list-webapps 로 정확한 도메인을 확인하고 .env 의 PA_DOMAIN 에 넣으세요."
         )
+    if response.status_code == 409:
+        # 이미 리로드가 진행 중이거나 직전 리로드가 아직 정리되지 않은 상태.
+        # 어차피 새 코드가 적재되므로 실패로 취급하지 않습니다.
+        print("  · 리로드가 이미 진행 중입니다 (409). 새 코드는 곧 반영됩니다.")
+        return {"status": "already-reloading"}
     response.raise_for_status()
     return response.json()
 
