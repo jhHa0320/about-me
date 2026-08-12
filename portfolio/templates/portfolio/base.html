@@ -49,8 +49,14 @@
             document.documentElement.setAttribute('data-bs-theme', theme);
 
             var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (!reduced && 'IntersectionObserver' in window) {
+            if (!reduced && 'requestAnimationFrame' in window) {
                 document.documentElement.classList.add('js-anim');
+                // 이 스크립트가 콘텐츠를 숨기고, 되살리는 코드는 defer 된 site.js 에
+                // 있습니다. site.js 가 느리거나 실패해도 화면이 비어 있지 않도록
+                // 안전장치를 겁니다. site.js 가 실행되면 스스로 취소합니다.
+                window.__revealFailsafe = setTimeout(function () {
+                    document.documentElement.classList.remove('js-anim');
+                }, 2000);
             }
         })();
     </script>

@@ -79,6 +79,9 @@
        A plain scroll check (rather than IntersectionObserver) is used on
        purpose: it is idempotent and cannot strand an element at opacity 0. */
     if (root.classList.contains('js-anim')) {
+        // head 의 안전장치를 해제하고 여기서 책임집니다.
+        clearTimeout(window.__revealFailsafe);
+
         var pending = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
         var revealTick = false;
 
@@ -106,7 +109,7 @@
         /* Last-resort net: never leave anything invisible for long. */
         setTimeout(function () {
             pending.forEach(function (el) { el.classList.add('is-in'); });
-        }, 4000);
+        }, 2500);
     }
 
     /* ---------- Section highlighting in the header nav ---------- */
