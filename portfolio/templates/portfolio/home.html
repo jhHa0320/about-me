@@ -1,522 +1,322 @@
 {% extends 'portfolio/base.html' %}
 {% load portfolio_extras %}
 
+{% block title %}{{ profile.name|default:"하정훈" }} · {{ profile.headline|default:"Portfolio" }}{% endblock %}
+{% block description %}{% if profile.introduction %}{{ profile.introduction|striptags|truncatechars:150 }}{% else %}{{ profile.name|default:"하정훈" }}의 개발 포트폴리오. 데이터 분석·머신러닝·백엔드 프로젝트 {{ project_total }}건과 활동 기록.{% endif %}{% endblock %}
+{% block og_title %}{{ profile.name|default:"하정훈" }} · {{ profile.headline|default:"Portfolio" }}{% endblock %}
+{% block og_description %}{% if profile.introduction %}{{ profile.introduction|striptags|truncatechars:150 }}{% else %}데이터 분석·머신러닝·백엔드 프로젝트 {{ project_total }}건.{% endif %}{% endblock %}
+
 {% block content %}
 
-<!-- ① Profile ─ light bg -->
-<section id="profile" class="section-block section-light">
-    <div class="container py-5">
-        <h2 class="section-title">PROFILE</h2>
-        <div class="row align-items-center">
-            <div class="col-md-4 mb-4 mb-md-0 text-center d-flex justify-content-center reveal">
-                <div class="profile-image-container">
-                    {% if profile and profile.profile_image %}
-                    <img src="{{ profile.profile_image.url }}" class="img-fluid profile-img"
-                        style="width:100%;height:100%;object-fit:cover;" loading="eager">
-                    {% else %}
-                    <div class="profile-placeholder d-flex flex-column align-items-center justify-content-center"
-                        style="width:100%;height:100%;">
-                        <i class="bi bi-person-fill" style="font-size:4rem;"></i>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-8 reveal">
-                {% if profile %}
-                <span class="hero-overline">Student Developer</span>
-                <h1 class="hero-title">{{ profile.name }}</h1>
+{# ───────────────────────── Hero ───────────────────────── #}
+<section class="hero" aria-labelledby="hero-name">
+    <div class="wrap">
+        <div class="hero__grid">
+            <div>
+                {% comment %}
+                기본값은 등록된 기술·프로젝트에서 도출한 요약입니다.
+                관리자 > 프로필 > '한 줄 직군'을 채우면 그 값으로 대체됩니다.
+                {% endcomment %}
+                <p class="hero__role">{{ profile.headline|default:"Data · AI · Backend" }}</p>
+
+                <h1 class="hero__name" id="hero-name">{{ profile.name|default:"하정훈" }}</h1>
+
                 {% if profile.introduction %}
-                <p class="hero-tagline">{{ profile.introduction }}</p>
+                <p class="hero__intro">{{ profile.introduction|linebreaksbr }}</p>
+                {% elif educations %}
+                <p class="hero__intro">
+                    {% with edu=educations.0 %}{{ edu.school }} {{ edu.status }}{% endwith %}
+                </p>
                 {% endif %}
-                <div class="d-flex flex-wrap gap-2 mb-4">
-                    <a href="mailto:{{ profile.email }}" class="btn btn-primary btn-sm">
-                        <i class="bi bi-envelope-fill me-1"></i>{{ profile.email }}
+
+                {% if user.is_staff and not profile.introduction %}
+                <p class="callout admin-hint">
+                    <strong>관리자에게만 보이는 안내</strong><br>
+                    관리자 페이지 &gt; 프로필에서 <em>한 줄 직군</em>과 <em>자기소개</em>를 채우면
+                    이 자리에 노출됩니다. 방문자에게는 이 안내가 보이지 않습니다.
+                </p>
+                {% endif %}
+
+                <div class="hero__actions">
+                    {% if profile.email %}
+                    <a class="btn-x btn-x--solid" href="mailto:{{ profile.email }}">
+                        <svg aria-hidden="true"><use href="#i-mail"></use></svg>
+                        {% if profile.show_email_address %}{{ profile.email }}{% else %}Email{% endif %}
                     </a>
+                    {% endif %}
                     {% if profile.github_url %}
-                    <a href="{{ profile.github_url }}" target="_blank" rel="noopener" class="btn btn-outline-dark btn-sm">
-                        <i class="bi bi-github me-1"></i>GitHub
+                    <a class="btn-x btn-x--ghost" href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer">
+                        <svg aria-hidden="true"><use href="#i-github"></use></svg>GitHub
+                    </a>
+                    {% endif %}
+                    {% if profile.resume_url %}
+                    <a class="btn-x btn-x--ghost" href="{{ profile.resume_url }}" target="_blank" rel="noopener noreferrer">
+                        <svg aria-hidden="true"><use href="#i-doc"></use></svg>Resume
                     </a>
                     {% endif %}
                 </div>
-                <div class="profile-details profile-details-responsive">
-                    <div class="row g-2">
-                        <div class="col-sm-4">
-                            <span class="profile-label">생년월일</span>
-                            <span class="ms-2 small">{{ profile.birthdate }}</span>
-                        </div>
-                        <div class="col-sm-8">
-                            <span class="profile-label">학력</span>
-                            {% if educations %}
-                            <ul class="list-unstyled ms-2 mb-0 mt-1">
-                                {% for edu in educations %}
-                                <li class="mb-1">
-                                    <span class="text-muted small" style="display:inline-block;min-width:80px;">{{ edu.period }}</span>
-                                    <span class="small"><strong>{{ edu.school }}</strong> {{ edu.status }}</span>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                            {% else %}
-                            <span class="text-muted ms-2 small">학력 정보가 없습니다.</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+
+                <ul class="hero__facts">
+                    <li class="hero__fact"><b class="font-numeric">{{ project_total }}</b><span>PROJECTS</span></li>
+                    <li class="hero__fact"><b class="font-numeric">{{ team_project_total }}</b><span>TEAM PROJECTS</span></li>
+                    <li class="hero__fact"><b class="font-numeric">{{ cert_total }}</b><span>CERTIFICATES</span></li>
+                </ul>
+            </div>
+
+            <div class="hero__photo{% if not profile.profile_image %} hero__photo--ph{% endif %}">
+                {% if profile.profile_image %}
+                <img src="{{ profile.avatar_url }}" width="200" height="200"
+                    alt="{{ profile.name }} 프로필 사진" fetchpriority="high" decoding="async">
                 {% else %}
-                <div class="alert alert-warning">프로필 정보가 없습니다. 관리자 페이지에서 추가해주세요.</div>
+                <svg width="48" height="48" aria-hidden="true" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" />
+                </svg>
                 {% endif %}
             </div>
         </div>
     </div>
 </section>
 
-<!-- ② Certificates ─ muted bg -->
-<section id="certificates" class="section-block section-muted">
-    <div class="container py-5">
-        <h2 class="section-title">CERTIFICATES</h2>
-        <div class="row g-4">
-            <!-- 개발 -->
-            <div class="col-md-6">
-                <p class="cert-category-label">개발</p>
-                {% if cert_dev %}
-                <div class="d-flex flex-column gap-2">
-                    {% for cert in cert_dev %}
-                    <div class="cert-row position-relative{% if cert.link or cert.attachment %} cert-row-link{% endif %}">
-                        {% if cert.link %}<a href="{{ cert.link }}" class="stretched-link" target="_blank" rel="noopener" aria-label="{{ cert.title }}"></a>
-                        {% elif cert.attachment %}<a href="{{ cert.attachment.url }}" class="stretched-link" target="_blank" aria-label="{{ cert.title }}"></a>{% endif %}
-                        <span class="cert-period font-numeric">{{ cert.period }}</span>
-                        <div class="cert-info">
-                            <span class="cert-title">{{ cert.title }}</span>
-                            {% if cert.organization %}<span class="cert-org">{{ cert.organization }}</span>{% endif %}
-                        </div>
-                        {% if cert.attachment %}<i class="bi bi-paperclip cert-attach-icon"></i>{% endif %}
-                    </div>
-                    {% endfor %}
-                </div>
-                {% else %}
-                <p class="text-muted small">등록된 자격증이 없습니다.</p>
-                {% endif %}
+{# ─────────────────── Featured Projects ─────────────────── #}
+{% if featured_projects %}
+<section class="section section--alt" id="featured" aria-labelledby="featured-title">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Selected work</span>
+                <h2 class="section-title" id="featured-title">대표 프로젝트</h2>
             </div>
-            <!-- 외국어 -->
-            <div class="col-md-6">
-                <p class="cert-category-label">외국어</p>
-                {% if cert_lang %}
-                <div class="d-flex flex-column gap-2">
-                    {% for cert in cert_lang %}
-                    <div class="cert-row position-relative{% if cert.link or cert.attachment %} cert-row-link{% endif %}">
-                        {% if cert.link %}<a href="{{ cert.link }}" class="stretched-link" target="_blank" rel="noopener" aria-label="{{ cert.title }}"></a>
-                        {% elif cert.attachment %}<a href="{{ cert.attachment.url }}" class="stretched-link" target="_blank" aria-label="{{ cert.title }}"></a>{% endif %}
-                        <span class="cert-period font-numeric">{{ cert.period }}</span>
-                        <div class="cert-info">
-                            <span class="cert-title">{{ cert.title }}</span>
-                            {% if cert.organization %}<span class="cert-org">{{ cert.organization }}</span>{% endif %}
-                        </div>
-                        {% if cert.attachment %}<i class="bi bi-paperclip cert-attach-icon"></i>{% endif %}
-                    </div>
-                    {% endfor %}
-                </div>
-                {% else %}
-                <p class="text-muted small">등록된 자격증이 없습니다.</p>
-                {% endif %}
-            </div>
+            <p class="section-note">역할 · 기술 · 결과 중심으로 정리했습니다</p>
         </div>
-    </div>
-</section>
 
-<!-- ③ Leadership ─ light bg -->
-<section id="leadership" class="section-block section-light">
-    <div class="container py-5">
-        <h2 class="section-title">LEADERSHIP & EXPERIENCES</h2>
-        {% if leaderships %}
-        <div class="d-flex flex-column gap-2">
-            {% for leadership in leaderships %}
-            <div class="activity-row leadership-row position-relative activity-row-link">
-                <a href="{% url 'leadership_detail' leadership.id %}" class="stretched-link" aria-label="{{ leadership.title }}"></a>
-                <span class="activity-period font-numeric">{{ leadership.period }}</span>
-                <div class="activity-main">
-                    <span class="activity-title">{{ leadership.title }}</span>
-                    <span class="activity-desc">{{ leadership.role }}{% if leadership.description %} · {{ leadership.description|truncatechars:80 }}{% endif %}</span>
-                </div>
-                {% if leadership.organization %}<span class="activity-org">{{ leadership.organization }}</span>{% endif %}
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <p class="text-muted">등록된 리더십 및 경험 활동이 없습니다.</p>
-        {% endif %}
-    </div>
-</section>
+        <div class="featured-list">
+            {% for project in featured_projects %}
+            <article class="featured reveal">
+                <div>
+                    <p class="featured__index font-numeric">0{{ forloop.counter }}</p>
+                    <h3 class="featured__title">
+                        <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+                    </h3>
+                    <p class="featured__lead">{{ project.description|striptags|lead_text }}</p>
 
-<!-- ④ Activities ─ muted bg -->
-<section id="activities" class="section-block section-muted">
-    <div class="container py-5">
-        <h2 class="section-title">ACTIVITIES</h2>
-        {% if activities %}
-        <div class="d-flex flex-column gap-2">
-            {% for activity in activities %}
-            <div class="activity-row position-relative{% if activity.link or activity.attachment %} activity-row-link{% endif %}">
-                {% if activity.link %}<a href="{{ activity.link }}" class="stretched-link" target="_blank" rel="noopener" aria-label="{{ activity.title }}"></a>
-                {% elif activity.attachment %}<a href="{{ activity.attachment.url }}" class="stretched-link" target="_blank" aria-label="{{ activity.title }}"></a>{% endif %}
-                <span class="activity-period font-numeric">{{ activity.period }}</span>
-                <div class="activity-main">
-                    <span class="activity-title">{{ activity.title }}</span>
-                    {% if activity.description %}<span class="activity-desc">{{ activity.description }}</span>{% endif %}
-                </div>
-                {% if activity.organization %}<span class="activity-org">{{ activity.organization }}</span>{% endif %}
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <p class="text-muted small">등록된 활동이 없습니다.</p>
-        {% endif %}
-    </div>
-</section>
+                    {% if project.key_result %}
+                    <p class="result">
+                        <svg aria-hidden="true"><use href="#i-spark"></use></svg>
+                        <span>{{ project.key_result }}</span>
+                    </p>
+                    {% endif %}
 
-<!-- ⑤ Skills ─ light bg -->
-<section id="skills" class="section-block section-light">
-    <div class="container py-5">
-        <h2 class="section-title">SKILLS</h2>
-        <div class="section-inner">
-            <ul class="nav nav-pills nav-justified mb-4" id="skillsTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="using-tab" type="button" role="tab">주력</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="maintain-tab" type="button" role="tab">활용 가능</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="experience-tab" type="button" role="tab">경험 보유</button>
-                </li>
-            </ul>
-
-            <div class="tab-content" id="pills-tabContent">
-
-                <!-- 주력 -->
-                <div class="tab-pane fade show active" id="pills-using" role="tabpanel">
-                    <div class="skills-list">
-                        {% for skill in skills_using %}
-                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
-                            <div class="skill-header">
-                                {% with devicon=skill.name|to_devicon %}
-                                {% if devicon %}
-                                <i class="{{ devicon }} skill-devicon"></i>
-                                {% elif skill.icon %}
-                                <img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
-                                {% else %}
-                                <span class="skill-initial">{{ skill.name|first|upper }}</span>
-                                {% endif %}
-                                {% endwith %}
-                                <span class="skill-name">{{ skill.name }}</span>
-                            </div>
-                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                    <div class="featured__links">
+                        <a class="btn-x btn-x--ghost btn-x--sm" href="{{ project.get_absolute_url }}">
+                            자세히 보기 <svg aria-hidden="true"><use href="#i-arrow-right"></use></svg>
                         </a>
-                        {% empty %}
-                        <p class="text-center text-muted py-4 w-100">등록된 기술이 없습니다.</p>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- 활용 가능 -->
-                <div class="tab-pane fade" id="pills-maintain" role="tabpanel">
-                    <div class="skills-list">
-                        {% for skill in skills_maintain %}
-                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
-                            <div class="skill-header">
-                                {% with devicon=skill.name|to_devicon %}
-                                {% if devicon %}
-                                <i class="{{ devicon }} skill-devicon"></i>
-                                {% elif skill.icon %}
-                                <img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
-                                {% else %}
-                                <span class="skill-initial">{{ skill.name|first|upper }}</span>
-                                {% endif %}
-                                {% endwith %}
-                                <span class="skill-name">{{ skill.name }}</span>
-                            </div>
-                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
+                        {% if project.demo_url %}
+                        <a class="btn-x btn-x--ghost btn-x--sm" href="{{ project.demo_url }}"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg aria-hidden="true"><use href="#i-external"></use></svg>Demo
                         </a>
-                        {% empty %}
-                        <p class="text-center text-muted py-4 w-100">등록된 기술이 없습니다.</p>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- 경험 보유 -->
-                <div class="tab-pane fade" id="pills-experience" role="tabpanel">
-                    <div class="skills-list">
-                        {% for skill in skills_experience %}
-                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
-                            <div class="skill-header">
-                                {% with devicon=skill.name|to_devicon %}
-                                {% if devicon %}
-                                <i class="{{ devicon }} skill-devicon"></i>
-                                {% elif skill.icon %}
-                                <img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
-                                {% else %}
-                                <span class="skill-initial">{{ skill.name|first|upper }}</span>
-                                {% endif %}
-                                {% endwith %}
-                                <span class="skill-name">{{ skill.name }}</span>
-                            </div>
-                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
-                        </a>
-                        {% empty %}
-                        <p class="text-center text-muted py-4 w-100">등록된 기술이 없습니다.</p>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- All (toggle) -->
-                <div class="tab-pane fade" id="pills-all" role="tabpanel">
-                    <div class="skills-list">
-                        {% for skill in skills_using %}
-                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
-                            <div class="skill-header">
-                                {% with devicon=skill.name|to_devicon %}
-                                {% if devicon %}<i class="{{ devicon }} skill-devicon"></i>
-                                {% elif skill.icon %}<img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
-                                {% else %}<span class="skill-initial">{{ skill.name|first|upper }}</span>
-                                {% endif %}
-                                {% endwith %}
-                                <span class="skill-name">{{ skill.name }}</span>
-                            </div>
-                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
-                        </a>
-                        {% endfor %}
-                        {% for skill in skills_maintain %}
-                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
-                            <div class="skill-header">
-                                {% with devicon=skill.name|to_devicon %}
-                                {% if devicon %}<i class="{{ devicon }} skill-devicon"></i>
-                                {% elif skill.icon %}<img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
-                                {% else %}<span class="skill-initial">{{ skill.name|first|upper }}</span>
-                                {% endif %}
-                                {% endwith %}
-                                <span class="skill-name">{{ skill.name }}</span>
-                            </div>
-                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
-                        </a>
-                        {% endfor %}
-                        {% for skill in skills_experience %}
-                        <a href="{% url 'skill_projects' skill.id %}" class="skill-card text-decoration-none text-body">
-                            <div class="skill-header">
-                                {% with devicon=skill.name|to_devicon %}
-                                {% if devicon %}<i class="{{ devicon }} skill-devicon"></i>
-                                {% elif skill.icon %}<img src="{{ skill.icon.url }}" class="skill-devicon-img" alt="{{ skill.name }}" loading="lazy">
-                                {% else %}<span class="skill-initial">{{ skill.name|first|upper }}</span>
-                                {% endif %}
-                                {% endwith %}
-                                <span class="skill-name">{{ skill.name }}</span>
-                            </div>
-                            {% if skill.description %}<div class="skill-desc">{{ skill.description }}</div>{% endif %}
-                        </a>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const navLinks = document.querySelectorAll('#skillsTab .nav-link');
-                    const tabPanes = document.querySelectorAll('#pills-tabContent .tab-pane');
-                    const allPane = document.getElementById('pills-all');
-                    const tabMap = { 'using-tab': 'pills-using', 'maintain-tab': 'pills-maintain', 'experience-tab': 'pills-experience' };
-
-                    navLinks.forEach(link => {
-                        link.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            const already = this.classList.contains('active');
-                            navLinks.forEach(l => l.classList.remove('active'));
-                            tabPanes.forEach(p => p.classList.remove('show', 'active'));
-                            if (already) {
-                                allPane.classList.add('show', 'active');
-                            } else {
-                                this.classList.add('active');
-                                document.getElementById(tabMap[this.id]).classList.add('show', 'active');
-                            }
-                        });
-                    });
-                });
-            </script>
-        </div>
-    </div>
-</section>
-
-<!-- ⑥ Projects ─ muted bg -->
-<section id="projects" class="section-block section-muted">
-    <div class="container py-5">
-        <h2 class="section-title">PROJECTS</h2>
-        <div class="section-inner">
-            <div class="filter-scroll-container mb-4" id="project-filters">
-                <button class="btn btn-outline-secondary btn-sm active" data-filter="all">All</button>
-                {% for skill in project_skills %}
-                <button class="btn btn-outline-secondary btn-sm" data-filter="{{ skill.id }}">{{ skill.name }}</button>
-                {% endfor %}
-            </div>
-
-            {% if projects %}
-            <div class="row g-3" id="project-list">
-                {% for project in projects %}
-                <div class="col-md-4 project-item"
-                    data-type="{% if project.type %}{{ project.type.id }}{% else %}none{% endif %}"
-                    data-scope="{{ project.scope }}"
-                    data-tech-stacks="{% for tech in project.tech_stacks.all %}{{ tech.id }} {% endfor %}">
-                    <div class="card h-100 border position-relative project-card-hover project-card-compact">
-                        {% if project.image %}
-                        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" loading="lazy">
                         {% endif %}
-                        <div class="card-body d-flex flex-column">
-                            <div class="d-flex align-items-center justify-content-between mb-1">
-                                <div class="d-flex align-items-center gap-1 flex-wrap">
-                                    {% if project.scope == 'INDIVIDUAL' %}
-                                    <span class="scope-badge scope-individual">개인</span>
-                                    {% else %}
-                                    <span class="scope-badge scope-team">팀</span>
-                                    {% endif %}
-                                    {% for category in project.categories.all %}
-                                    <span class="badge bg-secondary" style="font-size:0.7rem;">{{ category.name }}</span>
-                                    {% endfor %}
-                                </div>
-                                <small class="text-muted font-numeric" style="font-size:0.72rem;">{{ project.period }}</small>
-                            </div>
-                            <h5 class="card-title">
-                                <a href="{% url 'project_detail' project.id %}"
-                                    class="text-body text-decoration-none stretched-link">{{ project.title }}</a>
-                            </h5>
-                            <p class="card-desc">{{ project.description }}</p>
-                            {% if project.outcome %}
-                            <div class="mb-2" style="position:relative;z-index:2;">
-                                <span class="card-outcome-badge" style="font-size:0.72rem;">
-                                    <i class="bi bi-graph-up-arrow"></i>
-                                    {{ project.outcome|truncatechars:50 }}
-                                </span>
-                            </div>
-                            {% endif %}
-                            <div class="mb-2 d-flex flex-wrap gap-1">
-                                {% for tech in project.tech_stacks.all %}
-                                <span class="badge bg-light text-dark border" style="font-size:0.7rem;">{{ tech.name }}</span>
-                                {% endfor %}
-                            </div>
-                            <div class="mt-auto d-flex align-items-center justify-content-between pt-2"
-                                style="position:relative;z-index:2;">
-                                <a href="{% url 'project_detail' project.id %}"
-                                    class="text-decoration-none fw-semibold" style="font-size:0.8rem;color:var(--accent-dark);">
-                                    자세히 보기 <i class="bi bi-arrow-right"></i>
-                                </a>
-                                <div class="d-flex gap-1">
-                                    {% if project.github_url %}
-                                    <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm py-0 px-2"
-                                        target="_blank" rel="noopener" style="font-size:0.8rem;"><i class="bi bi-github"></i></a>
-                                    {% endif %}
-                                    {% if project.demo_url %}
-                                    <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm py-0 px-2"
-                                        target="_blank" rel="noopener" style="font-size:0.8rem;">Demo</a>
-                                    {% endif %}
-                                </div>
-                            </div>
+                        {% if project.github_url %}
+                        <a class="btn-x btn-x--ghost btn-x--sm" href="{{ project.github_url }}"
+                            target="_blank" rel="noopener noreferrer">
+                            <svg aria-hidden="true"><use href="#i-github"></use></svg>Code
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="featured__meta">
+                    <div>
+                        <span class="meta-block__label">My Role</span>
+                        <p class="meta-block__value">{{ project.role|default:"—" }}</p>
+                    </div>
+                    <div>
+                        <span class="meta-block__label">Period</span>
+                        <p class="meta-block__value font-numeric">{{ project.period }}</p>
+                    </div>
+                    <div>
+                        <span class="meta-block__label">Stack</span>
+                        <div class="tag-row tag-row--stacked">
+                            {% for tech in project.tech_stacks.all %}<span class="tag">{{ tech.name }}</span>{% endfor %}
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-            </div>
-
-            <div class="row mt-4" id="pagination-controls-wrapper">
-                <div class="col-12">
-                    <nav aria-label="Project pagination">
-                        <ul class="pagination justify-content-center" id="pagination-controls"></ul>
-                    </nav>
-                </div>
-            </div>
-            {% else %}
-            <p class="text-muted">등록된 프로젝트가 없습니다.</p>
-            {% endif %}
+            </article>
+            {% endfor %}
         </div>
     </div>
 </section>
+{% endif %}
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const techButtons = document.querySelectorAll('#project-filters button');
-        const projectItems = document.querySelectorAll('.project-item');
-        const paginationControls = document.getElementById('pagination-controls');
-        const isMobile = () => window.innerWidth < 768;
-        const itemsPerPage = 6;
-        let currentPage = 1, currentTechFilters = [];
+{# ───────────────────── All Projects ───────────────────── #}
+<section class="section" id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Archive</span>
+                <h2 class="section-title" id="projects-title">전체 프로젝트</h2>
+            </div>
+            <p class="section-note" id="project-status">대표 프로젝트 외 {{ other_projects|length }}건</p>
+        </div>
 
-        let resizeTimeout, lastWidth = window.innerWidth;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                if (window.innerWidth !== lastWidth) { lastWidth = window.innerWidth; currentPage = 1; updateVisibility(); }
-            }, 150);
-        });
+        {% if filter_skills %}
+        <div class="filter-bar" id="project-filters" role="group" aria-label="기술로 프로젝트 거르기">
+            <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">전체</button>
+            {% for skill in filter_skills %}
+            <button type="button" class="filter-btn" data-filter="{{ skill.id }}" aria-pressed="false">
+                {{ skill.name }} <span class="font-numeric">{{ skill.project_count }}</span>
+            </button>
+            {% endfor %}
+        </div>
+        {% endif %}
 
-        function getFilteredItems() {
-            return Array.from(projectItems).filter(item => {
-                const stacks = item.dataset.techStacks.trim().split(/\s+/);
-                return currentTechFilters.length === 0 || currentTechFilters.some(f => stacks.includes(f));
-            });
-        }
+        {% if other_projects %}
+        <div class="card-grid" id="project-list">
+            {% for project in other_projects %}
+            {% include 'portfolio/_project_card.html' with project=project %}
+            {% endfor %}
+        </div>
+        <p class="empty-note" id="project-empty" hidden>선택한 기술을 사용한 프로젝트가 없습니다.</p>
+        <div class="more-wrap">
+            <button type="button" class="btn-x btn-x--ghost" id="project-more" hidden></button>
+        </div>
+        {% else %}
+        <p class="empty-note">등록된 프로젝트가 없습니다.</p>
+        {% endif %}
+    </div>
+</section>
 
-        function renderPagination(total) {
-            paginationControls.innerHTML = '';
-            const pages = Math.ceil(total / itemsPerPage);
-            if (pages <= 1) return;
-            const groupSize = 5, group = Math.ceil(currentPage / groupSize);
-            const start = (group - 1) * groupSize + 1, end = Math.min(start + groupSize - 1, pages);
-            const mk = (text, page, active, disabled) => {
-                const li = document.createElement('li');
-                li.className = `page-item ${active ? 'active' : ''} ${disabled ? 'disabled' : ''}`;
-                li.innerHTML = `<a class="page-link" href="#projects">${text}</a>`;
-                if (!disabled && !active) li.addEventListener('click', e => { e.preventDefault(); currentPage = page; updateVisibility(); document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }); });
-                return li;
-            };
-            paginationControls.append(mk('‹', currentPage - 1, false, currentPage === 1));
-            for (let i = start; i <= end; i++) paginationControls.append(mk(i, i, i === currentPage));
-            paginationControls.append(mk('›', currentPage + 1, false, currentPage === pages));
-        }
+{# ────────────────────── Experience ────────────────────── #}
+{% if timeline %}
+<section class="section section--alt" id="experience" aria-labelledby="experience-title">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Leadership &amp; activities</span>
+                <h2 class="section-title" id="experience-title">활동 · 경험</h2>
+            </div>
+            <p class="section-note">최신순</p>
+        </div>
 
-        function updateVisibility() {
-            const filtered = getFilteredItems();
-            projectItems.forEach(item => { item.style.display = 'none'; item.classList.remove('fade-in'); });
-            if (!filtered.length) { renderPagination(0); return; }
-            if (isMobile()) {
-                filtered.forEach((item, i) => { item.style.display = 'block'; setTimeout(() => item.classList.add('fade-in'), i * 40); });
-            } else {
-                const pages = Math.ceil(filtered.length / itemsPerPage);
-                if (currentPage > pages) currentPage = 1;
-                filtered.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).forEach((item, i) => {
-                    item.style.display = 'block'; setTimeout(() => item.classList.add('fade-in'), i * 40);
-                });
-                renderPagination(filtered.length);
-            }
-        }
+        <div class="timeline">
+            {% for item in timeline %}
+            <div class="tl-item reveal{% if item.url %} tl-item--link{% endif %}">
+                <div class="tl-period font-numeric">{{ item.period|default:"—" }}</div>
+                <div class="tl-body">
+                    <div class="tl-head">
+                        <h3 class="tl-title">
+                            {% if item.url %}
+                            <a href="{{ item.url }}"{% if item.external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}</a>
+                            {% else %}{{ item.title }}{% endif %}
+                        </h3>
+                        {% if item.organization %}<span class="tl-org">{{ item.organization }}</span>{% endif %}
+                        <span class="tl-kind">{{ item.kind }}</span>
+                    </div>
+                    {% if item.role %}<span class="tl-role">{{ item.role }}</span>{% endif %}
+                    {% if item.description %}
+                    <p class="tl-desc">{{ item.description|striptags|truncatechars:130 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
 
-        const techAllBtn = document.querySelector('#project-filters button[data-filter="all"]');
-        techButtons.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const val = this.dataset.filter;
-                if (val === 'all') {
-                    if (this.classList.contains('active')) return;
-                    currentTechFilters = [];
-                    techButtons.forEach(b => { b.classList.remove('active', 'btn-primary', 'btn-secondary'); b.classList.add('btn-outline-secondary'); });
-                    this.classList.remove('btn-outline-secondary'); this.classList.add('active', 'btn-secondary');
-                } else {
-                    if (currentTechFilters.includes(val)) {
-                        currentTechFilters = currentTechFilters.filter(f => f !== val);
-                        this.classList.remove('active', 'btn-primary'); this.classList.add('btn-outline-secondary');
-                    } else {
-                        currentTechFilters.push(val);
-                        this.classList.remove('btn-outline-secondary'); this.classList.add('active', 'btn-primary');
-                    }
-                    if (!currentTechFilters.length) { techAllBtn.classList.remove('btn-outline-secondary'); techAllBtn.classList.add('active', 'btn-secondary'); }
-                    else { techAllBtn.classList.remove('active', 'btn-secondary'); techAllBtn.classList.add('btn-outline-secondary'); }
-                }
-                currentPage = 1; updateVisibility();
-            });
-        });
+{# ──────────────────────── Skills ──────────────────────── #}
+{% if skill_groups %}
+<section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Stack</span>
+                <h2 class="section-title" id="skills-title">기술</h2>
+            </div>
+            <p class="section-note">숫자는 실제로 사용한 프로젝트 수입니다</p>
+        </div>
 
-        updateVisibility();
-    });
-</script>
+        <div class="skill-groups">
+            {% for group in skill_groups %}
+            <div class="skill-group reveal">
+                <div class="skill-group__head">
+                    <h3 class="skill-group__name">{{ group.label }}</h3>
+                    <span class="skill-group__hint">{{ group.hint }}</span>
+                </div>
+                <div class="skill-list">
+                    {% for skill in group.skills %}
+                    {% if skill.project_count %}
+                    <a class="skill-pill" href="{% url 'skill_projects' skill.id %}">
+                        {{ skill.name }}
+                        {% if skill.description %}<span class="skill-pill__note">{{ skill.description }}</span>{% endif %}
+                        <span class="skill-pill__count" aria-label="프로젝트 {{ skill.project_count }}건">{{ skill.project_count }}</span>
+                    </a>
+                    {% else %}
+                    <span class="skill-pill">
+                        {{ skill.name }}
+                        {% if skill.description %}<span class="skill-pill__note">{{ skill.description }}</span>{% endif %}
+                    </span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ───────────────────────── About ──────────────────────── #}
+<section class="section section--alt" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Background</span>
+                <h2 class="section-title" id="about-title">학력 · 자격</h2>
+            </div>
+        </div>
+
+        <div class="def-grid">
+            <div class="reveal">
+                <h3 class="def-title">Education</h3>
+                {% if educations %}
+                <dl class="def-list">
+                    {% for edu in educations %}
+                    <div class="def-row">
+                        <dt class="font-numeric">{{ edu.period }}</dt>
+                        <dd>{{ edu.school }}<span class="sub">{{ edu.status }}</span></dd>
+                    </div>
+                    {% endfor %}
+                </dl>
+                {% else %}
+                <p class="empty-note">등록된 학력이 없습니다.</p>
+                {% endif %}
+
+                {% if profile.show_birthdate and profile.birthdate %}
+                <dl class="def-list">
+                    <div class="def-row">
+                        <dt>생년월일</dt>
+                        <dd class="font-numeric">{{ profile.birthdate|date:"Y.m.d" }}</dd>
+                    </div>
+                </dl>
+                {% endif %}
+            </div>
+
+            <div class="reveal">
+                <h3 class="def-title">Certificates</h3>
+                {% if cert_dev or cert_lang or cert_etc %}
+                <dl class="def-list">
+                    {% for cert in cert_dev %}{% include 'portfolio/_cert_row.html' with cert=cert %}{% endfor %}
+                    {% for cert in cert_lang %}{% include 'portfolio/_cert_row.html' with cert=cert %}{% endfor %}
+                    {% for cert in cert_etc %}{% include 'portfolio/_cert_row.html' with cert=cert %}{% endfor %}
+                </dl>
+                {% else %}
+                <p class="empty-note">등록된 자격증이 없습니다.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}

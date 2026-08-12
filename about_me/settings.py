@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
     "portfolio",
     "django_summernote",
     'django_bleach',
@@ -164,10 +165,10 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 BLEACH_ALLOWED_TAGS = [
-      'p', 'br', 'strong', 'em', 'u', 's',
-      'h1', 'h2', 'h3', 'h4', 'h5',
+      'p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'sup', 'sub',
+      'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
       'ul', 'ol', 'li',
-      'a', 'img',
+      'a', 'img', 'figure', 'figcaption', 'hr',
       'table', 'thead', 'tbody', 'tr', 'th', 'td',
       'blockquote', 'pre', 'code',
       'div', 'span',

@@ -1,0 +1,4 @@
+# 개발/배포 도구용. 운영 서버에는 설치하지 않아도 됩니다.
+-r requirements.txt
+
+requests==2.32.3

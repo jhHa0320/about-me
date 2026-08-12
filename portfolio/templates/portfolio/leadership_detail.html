@@ -1,86 +1,85 @@
 {% extends 'portfolio/base.html' %}
-{% load bleach_tags %}
+{% load portfolio_extras %}
+
+{% block title %}{{ leadership.title }} · {{ global_profile.name|default:"하정훈" }}{% endblock %}
+{% block description %}{{ leadership.description|striptags|truncatechars:150 }}{% endblock %}
+{% block og_title %}{{ leadership.title }}{% endblock %}
+{% block og_description %}{{ leadership.description|striptags|truncatechars:150 }}{% endblock %}
+{% block og_type %}article{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-<div class="row justify-content-center">
-    <div class="col-lg-10">
-        <nav aria-label="breadcrumb" class="mb-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'home' %}#leadership">Leadership & Experiences</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ leadership.title }}</li>
+<div class="wrap wrap--narrow">
+
+    <header class="detail-header">
+        <nav aria-label="현재 위치">
+            <ol class="crumbs">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'home' %}#experience">Experience</a></li>
+                <li aria-current="page">{{ leadership.title }}</li>
             </ol>
         </nav>
 
-        <article class="blog-post">
-            <header class="mb-4 border-bottom pb-4">
-                <div class="d-flex justify-content-between align-items-start">
-                    <h1 class="display-5 fw-bold mb-2">{{ leadership.title }}</h1>
-                    {% if leadership.link %}
-                    <div class="d-flex gap-2">
-                        <a href="{{ leadership.link }}" class="btn btn-outline-dark btn-sm" target="_blank">
-                            관련 링크
-                        </a>
-                    </div>
-                    {% endif %}
-                </div>
+        <span class="eyebrow">
+            {{ leadership.organization }}{% if leadership.period %} · {{ leadership.period }}{% endif %}
+        </span>
 
-                <div class="text-muted mb-3">
-                    <span class="me-3"> {{ leadership.period }}</span>
-                    <span class="badge bg-primary me-1">{{ leadership.organization }}</span>
-                </div>
+        <h1 class="detail-title">{{ leadership.title }}</h1>
 
-                <div class="card bg-light border-0 mb-4">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12 mb-2">
-                                <strong> Role:</strong> {{ leadership.role }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <p class="detail-lead">{{ leadership.description|striptags|linebreaksbr }}</p>
 
-                {% if leadership.image %}
-                <figure class="figure w-100 mt-3">
-                    <img src="{{ leadership.image.url }}" class="figure-img img-fluid rounded w-100 shadow-sm"
-                        alt="{{ leadership.title }}">
-                </figure>
-                {% endif %}
-            </header>
-
-            <section class="mb-5">
-                <h3 class="h4 mb-3 border-bottom pb-2">활동 개요</h3>
-                <p class="lead">{{ leadership.description|linebreaks }}</p>
-            </section>
-
-            {% if leadership.outcome %}
-            <section class="mb-5">
-                <h3 class="h4 mb-3 border-bottom pb-2">주요 성과</h3>
-                <div class="alert alert-success border-0 shadow-sm">
-                    {{ leadership.outcome|linebreaks }}
-                </div>
-            </section>
-            {% endif %}
-
-            {% if leadership.content %}
-            <section class="mb-5">
-                <h3 class="h4 mb-3 border-bottom pb-2">상세 내용 (Activity Report)</h3>
-                <div class="project-content">
-                    {{ leadership.content|bleach }}
-                </div>
-            </section>
-            {% endif %}
-
-        </article>
-
-        <div class="text-center mt-5 mb-5">
-            <a href="{% url 'home' %}#leadership" class="btn btn-outline-secondary btn-lg">
-                목록으로 돌아가기
+        {% if leadership.link %}
+        <div class="detail-actions">
+            <a class="btn-x btn-x--ghost" href="{{ leadership.link }}" target="_blank" rel="noopener noreferrer">
+                <svg aria-hidden="true"><use href="#i-external"></use></svg>관련 링크
             </a>
         </div>
-    </div>
-</div>
-</div>
+        {% endif %}
 
+        <div class="spec">
+            <div>
+                <span class="meta-block__label">Role</span>
+                <p class="meta-block__value">{{ leadership.role|default:"—" }}</p>
+            </div>
+            <div>
+                <span class="meta-block__label">Organization</span>
+                <p class="meta-block__value">{{ leadership.organization|default:"—" }}</p>
+            </div>
+            <div>
+                <span class="meta-block__label">Period</span>
+                <p class="meta-block__value font-numeric">{{ leadership.period|default:"—" }}</p>
+            </div>
+        </div>
+
+        {% if leadership.image %}
+        <figure class="detail-figure">
+            <img src="{{ leadership.image.url }}" alt="{{ leadership.title }}" loading="lazy" decoding="async">
+        </figure>
+        {% endif %}
+    </header>
+
+    {% if leadership.outcome %}
+    <section class="detail-section" aria-labelledby="outcome-title">
+        <h2 class="detail-section__title" id="outcome-title">성과 <small>Result</small></h2>
+        <div class="callout">
+            {% for line in leadership.outcome|bullets %}
+            <p>{{ line|emphasise }}</p>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if leadership.content %}
+    <section class="detail-section" aria-labelledby="report-title">
+        <h2 class="detail-section__title" id="report-title">상세 내용 <small>Report</small></h2>
+        <div class="prose prose-scroll">{{ leadership.content|richtext }}</div>
+    </section>
+    {% endif %}
+
+    <nav class="detail-nav" aria-label="페이지 이동">
+        <a class="btn-x btn-x--ghost" href="{% url 'home' %}#experience">
+            <svg aria-hidden="true"><use href="#i-arrow-left"></use></svg>활동 · 경험
+        </a>
+        <a class="btn-x btn-x--ghost" href="{% url 'home' %}">홈으로</a>
+    </nav>
+</div>
 {% endblock %}

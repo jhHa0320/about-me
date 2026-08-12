@@ -1,0 +1,71 @@
+name: deploy
+
+# main 에 push 되면 테스트를 돌리고, 통과할 때만 PythonAnywhere 로 배포합니다.
+# 필요한 저장소 Secret (Settings > Secrets and variables > Actions):
+#   PA_USERNAME, PA_TOKEN
+# 선택: PA_DOMAIN, PA_REMOTE_DIR, PA_HOST (EU 계정이면 eu.pythonanywhere.com)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # 수동 실행도 가능
+
+concurrency:
+  group: deploy-pythonanywhere
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run tests
+        env:
+          SECRET_KEY: ci-only-not-a-real-secret
+          DEBUG: "True"
+        run: python manage.py test portfolio
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # deploy 스크립트가 git ls-files 를 씁니다
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements-dev.txt
+
+      - name: Collect static files
+        env:
+          SECRET_KEY: ci-only-not-a-real-secret
+          DEBUG: "False"
+        run: python manage.py collectstatic --noinput
+
+      # 업로드 해시 기록을 재사용해 변경분만 올립니다.
+      # 캐시가 없으면 스크립트가 전체를 올리므로 결과는 항상 올바릅니다.
+      - name: Restore deploy state
+        uses: actions/cache@v4
+        with:
+          path: _pa_sync/deploy-state.json
+          key: pa-deploy-state-${{ github.sha }}
+          restore-keys: pa-deploy-state-
+
+      - name: Upload to PythonAnywhere and reload
+        env:
+          PA_USERNAME: ${{ secrets.PA_USERNAME }}
+          PA_TOKEN: ${{ secrets.PA_TOKEN }}
+          PA_DOMAIN: ${{ secrets.PA_DOMAIN }}
+          PA_REMOTE_DIR: ${{ secrets.PA_REMOTE_DIR }}
+          PA_HOST: ${{ secrets.PA_HOST }}
+        run: python scripts/deploy_pythonanywhere.py --static

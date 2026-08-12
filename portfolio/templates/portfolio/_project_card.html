@@ -1,0 +1,43 @@
+{% load portfolio_extras %}
+<article class="p-card reveal" data-tech="{% for tech in project.tech_stacks.all %}{{ tech.id }} {% endfor %}">
+    <div class="p-card__top">
+        <span class="chip-scope">{% if project.scope == 'INDIVIDUAL' %}개인{% else %}팀{% endif %}</span>
+        <span class="p-card__period font-numeric">{{ project.period }}</span>
+    </div>
+
+    <h3 class="p-card__title">
+        <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+    </h3>
+
+    <p class="p-card__desc">{{ project.description|striptags|lead_text|truncatechars:105 }}</p>
+
+    {% if project.key_result %}
+    <p class="result">
+        <svg aria-hidden="true"><use href="#i-spark"></use></svg>
+        <span>{{ project.key_result }}</span>
+    </p>
+    {% endif %}
+
+    <div class="tag-row">
+        {% for tech in project.primary_tech %}<span class="tag">{{ tech.name }}</span>{% endfor %}
+        {% if project.extra_tech_count %}<span class="tag tag--more">+{{ project.extra_tech_count }}</span>{% endif %}
+    </div>
+
+    <div class="p-card__foot">
+        <span class="p-card__role">{{ project.role|default:"—" }}</span>
+        <span class="p-card__ext">
+            {% if project.github_url %}
+            <a class="ext-link" href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer"
+                aria-label="{{ project.title }} GitHub 저장소">
+                <svg aria-hidden="true"><use href="#i-github"></use></svg>
+            </a>
+            {% endif %}
+            {% if project.demo_url %}
+            <a class="ext-link" href="{{ project.demo_url }}" target="_blank" rel="noopener noreferrer"
+                aria-label="{{ project.title }} 데모/자료 열기">
+                <svg aria-hidden="true"><use href="#i-external"></use></svg>
+            </a>
+            {% endif %}
+        </span>
+    </div>
+</article>

@@ -16,12 +16,21 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from portfolio.sitemaps import SITEMAPS
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": SITEMAPS},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
     path("", include("portfolio.urls")),
     path("summernote/", include("django_summernote.urls")),
 ]

@@ -17,3 +17,7 @@ venv/
 inspect_file.py
 reproduce_issue.py
 data.json
+
+# PythonAnywhere 동기화 산출물 (scripts/)
+_pa_sync/
+_pa_backup/

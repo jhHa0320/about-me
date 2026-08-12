@@ -1,241 +1,183 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ko">
+{% load static %}<!DOCTYPE html>
+<html lang="ko" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="개발자 하정훈의 포트폴리오입니다. (Jeonghun Ha's Portfolio) 끊임없이 성장하며 가치를 만들어냅니다.">
-    <meta name="author" content="하정훈 (Jeonghun Ha)">
-    <meta name="keywords" content="개발자, 포트폴리오, 소프트웨어 엔지니어, Developer, Portfolio, Django, Python">
-    <meta property="og:title" content="About Me - 하정훈 (Jeonghun Ha)">
-    <meta property="og:description" content="개발자 하정훈의 포트폴리오 사이트입니다. 끊임없이 성장하며 가치를 만들어냅니다.">
-    <meta property="og:type" content="website">
-    <title>About Me - 하정훈</title>
-    <!-- Bootstrap 5.3 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts: Inter (영문 숫자) + Noto Sans KR (한글) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <!-- Devicons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-    <!-- Portfolio Styles -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% with site_name=global_profile.name|default:"하정훈" %}
+    <title>{% block title %}{{ site_name }} · Portfolio{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ site_name }}의 개발 포트폴리오. 데이터 분석·머신러닝·백엔드 프로젝트와 활동 기록.{% endblock %}">
+    <meta name="author" content="{{ site_name }}">
+    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+
+    <meta property="og:site_name" content="{{ site_name }} · Portfolio">
+    <meta property="og:title" content="{% block og_title %}{{ site_name }} · Portfolio{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ site_name }}의 개발 포트폴리오.{% endblock %}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
+    {% if global_profile.profile_image %}
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ global_profile.avatar_url }}">
+    <meta property="og:image:alt" content="{{ site_name }}">
+    {% endif %}
+    <meta name="twitter:card" content="summary">
+    {% endwith %}
+
+    <link rel="icon" href="{% static 'portfolio/favicon.svg' %}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{% static 'portfolio/favicon.svg' %}">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0C0D0F" media="(prefers-color-scheme: dark)">
+
+    {# 자체 스타일시트만 렌더링을 막고, 웹폰트는 비동기로 불러옵니다(느린 폰트 응답이 첫 페인트를 막지 않도록). #}
     <link rel="stylesheet" href="{% static 'portfolio/css/style.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {% with fonts="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" %}
+    <link rel="preload" as="style" href="{{ fonts }}">
+    <link rel="stylesheet" href="{{ fonts }}" media="print" onload="this.media='all';this.onload=null">
+    <noscript><link rel="stylesheet" href="{{ fonts }}"></noscript>
+    {% endwith %}
+
     <script>
-        // 초기 테마 설정 (페이지 깜빡임 방지)
+        /* Set theme + motion flags before first paint (no FOUC, no flash of hidden text). */
         (function () {
-            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+            var stored = null;
+            try { stored = localStorage.getItem('theme'); } catch (e) { }
+            var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-bs-theme', theme);
+
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!reduced && 'IntersectionObserver' in window) {
+                document.documentElement.classList.add('js-anim');
+            }
         })();
     </script>
+
+    {% block head_extra %}{% endblock %}
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg border-bottom sticky-top"
-        style="backdrop-filter: blur(10px); background-color: rgba(var(--bs-body-bg-rgb), 0.8);">
-        <div class="container">
-            <a class="navbar-brand" href="/">About Me</a>
-            <div class="d-flex align-items-center order-lg-last ms-2">
-                <!-- Theme Toggle Button -->
-                <button class="btn btn-link nav-link px-2 d-flex align-items-center gap-1" id="bd-theme" type="button"
-                    aria-expanded="false" title="테마 변경">
-                    <i class="bi bi-sun-fill" id="theme-icon"></i>
-                    <span id="theme-text" style="font-size: 0.9rem; font-weight: 500;">라이트 모드</span>
-                </button>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto navbar-nav-equal">
-                    <li class="nav-item"><a class="nav-link" href="#profile">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#leadership">Leadership</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#activities">Activities</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
 
-    <main>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true" focusable="false">
+        <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>
+        </symbol>
+        <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.2c-3.34.73-4.04-1.42-4.04-1.42-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.73.08-.73 1.21.09 1.85 1.25 1.85 1.25 1.08 1.84 2.83 1.31 3.52 1 .11-.78.42-1.31.76-1.62-2.67-.3-5.47-1.34-5.47-5.96 0-1.32.47-2.39 1.24-3.23-.13-.3-.54-1.53.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.65.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.23 0 4.63-2.8 5.65-5.48 5.95.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>
+        </symbol>
+        <symbol id="i-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/>
+        </symbol>
+        <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+        </symbol>
+        <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
+        </symbol>
+        <symbol id="i-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5"/><path d="m5 12 7-7 7 7"/>
+        </symbol>
+        <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/>
+        </symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/>
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="M6 6l12 12"/><path d="M18 6 6 18"/>
+        </symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+        </symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+        </symbol>
+        <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>
+        </symbol>
+    </svg>
+
+    <header class="site-header">
+        <div class="wrap">
+            <a class="brand" href="{% url 'home' %}">{{ global_profile.name|default:"하정훈" }}<span> · Portfolio</span></a>
+
+            <nav class="site-nav" id="site-nav" aria-label="주요 섹션">
+                <a href="{% url 'home' %}#projects">Projects</a>
+                <a href="{% url 'home' %}#experience">Experience</a>
+                <a href="{% url 'home' %}#skills">Skills</a>
+                <a href="{% url 'home' %}#about">About</a>
+            </nav>
+
+            <button type="button" class="icon-btn" id="theme-toggle"
+                aria-label="테마 전환" title="테마 전환">
+                <svg aria-hidden="true"><use href="#i-sun" id="theme-icon"></use></svg>
+            </button>
+
+            <button type="button" class="icon-btn nav-toggle" id="nav-toggle"
+                aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기">
+                <svg aria-hidden="true"><use href="#i-menu" id="nav-icon"></use></svg>
+            </button>
+        </div>
+    </header>
+
+    <main id="main">
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-body-tertiary text-center py-4 mt-0 border-top">
-        <p class="mb-0">&copy; 2026 Jeonghun Ha. All rights reserved.</p>
+    <footer class="site-footer">
+        <div class="wrap">
+            <div class="footer-grid">
+                <div>
+                    <p class="footer-cta">함께 일할 기회를 찾고 있습니다</p>
+                    <p class="footer-sub">프로젝트, 인턴, 학부연구생 관련 제안은 이메일로 편하게 연락 주세요.</p>
+                    <div class="footer-links">
+                        {% if global_profile.email %}
+                        <a class="btn-x btn-x--solid" href="mailto:{{ global_profile.email }}">
+                            <svg aria-hidden="true"><use href="#i-mail"></use></svg>
+                            {% if global_profile.show_email_address %}{{ global_profile.email }}{% else %}Email{% endif %}
+                        </a>
+                        {% endif %}
+                        {% if global_profile.github_url %}
+                        <a class="btn-x btn-x--ghost" href="{{ global_profile.github_url }}" target="_blank" rel="noopener noreferrer">
+                            <svg aria-hidden="true"><use href="#i-github"></use></svg>GitHub
+                        </a>
+                        {% endif %}
+                        {% if global_profile.resume_url %}
+                        <a class="btn-x btn-x--ghost" href="{{ global_profile.resume_url }}" target="_blank" rel="noopener noreferrer">
+                            <svg aria-hidden="true"><use href="#i-doc"></use></svg>Resume
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="footer-copy">&copy; 2026 {{ global_profile.name|default:"하정훈" }}</p>
+            </div>
+        </div>
     </footer>
 
-    <!-- 모바일 하단 내비게이션 바 (홈 화면에서만 표시) -->
-    {% if request.resolver_match.url_name == 'home' %}
-    <nav class="mobile-bottom-nav d-md-none">
-        <a href="#profile" class="nav-item">
-            <i class="bi bi-house"></i>
-            <span>프로필</span>
-        </a>
-        <a href="#certificates" class="nav-item">
-            <i class="bi bi-patch-check"></i>
-            <span>자격증</span>
-        </a>
-        <a href="#leadership" class="nav-item">
-            <i class="bi bi-award"></i>
-            <span>리더십</span>
-        </a>
-        <a href="#activities" class="nav-item">
-            <i class="bi bi-lightning-charge"></i>
-            <span>활동</span>
-        </a>
-        <a href="#skills" class="nav-item">
-            <i class="bi bi-code-slash"></i>
-            <span>기술</span>
-        </a>
-        <a href="#projects" class="nav-item">
-            <i class="bi bi-folder2"></i>
-            <span>프로젝트</span>
-        </a>
-    </nav>
+    <button type="button" class="to-top" id="to-top" aria-label="맨 위로">
+        <svg aria-hidden="true"><use href="#i-arrow-up"></use></svg>
+    </button>
+
+    {% if global_profile %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "{{ global_profile.name|escapejs }}",
+      "url": "{{ request.scheme }}://{{ request.get_host }}/",
+      "email": "mailto:{{ global_profile.email|escapejs }}"{% if global_profile.headline %},
+      "jobTitle": "{{ global_profile.headline|escapejs }}"{% endif %}{% if global_profile.github_url %},
+      "sameAs": ["{{ global_profile.github_url|escapejs }}"]{% endif %}{% if educations %},
+      "alumniOf": [{% for edu in educations %}{"@type": "EducationalOrganization", "name": "{{ edu.school|escapejs }}"}{% if not forloop.last %},{% endif %}{% endfor %}]{% endif %}
+    }
+    </script>
     {% endif %}
 
-    <!-- 플로팅 액션 그룹 (우하단 통합) -->
-    <div class="fab-group" id="fab-group">
-        <!-- 이메일 -->
-        {% if global_profile and global_profile.email %}
-        <a href="mailto:{{ global_profile.email }}" class="fab-btn fab-contact" title="{{ global_profile.email }}" aria-label="이메일 보내기">
-            <i class="bi bi-envelope-fill"></i>
-        </a>
-        {% endif %}
-        <!-- GitHub -->
-        {% if global_profile and global_profile.github_url %}
-        <a href="{{ global_profile.github_url }}" target="_blank" rel="noopener" class="fab-btn fab-contact" title="GitHub" aria-label="GitHub 프로필">
-            <i class="bi bi-github"></i>
-        </a>
-        {% endif %}
-        <!-- 뒤로 가기 (상세 페이지만) -->
-        {% if request.resolver_match.url_name != 'home' %}
-        <button type="button" class="fab-btn fab-back" id="btn-back-page" title="이전 페이지" aria-label="이전 페이지">
-            <i class="bi bi-chevron-left"></i>
-        </button>
-        {% endif %}
-        <!-- TOP -->
-        <button type="button" class="fab-btn fab-top" id="btn-back-to-top" title="맨 위로" aria-label="맨 위로" style="display:none;">
-            <i class="bi bi-arrow-up"></i>
-        </button>
-    </div>
-
-    <!-- Bootstrap 5.3 Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // TOP 버튼
-        const topBtn = document.getElementById("btn-back-to-top");
-        window.addEventListener('scroll', function () {
-            if (topBtn) topBtn.style.display = (window.scrollY > 300) ? "flex" : "none";
-            updateActiveTab();
-        });
-        if (topBtn) topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-
-        // 뒤로 가기 버튼
-        const backBtn = document.getElementById("btn-back-page");
-        if (backBtn) {
-            backBtn.addEventListener("click", function () {
-                window.history.length > 1 ? window.history.back() : (window.location.href = "/");
-            });
-        }
-
-        // 모바일 하단 바 활성화 상태 업데이트
-        function updateActiveTab() {
-            const sections = ['profile', 'certificates', 'leadership', 'activities', 'skills', 'projects'];
-            const navItems = document.querySelectorAll('.mobile-bottom-nav .nav-item');
-
-            let currentSection = "";
-            sections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    const sectionTop = section.offsetTop - 100;
-                    if (window.pageYOffset >= sectionTop) {
-                        currentSection = sectionId;
-                    }
-                }
-            });
-
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === `#${currentSection}`) {
-                    item.classList.add('active');
-                }
-            });
-        }
-    </script>
-    <script>
-        /* --- IntersectionObserver: .reveal 요소 스크롤 애니메이션 --- */
-        (function () {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.12 });
-
-            document.addEventListener('DOMContentLoaded', () => {
-                /* section 단위 reveal */
-                document.querySelectorAll('section').forEach(section => {
-                    section.classList.add('reveal');
-                    observer.observe(section);
-                });
-                /* 개별 .reveal 클래스 요소 */
-                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-            });
-        })();
-    </script>
-    <script>
-        /*!
-         * Color mode toggler for Bootstrap's docs (https://getbootstrap.com/)
-         * Copyright 2011-2023 The Bootstrap Authors
-         * Licensed under the Creative Commons Attribution 3.0 Unported License.
-         */
-        (() => {
-            'use strict'
-
-            const getStoredTheme = () => localStorage.getItem('theme')
-            const setStoredTheme = theme => localStorage.setItem('theme', theme)
-
-            const getPreferredTheme = () => {
-                const storedTheme = getStoredTheme()
-                if (storedTheme) return storedTheme
-                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-            }
-
-            const setTheme = theme => {
-                document.documentElement.setAttribute('data-bs-theme', theme)
-                const icon = document.getElementById('theme-icon')
-                const text = document.getElementById('theme-text')
-                if (theme === 'dark') {
-                    if (icon) icon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill')
-                    if (text) text.textContent = '다크 모드'
-                } else {
-                    if (icon) icon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill')
-                    if (text) text.textContent = '라이트 모드'
-                }
-            }
-
-            setTheme(getPreferredTheme())
-
-            window.addEventListener('DOMContentLoaded', () => {
-                const themeToggle = document.getElementById('bd-theme')
-                if (themeToggle) {
-                    themeToggle.addEventListener('click', () => {
-                        const currentTheme = document.documentElement.getAttribute('data-bs-theme')
-                        const newTheme = currentTheme === 'dark' ? 'light' : 'dark'
-                        setStoredTheme(newTheme)
-                        setTheme(newTheme)
-                    })
-                }
-            })
-        })()
-    </script>
+    <script src="{% static 'portfolio/js/site.js' %}" defer></script>
+    {% block scripts %}{% endblock %}
 </body>
 
 </html>

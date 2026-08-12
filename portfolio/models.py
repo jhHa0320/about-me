@@ -2,14 +2,71 @@ from django.db import models
 
 class Profile(models.Model):
     name = models.CharField(max_length=100, verbose_name="이름")
+    headline = models.CharField(
+        max_length=120, blank=True, default='',
+        verbose_name="한 줄 직군 (Hero 이름 위)",
+        help_text="예: Data · AI · Backend / 비워두면 표시되지 않습니다.",
+    )
     birthdate = models.DateField(verbose_name="생년월일")
+    show_birthdate = models.BooleanField(
+        default=False, verbose_name="생년월일 화면 노출",
+        help_text="끄면 사이트에 표시되지 않습니다. 데이터는 그대로 보존됩니다.",
+    )
     email = models.EmailField(verbose_name="이메일")
+    show_email_address = models.BooleanField(
+        default=False, verbose_name="이메일 주소 원문 노출",
+        help_text="끄면 'Email' 버튼으로만 표시됩니다(스팸 수집 방지). 링크는 그대로 동작합니다.",
+    )
     github_url = models.URLField(blank=True, verbose_name="Github 주소")
-    introduction = models.TextField(blank=True, verbose_name="자기소개")
+    resume_url = models.URLField(blank=True, default='', verbose_name="이력서 링크 (선택)")
+    introduction = models.TextField(
+        blank=True, verbose_name="자기소개 (Hero 소개 문장)",
+        help_text="2~3문장 이내를 권장합니다. 비워두면 표시되지 않습니다.",
+    )
     profile_image = models.ImageField(upload_to='profile/', blank=True, null=True, verbose_name="프로필 이미지")
+
+    #: Longest edge of the generated avatar. The hero renders it at 200 CSS px,
+    #: so this covers 2x displays with room to spare.
+    AVATAR_MAX_PX = 480
 
     def __str__(self):
         return self.name
+
+    @property
+    def avatar_url(self):
+        """URL of a small derived copy of `profile_image`.
+
+        The uploaded original is never modified or deleted — the thumbnail is
+        written alongside it and reused on later requests. Falls back to the
+        original if Pillow cannot process the file.
+        """
+        if not self.profile_image:
+            return ""
+
+        from pathlib import Path
+
+        try:
+            source = Path(self.profile_image.path)
+        except (NotImplementedError, ValueError):
+            return self.profile_image.url
+
+        thumb = source.with_name(f"{source.stem}_sm.jpg")
+        url = f"{self.profile_image.url.rsplit('/', 1)[0]}/{thumb.name}"
+
+        if thumb.exists() and thumb.stat().st_mtime >= source.stat().st_mtime:
+            return url
+
+        try:
+            from PIL import Image, ImageOps
+
+            with Image.open(source) as im:
+                im = ImageOps.exif_transpose(im).convert("RGB")
+                im.thumbnail((self.AVATAR_MAX_PX, self.AVATAR_MAX_PX), Image.LANCZOS)
+                im.save(thumb, "JPEG", quality=82, optimize=True, progressive=True)
+        except Exception:      # noqa: BLE001 — never break the page over a thumbnail
+            return self.profile_image.url
+
+        return url
 
     class Meta:
         verbose_name = "프로필"
@@ -92,7 +149,12 @@ class Project(models.Model):
     categories = models.ManyToManyField(ProjectCategory, verbose_name="분류 (복수선택 가능)")
     tech_stacks = models.ManyToManyField(Skill, verbose_name="사용 기술 (복수선택 가능)")
     role = models.CharField(max_length=100, default='', verbose_name="나의 역할")
-    outcome = models.TextField(blank=True, default='', verbose_name="성과")
+    key_result = models.CharField(
+        max_length=80, blank=True, default='',
+        verbose_name="핵심 성과 한 줄 (카드 노출용)",
+        help_text="카드에 뱃지로 보이는 짧은 한 줄. 예: '3점 리뷰 89% 재분류', '우수상'. 비워두면 뱃지가 표시되지 않습니다.",
+    )
+    outcome = models.TextField(blank=True, default='', verbose_name="성과 / 배운 점 (상세 페이지)")
     description = models.TextField(verbose_name="설명 (요약)")
     content = models.TextField(blank=True, default='', verbose_name="상세 내용 (보고서)")
     github_url = models.URLField(blank=True, verbose_name="Github 링크")
@@ -105,11 +167,28 @@ class Project(models.Model):
         ('TEAM', '팀 프로젝트'),
     ]
     scope = models.CharField(max_length=20, choices=SCOPE_CHOICES, default='INDIVIDUAL', verbose_name="프로젝트 범위 (개인/팀)")
-    
+
     is_active = models.BooleanField(default=True, verbose_name="활성화 여부")
+    is_featured = models.BooleanField(
+        default=False, verbose_name="대표 프로젝트 (Featured)",
+        help_text="첫 화면 상단에 크게 노출됩니다. 3개 내외를 권장합니다.",
+    )
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('project_detail', args=[self.pk])
+
+    @property
+    def primary_tech(self):
+        """The handful of technologies worth showing on a card."""
+        return list(self.tech_stacks.all())[:4]
+
+    @property
+    def extra_tech_count(self):
+        return max(0, self.tech_stacks.count() - 4)
 
     class Meta:
         verbose_name = "프로젝트"
@@ -166,3 +245,7 @@ class Leadership(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.organization}"
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('leadership_detail', args=[self.pk])

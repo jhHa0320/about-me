@@ -1,105 +1,125 @@
 {% extends 'portfolio/base.html' %}
+{% load portfolio_extras %}
+
+{% block title %}{{ project.title }} · {{ global_profile.name|default:"하정훈" }}{% endblock %}
+{% block description %}{{ project.description|striptags|truncatechars:150 }}{% endblock %}
+{% block og_title %}{{ project.title }}{% endblock %}
+{% block og_description %}{{ project.description|striptags|truncatechars:150 }}{% endblock %}
+{% block og_type %}article{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-<div class="row justify-content-center">
-    <div class="col-lg-10">
-        <nav aria-label="breadcrumb" class="mb-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'home' %}#projects">Projects</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
+<div class="wrap wrap--narrow">
+
+    <header class="detail-header">
+        <nav aria-label="현재 위치">
+            <ol class="crumbs">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'home' %}#projects">Projects</a></li>
+                <li aria-current="page">{{ project.title }}</li>
             </ol>
         </nav>
 
-        <article class="blog-post">
-            <header class="mb-4 border-bottom pb-4">
-                <div class="d-flex justify-content-between align-items-start">
-                    <h1 class="display-5 fw-bold mb-2">{{ project.title }}</h1>
-                    {% if project.github_url or project.demo_url %}
-                    <div class="d-flex gap-2">
-                        {% if project.github_url %}
-                        <a href="{{ project.github_url }}" class="btn btn-outline-dark btn-sm" target="_blank">
-                            GitHub
-                        </a>
-                        {% endif %}
-                        {% if project.demo_url %}
-                        <a href="{{ project.demo_url }}" class="btn btn-primary btn-sm" target="_blank">
-                            Live Demo
-                        </a>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-                </div>
+        <span class="eyebrow">
+            {% if project.scope == 'INDIVIDUAL' %}개인 프로젝트{% else %}팀 프로젝트{% endif %}
+            {% if project.period %} · {{ project.period }}{% endif %}
+        </span>
 
-                <div class="text-muted mb-3">
-                    <span class="me-3"> {{ project.period }}</span>
-                    {% for category in project.categories.all %}
-                    <span class="badge bg-secondary me-1">{{ category.name }}</span>
-                    {% endfor %}
-                </div>
+        <h1 class="detail-title">{{ project.title }}</h1>
 
-                <div class="card border-0 mb-4 section-inner">
-                    <div class="row g-3">
-                        <div class="col-sm-4">
-                            <p class="text-muted small mb-1 fw-semibold text-uppercase" style="letter-spacing: 0.08em;">담당 역할</p>
-                            <p class="mb-0 fw-semibold">{{ project.role }}</p>
-                        </div>
-                        <div class="col-sm-8">
-                            <p class="text-muted small mb-1 fw-semibold text-uppercase" style="letter-spacing: 0.08em;">기술 스택</p>
-                            <div class="d-flex flex-wrap gap-1">
-                                {% for tech in project.tech_stacks.all %}
-                                <span class="badge bg-light text-dark border">{{ tech.name }}</span>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <p class="detail-lead">{{ project.description|striptags|linebreaksbr }}</p>
 
-                {% if project.image %}
-                <figure class="figure w-100 mt-3">
-                    <img src="{{ project.image.url }}" class="figure-img img-fluid rounded w-100 shadow-sm"
-                        alt="{{ project.title }}" loading="lazy">
-                </figure>
-                {% endif %}
-            </header>
+        {% if project.key_result %}
+        <p class="result result--standalone">
+            <svg aria-hidden="true"><use href="#i-spark"></use></svg>
+            <span>{{ project.key_result }}</span>
+        </p>
+        {% endif %}
 
-            <section class="mb-5">
-                <h3 class="h4 mb-3 border-bottom pb-2">프로젝트 개요</h3>
-                <p class="lead">{{ project.description|linebreaks }}</p>
-            </section>
-
-            {% if project.outcome %}
-            <section class="mb-5">
-                <h3 class="h4 mb-3 border-bottom pb-2">주요 성과</h3>
-                <div class="metric-callout">
-                    <div class="d-flex align-items-start gap-2">
-                        <i class="bi bi-graph-up-arrow mt-1" style="flex-shrink: 0; color: var(--success-text);"></i>
-                        <div>{{ project.outcome|linebreaks }}</div>
-                    </div>
-                </div>
-            </section>
-            {% endif %}
-
-            {% if project.content %}
-            <section class="mb-5">
-                <h3 class="h4 mb-3 border-bottom pb-2">상세 내용 (Report)</h3>
-                <div class="project-content">
-                    {% load bleach_tags %}
-                    {{ project.content|bleach }}
-                </div>
-            </section>
-            {% endif %}
-
-        </article>
-
-        <div class="text-center mt-5 mb-5">
-            <a href="{% url 'home' %}#projects" class="btn btn-outline-secondary btn-lg">
-                목록으로 돌아가기
+        {% if project.github_url or project.demo_url %}
+        <div class="detail-actions">
+            {% if project.demo_url %}
+            <a class="btn-x btn-x--solid" href="{{ project.demo_url }}" target="_blank" rel="noopener noreferrer">
+                <svg aria-hidden="true"><use href="#i-external"></use></svg>데모 · 자료 보기
             </a>
+            {% endif %}
+            {% if project.github_url %}
+            <a class="btn-x btn-x--ghost" href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer">
+                <svg aria-hidden="true"><use href="#i-github"></use></svg>GitHub
+            </a>
+            {% endif %}
         </div>
-    </div>
-</div>
-</div>
+        {% endif %}
 
+        <div class="spec">
+            <div>
+                <span class="meta-block__label">My Role</span>
+                <p class="meta-block__value">{{ project.role|default:"—" }}</p>
+            </div>
+            <div>
+                <span class="meta-block__label">Period</span>
+                <p class="meta-block__value font-numeric">{{ project.period|default:"—" }}</p>
+            </div>
+            <div>
+                <span class="meta-block__label">Categories</span>
+                <div class="tag-row tag-row--stacked">
+                    {% for category in project.categories.all %}<span class="tag">{{ category.name }}</span>{% empty %}—{% endfor %}
+                </div>
+            </div>
+            <div>
+                <span class="meta-block__label">Tech Stack</span>
+                <div class="tag-row tag-row--stacked">
+                    {% for tech in project.tech_stacks.all %}<span class="tag">{{ tech.name }}</span>{% empty %}—{% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% if project.image %}
+        <figure class="detail-figure">
+            <img src="{{ project.image.url }}" alt="{{ project.title }} 화면" loading="lazy" decoding="async">
+        </figure>
+        {% endif %}
+    </header>
+
+    {% if project.outcome %}
+    <section class="detail-section" aria-labelledby="outcome-title">
+        <h2 class="detail-section__title" id="outcome-title">
+            성과 · 배운 점 <small>Result &amp; Lessons</small>
+        </h2>
+        <div class="callout">
+            {% for line in project.outcome|bullets %}
+            <p>{{ line|emphasise }}</p>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if project.content %}
+    <section class="detail-section" aria-labelledby="report-title">
+        <h2 class="detail-section__title" id="report-title">
+            상세 내용 <small>Report</small>
+        </h2>
+        <div class="prose prose-scroll">{{ project.content|richtext }}</div>
+    </section>
+    {% endif %}
+
+    {% if related_projects %}
+    <section class="detail-section" aria-labelledby="related-title">
+        <h2 class="detail-section__title" id="related-title">
+            비슷한 기술을 쓴 프로젝트 <small>Related</small>
+        </h2>
+        <div class="card-grid">
+            {% for project in related_projects %}
+            {% include 'portfolio/_project_card.html' with project=project %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <nav class="detail-nav" aria-label="페이지 이동">
+        <a class="btn-x btn-x--ghost" href="{% url 'home' %}#projects">
+            <svg aria-hidden="true"><use href="#i-arrow-left"></use></svg>전체 프로젝트
+        </a>
+        <a class="btn-x btn-x--ghost" href="{% url 'home' %}">홈으로</a>
+    </nav>
+</div>
 {% endblock %}

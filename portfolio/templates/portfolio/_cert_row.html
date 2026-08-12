@@ -1,0 +1,11 @@
+<div class="def-row">
+    <dt class="font-numeric">{{ cert.period }}</dt>
+    <dd>
+        {% if cert.link %}
+        <a href="{{ cert.link }}" target="_blank" rel="noopener noreferrer">{{ cert.title }}</a>
+        {% elif cert.attachment %}
+        <a href="{{ cert.attachment.url }}" target="_blank" rel="noopener noreferrer">{{ cert.title }}</a>
+        {% else %}{{ cert.title }}{% endif %}
+        {% if cert.organization %}<span class="sub">{{ cert.organization }}</span>{% endif %}
+    </dd>
+</div>
