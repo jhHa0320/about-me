@@ -55,13 +55,21 @@ except ImportError:  # pragma: no cover
 
 
 def setting(name, default=None):
-    """.env 를 먼저 보고, 없으면 환경변수를 봅니다 (CI 에서는 환경변수)."""
+    """.env 를 먼저 보고, 없으면 환경변수를 봅니다 (CI 에서는 환경변수).
+
+    두 경로 모두 빈 문자열은 '값 없음'으로 취급해 기본값으로 넘어갑니다.
+    GitHub Actions 는 등록되지 않은 Secret 도 빈 문자열로 주입하므로, 이를
+    구분하지 않으면 `PA_HOST` 처럼 선택 항목에 기본값이 있어도 무시되어
+    `https:///api/...` 같은 깨진 URL이 만들어집니다.
+    """
     if _config is not None:
         try:
-            return _config(name, default=default)
+            value = _config(name, default="")
         except Exception:  # noqa: BLE001
-            pass
-    return os.environ.get(name, default)
+            value = ""
+        if value:
+            return value
+    return os.environ.get(name) or default
 
 
 USERNAME = setting("PA_USERNAME")
