@@ -7,7 +7,7 @@
 
     {% with site_name=global_profile.name|default:"하정훈" %}
     <title>{% block title %}{{ site_name }} · Portfolio{% endblock %}</title>
-    <meta name="description" content="{% block description %}{{ site_name }}의 개발 포트폴리오. 데이터 분석·머신러닝·백엔드 프로젝트와 활동 기록.{% endblock %}">
+    <meta name="description" content="{% block description %}{{ site_name }}의 개발 포트폴리오. 데이터 분석·머신러닝·백엔드·정보보안 프로젝트와 활동 기록.{% endblock %}">
     <meta name="author" content="{{ site_name }}">
     <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
 
@@ -111,10 +111,10 @@
             <a class="brand" href="{% url 'home' %}">{{ global_profile.name|default:"하정훈" }}<span> · Portfolio</span></a>
 
             <nav class="site-nav" id="site-nav" aria-label="주요 섹션">
+                <a href="{% url 'home' %}#about">About</a>
+                <a href="{% url 'home' %}#skills">Skills</a>
                 <a href="{% url 'home' %}#projects">Projects</a>
                 <a href="{% url 'home' %}#experience">Experience</a>
-                <a href="{% url 'home' %}#skills">Skills</a>
-                <a href="{% url 'home' %}#about">About</a>
             </nav>
 
             <button type="button" class="icon-btn" id="theme-toggle"

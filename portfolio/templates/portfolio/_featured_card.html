@@ -1,0 +1,31 @@
+{% load portfolio_extras %}
+<article class="featured reveal">
+    <p class="featured__index font-numeric">{{ index|stringformat:"02d" }}</p>
+
+    <h3 class="featured__title">
+        <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+    </h3>
+    <p class="featured__lead">{{ project.description|striptags|lead_text }}</p>
+
+    <div class="tag-row featured__stack">
+        {% for tech in project.tech_stacks.all %}<span class="tag">{{ tech.name }}</span>{% endfor %}
+    </div>
+
+    <div class="featured__links">
+        <a class="btn-x btn-x--ghost btn-x--sm" href="{{ project.get_absolute_url }}">
+            자세히 보기 <svg aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+        </a>
+        {% if project.demo_url %}
+        <a class="btn-x btn-x--ghost btn-x--sm" href="{{ project.demo_url }}"
+            target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true"><use href="#i-external"></use></svg>Demo
+        </a>
+        {% endif %}
+        {% if project.github_url %}
+        <a class="btn-x btn-x--ghost btn-x--sm" href="{{ project.github_url }}"
+            target="_blank" rel="noopener noreferrer">
+            <svg aria-hidden="true"><use href="#i-github"></use></svg>Code
+        </a>
+        {% endif %}
+    </div>
+</article>

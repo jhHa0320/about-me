@@ -1,5 +1,5 @@
 {% load portfolio_extras %}
-<article class="p-card reveal" data-tech="{% for tech in project.tech_stacks.all %}{{ tech.id }} {% endfor %}">
+<article class="p-card reveal">
     <div class="p-card__top">
         <span class="chip-scope">{% if project.scope == 'INDIVIDUAL' %}개인{% else %}팀{% endif %}</span>
         <span class="p-card__period font-numeric">{{ project.period }}</span>

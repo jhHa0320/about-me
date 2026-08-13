@@ -27,20 +27,21 @@ CSS 프레임워크는 사용하지 않습니다. 리팩토링 과정에서 Boot
 ## 정보 구조
 
 ```
-Hero              이름 · 직군 · 연락 수단 · 핵심 수치
+Hero              이름 · 직군(Data · AI · Backend · Security) · 학력(최신) · 영어 성적 · 연락 수단 · 핵심 수치
   ↓
-Featured Projects 대표 프로젝트 3건 (역할 / 기간 / 스택 / 결과)
+About             자격증 / 수상 실적 (2단 구성)
   ↓
-All Projects      나머지 프로젝트 + 기술 필터 + 더 보기
+Skills            Language / Data Science / AI / Security / Backend / 기타 + 실제 사용 프로젝트 수 (클릭 시 해당 스택 프로젝트로 이동)
+  ↓
+Projects          전체 프로젝트를 하나의 카드 디자인으로, 시간순(= `order` 로 수동 조정) 정렬, 더 보기로 점진 노출
   ↓
 Experience        리더십 · 경력 · 대외활동 통합 타임라인 (최신순)
   ↓
-Skills            주력 / 활용 가능 / 경험 보유 + 실제 사용 프로젝트 수
-  ↓
-About             학력 · 자격증
-  ↓
 Contact (footer)
 ```
+
+학력은 여러 건을 등록해도 Hero 에는 가장 최근 한 건만 노출되고(전체 목록은 JSON-LD 구조화 데이터에 포함),
+나머지는 관리자에서 계속 보관됩니다.
 
 ---
 
@@ -51,14 +52,19 @@ Contact (footer)
 | 위치 | 필드 | 설명 |
 | --- | --- | --- |
 | 프로필 | `headline` | Hero 이름 위 한 줄 직군. 비우면 기본 요약 문구가 표시됩니다 |
-| 프로필 | `introduction` | Hero 소개 문장. 비우면 최신 학력이 대신 표시됩니다 |
+| 프로필 | `introduction` | Hero 소개 문장. 비우면 표시되지 않습니다 (학력과는 별개) |
+| 프로필 | `english_score` | Hero 학력 아래 영어 성적. 비우면 표시되지 않습니다 |
 | 프로필 | `show_birthdate` | 생년월일 노출 여부 (기본 꺼짐, 데이터는 보존) |
 | 프로필 | `show_email_address` | 이메일 원문 노출 여부 (기본 꺼짐, mailto 링크는 항상 동작) |
 | 프로필 | `resume_url` | 이력서 링크. 채우면 Hero/Footer 에 버튼이 생깁니다 |
-| 프로젝트 | `is_featured` | 첫 화면 상단 대표 프로젝트. 3개 내외 권장 |
-| 프로젝트 | `key_result` | 카드에 뱃지로 보이는 한 줄 성과. 비우면 뱃지가 사라집니다 |
+| 기술 | `domain` | 첫 화면 '기술' 섹션에서 묶이는 분야 (Language/Data Science/AI/Security/Backend/기타) |
+| 활동·자격증 | `type = AWARD` | About 섹션 오른쪽 '수상' 칸에 노출 (Certification/Activity 와 같은 모델을 재사용) |
+| 프로젝트 | `order` | 프로젝트 목록 정렬(높을수록 먼저) 및 대표 노출 우선순위 |
+| 프로젝트 | `is_featured` | (참고용 플래그) 현재 목록 정렬에는 쓰이지 않으며, 순서는 `order` 로 조정합니다 |
+| 프로젝트 | `key_result` | 상세 페이지에 뱃지로 보이는 한 줄 성과. 비우면 뱃지가 사라집니다 |
 
-대표 프로젝트가 보이는 순서는 프로젝트의 `order` 값(높을수록 먼저)을 따릅니다.
+프로젝트는 시간순(`order` → `start_date` → `id` 내림차순)으로 노출됩니다.
+특정 프로젝트를 앞세우고 싶으면 관리자에서 `order` 값을 올리면 됩니다.
 
 ---
 

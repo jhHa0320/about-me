@@ -2,9 +2,9 @@
 {% load portfolio_extras %}
 
 {% block title %}{{ profile.name|default:"하정훈" }} · {{ profile.headline|default:"Portfolio" }}{% endblock %}
-{% block description %}{% if profile.introduction %}{{ profile.introduction|striptags|truncatechars:150 }}{% else %}{{ profile.name|default:"하정훈" }}의 개발 포트폴리오. 데이터 분석·머신러닝·백엔드 프로젝트 {{ project_total }}건과 활동 기록.{% endif %}{% endblock %}
+{% block description %}{% if profile.introduction %}{{ profile.introduction|striptags|truncatechars:150 }}{% else %}{{ profile.name|default:"하정훈" }}의 개발 포트폴리오. 데이터 분석·머신러닝·백엔드·정보보안 프로젝트 {{ project_total }}건과 활동 기록.{% endif %}{% endblock %}
 {% block og_title %}{{ profile.name|default:"하정훈" }} · {{ profile.headline|default:"Portfolio" }}{% endblock %}
-{% block og_description %}{% if profile.introduction %}{{ profile.introduction|striptags|truncatechars:150 }}{% else %}데이터 분석·머신러닝·백엔드 프로젝트 {{ project_total }}건.{% endif %}{% endblock %}
+{% block og_description %}{% if profile.introduction %}{{ profile.introduction|striptags|truncatechars:150 }}{% else %}데이터 분석·머신러닝·백엔드·정보보안 프로젝트 {{ project_total }}건.{% endif %}{% endblock %}
 
 {% block content %}
 
@@ -17,16 +17,25 @@
                 기본값은 등록된 기술·프로젝트에서 도출한 요약입니다.
                 관리자 > 프로필 > '한 줄 직군'을 채우면 그 값으로 대체됩니다.
                 {% endcomment %}
-                <p class="hero__role">{{ profile.headline|default:"Data · AI · Backend" }}</p>
+                <p class="hero__role">{{ profile.headline|default:"Data · AI · Backend · Security" }}</p>
 
                 <h1 class="hero__name" id="hero-name">{{ profile.name|default:"하정훈" }}</h1>
 
                 {% if profile.introduction %}
                 <p class="hero__intro">{{ profile.introduction|linebreaksbr }}</p>
-                {% elif educations %}
-                <p class="hero__intro">
-                    {% with edu=educations.0 %}{{ edu.school }} {{ edu.status }}{% endwith %}
-                </p>
+                {% endif %}
+
+                {% if educations or profile.english_score %}
+                <div class="hero__meta">
+                    {% if educations %}
+                    <p class="hero__meta-line">
+                        {% with edu=educations.0 %}{{ edu.school }} {{ edu.status }}{% endwith %}
+                    </p>
+                    {% endif %}
+                    {% if profile.english_score %}
+                    <p class="hero__meta-line">{{ profile.english_score }}</p>
+                    {% endif %}
+                </div>
                 {% endif %}
 
                 {% if user.is_staff and not profile.introduction %}
@@ -78,106 +87,112 @@
     </div>
 </section>
 
-{# ─────────────────── Featured Projects ─────────────────── #}
-{% if featured_projects %}
-<section class="section section--alt" id="featured" aria-labelledby="featured-title">
+{# ───────────────────────── About ──────────────────────── #}
+<section class="section section--alt" id="about" aria-labelledby="about-title">
     <div class="wrap">
         <div class="section-head">
             <div>
-                <span class="eyebrow">Selected work</span>
-                <h2 class="section-title" id="featured-title">대표 프로젝트</h2>
+                <span class="eyebrow">Background</span>
+                <h2 class="section-title" id="about-title">자격 · 수상</h2>
             </div>
-            <p class="section-note">역할 · 기술 · 결과 중심으로 정리했습니다</p>
         </div>
 
-        <div class="featured-list">
-            {% for project in featured_projects %}
-            <article class="featured reveal">
-                <div>
-                    <p class="featured__index font-numeric">0{{ forloop.counter }}</p>
-                    <h3 class="featured__title">
-                        <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
-                    </h3>
-                    <p class="featured__lead">{{ project.description|striptags|lead_text }}</p>
+        <div class="def-grid">
+            <div class="reveal">
+                <h3 class="def-title">Certificates</h3>
+                {% if cert_dev or cert_lang or cert_etc %}
+                <dl class="def-list">
+                    {% for cert in cert_dev %}{% include 'portfolio/_cert_row.html' with cert=cert %}{% endfor %}
+                    {% for cert in cert_lang %}{% include 'portfolio/_cert_row.html' with cert=cert %}{% endfor %}
+                    {% for cert in cert_etc %}{% include 'portfolio/_cert_row.html' with cert=cert %}{% endfor %}
+                </dl>
+                {% else %}
+                <p class="empty-note">등록된 자격증이 없습니다.</p>
+                {% endif %}
 
-                    {% if project.key_result %}
-                    <p class="result">
-                        <svg aria-hidden="true"><use href="#i-spark"></use></svg>
-                        <span>{{ project.key_result }}</span>
-                    </p>
+                {% if profile.show_birthdate and profile.birthdate %}
+                <dl class="def-list">
+                    <div class="def-row">
+                        <dt>생년월일</dt>
+                        <dd class="font-numeric">{{ profile.birthdate|date:"Y.m.d" }}</dd>
+                    </div>
+                </dl>
+                {% endif %}
+            </div>
+
+            <div class="reveal">
+                <h3 class="def-title">Awards</h3>
+                {% if awards %}
+                <dl class="def-list">
+                    {% for award in awards %}{% include 'portfolio/_cert_row.html' with cert=award %}{% endfor %}
+                </dl>
+                {% else %}
+                <p class="empty-note">등록된 수상 실적이 없습니다.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ──────────────────────── Skills ──────────────────────── #}
+{% if skill_groups %}
+<section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Stack</span>
+                <h2 class="section-title" id="skills-title">기술</h2>
+            </div>
+            <p class="section-note">스택을 클릭해보세요. 해당 스택을 사용한 프로젝트들을 볼 수 있습니다</p>
+        </div>
+
+        <div class="skill-groups">
+            {% for group in skill_groups %}
+            <div class="skill-group reveal">
+                <div class="skill-group__head">
+                    <h3 class="skill-group__name">{{ group.label }}</h3>
+                </div>
+                <div class="skill-list">
+                    {% for skill in group.skills %}
+                    {% if skill.project_count %}
+                    <a class="skill-pill" href="{% url 'skill_projects' skill.id %}">
+                        {{ skill.name }}
+                        {% if skill.description %}<span class="skill-pill__note">{{ skill.description }}</span>{% endif %}
+                        <span class="skill-pill__count" aria-label="프로젝트 {{ skill.project_count }}건">{{ skill.project_count }}</span>
+                        <svg class="skill-pill__arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+                    </a>
+                    {% else %}
+                    <span class="skill-pill">
+                        {{ skill.name }}
+                        {% if skill.description %}<span class="skill-pill__note">{{ skill.description }}</span>{% endif %}
+                    </span>
                     {% endif %}
-
-                    <div class="featured__links">
-                        <a class="btn-x btn-x--ghost btn-x--sm" href="{{ project.get_absolute_url }}">
-                            자세히 보기 <svg aria-hidden="true"><use href="#i-arrow-right"></use></svg>
-                        </a>
-                        {% if project.demo_url %}
-                        <a class="btn-x btn-x--ghost btn-x--sm" href="{{ project.demo_url }}"
-                            target="_blank" rel="noopener noreferrer">
-                            <svg aria-hidden="true"><use href="#i-external"></use></svg>Demo
-                        </a>
-                        {% endif %}
-                        {% if project.github_url %}
-                        <a class="btn-x btn-x--ghost btn-x--sm" href="{{ project.github_url }}"
-                            target="_blank" rel="noopener noreferrer">
-                            <svg aria-hidden="true"><use href="#i-github"></use></svg>Code
-                        </a>
-                        {% endif %}
-                    </div>
+                    {% endfor %}
                 </div>
-
-                <div class="featured__meta">
-                    <div>
-                        <span class="meta-block__label">My Role</span>
-                        <p class="meta-block__value">{{ project.role|default:"—" }}</p>
-                    </div>
-                    <div>
-                        <span class="meta-block__label">Period</span>
-                        <p class="meta-block__value font-numeric">{{ project.period }}</p>
-                    </div>
-                    <div>
-                        <span class="meta-block__label">Stack</span>
-                        <div class="tag-row tag-row--stacked">
-                            {% for tech in project.tech_stacks.all %}<span class="tag">{{ tech.name }}</span>{% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </article>
+            </div>
             {% endfor %}
         </div>
     </div>
 </section>
 {% endif %}
 
-{# ───────────────────── All Projects ───────────────────── #}
-<section class="section" id="projects" aria-labelledby="projects-title">
+{# ─────────────────────── Projects ─────────────────────── #}
+<section class="section section--alt" id="projects" aria-labelledby="projects-title">
     <div class="wrap">
         <div class="section-head">
             <div>
-                <span class="eyebrow">Archive</span>
-                <h2 class="section-title" id="projects-title">전체 프로젝트</h2>
+                <span class="eyebrow">Selected work</span>
+                <h2 class="section-title" id="projects-title">프로젝트</h2>
             </div>
-            <p class="section-note" id="project-status">대표 프로젝트 외 {{ other_projects|length }}건</p>
+            <p class="section-note">역할 · 기간 · 스택 중심으로 정리했습니다 · 총 {{ project_total }}건</p>
         </div>
 
-        {% if filter_skills %}
-        <div class="filter-bar" id="project-filters" role="group" aria-label="기술로 프로젝트 거르기">
-            <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">전체</button>
-            {% for skill in filter_skills %}
-            <button type="button" class="filter-btn" data-filter="{{ skill.id }}" aria-pressed="false">
-                {{ skill.name }} <span class="font-numeric">{{ skill.project_count }}</span>
-            </button>
+        {% if all_projects %}
+        <div class="featured-list" id="project-list">
+            {% for project in all_projects %}
+            {% include 'portfolio/_featured_card.html' with project=project index=forloop.counter %}
             {% endfor %}
         </div>
-        {% endif %}
-
-        {% if other_projects %}
-        <div class="card-grid" id="project-list">
-            {% for project in other_projects %}
-            {% include 'portfolio/_project_card.html' with project=project %}
-            {% endfor %}
-        </div>
-        <p class="empty-note" id="project-empty" hidden>선택한 기술을 사용한 프로젝트가 없습니다.</p>
         <div class="more-wrap">
             <button type="button" class="btn-x btn-x--ghost" id="project-more" hidden></button>
         </div>
@@ -189,7 +204,7 @@
 
 {# ────────────────────── Experience ────────────────────── #}
 {% if timeline %}
-<section class="section section--alt" id="experience" aria-labelledby="experience-title">
+<section class="section" id="experience" aria-labelledby="experience-title">
     <div class="wrap">
         <div class="section-head">
             <div>
@@ -211,9 +226,7 @@
                             {% else %}{{ item.title }}{% endif %}
                         </h3>
                         {% if item.organization %}<span class="tl-org">{{ item.organization }}</span>{% endif %}
-                        <span class="tl-kind">{{ item.kind }}</span>
                     </div>
-                    {% if item.role %}<span class="tl-role">{{ item.role }}</span>{% endif %}
                     {% if item.description %}
                     <p class="tl-desc">{{ item.description|striptags|truncatechars:130 }}</p>
                     {% endif %}
@@ -224,99 +237,5 @@
     </div>
 </section>
 {% endif %}
-
-{# ──────────────────────── Skills ──────────────────────── #}
-{% if skill_groups %}
-<section class="section" id="skills" aria-labelledby="skills-title">
-    <div class="wrap">
-        <div class="section-head">
-            <div>
-                <span class="eyebrow">Stack</span>
-                <h2 class="section-title" id="skills-title">기술</h2>
-            </div>
-            <p class="section-note">숫자는 실제로 사용한 프로젝트 수입니다</p>
-        </div>
-
-        <div class="skill-groups">
-            {% for group in skill_groups %}
-            <div class="skill-group reveal">
-                <div class="skill-group__head">
-                    <h3 class="skill-group__name">{{ group.label }}</h3>
-                    <span class="skill-group__hint">{{ group.hint }}</span>
-                </div>
-                <div class="skill-list">
-                    {% for skill in group.skills %}
-                    {% if skill.project_count %}
-                    <a class="skill-pill" href="{% url 'skill_projects' skill.id %}">
-                        {{ skill.name }}
-                        {% if skill.description %}<span class="skill-pill__note">{{ skill.description }}</span>{% endif %}
-                        <span class="skill-pill__count" aria-label="프로젝트 {{ skill.project_count }}건">{{ skill.project_count }}</span>
-                    </a>
-                    {% else %}
-                    <span class="skill-pill">
-                        {{ skill.name }}
-                        {% if skill.description %}<span class="skill-pill__note">{{ skill.description }}</span>{% endif %}
-                    </span>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
-
-{# ───────────────────────── About ──────────────────────── #}
-<section class="section section--alt" id="about" aria-labelledby="about-title">
-    <div class="wrap">
-        <div class="section-head">
-            <div>
-                <span class="eyebrow">Background</span>
-                <h2 class="section-title" id="about-title">학력 · 자격</h2>
-            </div>
-        </div>
-
-        <div class="def-grid">
-            <div class="reveal">
-                <h3 class="def-title">Education</h3>
-                {% if educations %}
-                <dl class="def-list">
-                    {% for edu in educations %}
-                    <div class="def-row">
-                        <dt class="font-numeric">{{ edu.period }}</dt>
-                        <dd>{{ edu.school }}<span class="sub">{{ edu.status }}</span></dd>
-                    </div>
-                    {% endfor %}
-                </dl>
-                {% else %}
-                <p class="empty-note">등록된 학력이 없습니다.</p>
-                {% endif %}
-
-                {% if profile.show_birthdate and profile.birthdate %}
-                <dl class="def-list">
-                    <div class="def-row">
-                        <dt>생년월일</dt>
-                        <dd class="font-numeric">{{ profile.birthdate|date:"Y.m.d" }}</dd>
-                    </div>
-                </dl>
-                {% endif %}
-            </div>
-
-            <div class="reveal">
-                <h3 class="def-title">Certificates</h3>
-                {% if cert_dev or cert_lang or cert_etc %}
-                <dl class="def-list">
-                    {% for cert in cert_dev %}{% include 'portfolio/_cert_row.html' with cert=cert %}{% endfor %}
-                    {% for cert in cert_lang %}{% include 'portfolio/_cert_row.html' with cert=cert %}{% endfor %}
-                    {% for cert in cert_etc %}{% include 'portfolio/_cert_row.html' with cert=cert %}{% endfor %}
-                </dl>
-                {% else %}
-                <p class="empty-note">등록된 자격증이 없습니다.</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</section>
 
 {% endblock %}

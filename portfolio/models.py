@@ -5,7 +5,7 @@ class Profile(models.Model):
     headline = models.CharField(
         max_length=120, blank=True, default='',
         verbose_name="한 줄 직군 (Hero 이름 위)",
-        help_text="예: Data · AI · Backend / 비워두면 표시되지 않습니다.",
+        help_text="예: Data · AI · Backend · Security / 비워두면 표시되지 않습니다.",
     )
     birthdate = models.DateField(verbose_name="생년월일")
     show_birthdate = models.BooleanField(
@@ -22,6 +22,11 @@ class Profile(models.Model):
     introduction = models.TextField(
         blank=True, verbose_name="자기소개 (Hero 소개 문장)",
         help_text="2~3문장 이내를 권장합니다. 비워두면 표시되지 않습니다.",
+    )
+    english_score = models.CharField(
+        max_length=60, blank=True, default='',
+        verbose_name="영어 성적 (Hero 학력 아래)",
+        help_text="예: TOEIC 900, OPIc IH / 비워두면 표시되지 않습니다.",
     )
     profile_image = models.ImageField(upload_to='profile/', blank=True, null=True, verbose_name="프로필 이미지")
 
@@ -92,8 +97,21 @@ class Skill(models.Model):
         ('MAINTAIN', '기능 유지 ✅'),
         ('EXPERIENCE', '경험 있음 🕰️'),
     ]
+    DOMAIN_CHOICES = [
+        ('LANGUAGE', 'Language'),
+        ('DATA_SCIENCE', 'Data Science'),
+        ('AI', 'AI'),
+        ('SECURITY', 'Security'),
+        ('BACKEND', 'Backend'),
+        ('ETC', '기타'),
+    ]
     name = models.CharField(max_length=50, verbose_name="기술명")
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, verbose_name="카테고리")
+    domain = models.CharField(
+        max_length=20, choices=DOMAIN_CHOICES, default='ETC',
+        verbose_name="분야 (기술 섹션 그룹)",
+        help_text="첫 화면 '기술' 섹션에서 이 값 기준으로 묶입니다.",
+    )
     description = models.CharField(max_length=200, blank=True, verbose_name="설명")
     icon = models.ImageField(upload_to='skills/', blank=True, null=True, verbose_name="아이콘")
 
@@ -198,6 +216,7 @@ class Project(models.Model):
 class Activity(models.Model):
     TYPE_CHOICES = [
         ('CERTIFICATION', 'Certification'),
+        ('AWARD', 'Award'),
         ('ACTIVITY', 'Activity'),
     ]
     CERT_CATEGORY_CHOICES = [

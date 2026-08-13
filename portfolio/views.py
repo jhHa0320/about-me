@@ -14,14 +14,13 @@ from .models import (
     Skill,
 )
 
-# Skills that describe a bucket rather than a technology; they add noise to the
-# project filter bar without helping anyone narrow anything down.
-NON_TECH_SKILLS = {"기타"}
-
 SKILL_GROUPS = [
-    ("USING", "주력", "현재 프로젝트에서 주로 사용합니다"),
-    ("MAINTAIN", "활용 가능", "프로젝트에 적용해 본 경험이 있습니다"),
-    ("EXPERIENCE", "경험 보유", "학습 및 단발성 프로젝트 수준입니다"),
+    ("LANGUAGE", "Language"),
+    ("DATA_SCIENCE", "Data Science"),
+    ("AI", "AI"),
+    ("SECURITY", "Security"),
+    ("BACKEND", "Backend"),
+    ("ETC", "기타"),
 ]
 
 
@@ -142,21 +141,21 @@ def _timeline_entries():
 
 
 def _skill_groups():
-    """Skills grouped by the categories already stored, annotated with real usage."""
+    """Skills grouped by domain (Language / Data Science / AI / Security / Backend / 기타)."""
     skills = (
         Skill.objects.annotate(
             project_count=Count("project", filter=Q(project__is_active=True), distinct=True)
         )
         .order_by("-project_count", "name")
     )
-    by_category = {}
+    by_domain = {}
     for skill in skills:
-        by_category.setdefault(skill.category, []).append(skill)
+        by_domain.setdefault(skill.domain, []).append(skill)
 
     return [
-        {"key": key, "label": label, "hint": hint, "skills": by_category.get(key, [])}
-        for key, label, hint in SKILL_GROUPS
-        if by_category.get(key)
+        {"key": key, "label": label, "skills": by_domain.get(key, [])}
+        for key, label in SKILL_GROUPS
+        if by_domain.get(key)
     ]
 
 
@@ -167,33 +166,24 @@ def home(request):
     featured = [p for p in projects if p.is_featured]
     others = [p for p in projects if not p.is_featured]
 
-    # Filter bar: only technologies that actually narrow the archive down, and
-    # counted against the archive so the number matches what a click reveals.
-    filter_skills = [
-        s for s in Skill.objects.annotate(
-            project_count=Count(
-                "project",
-                filter=Q(project__is_active=True, project__is_featured=False),
-                distinct=True,
-            )
-        ).order_by("-project_count", "name")
-        if s.project_count >= 2 and s.name not in NON_TECH_SKILLS
-    ]
-
     context = {
         "profile": profile,
         "educations": profile.educations.all() if profile else [],
         "featured_projects": featured,
         "other_projects": others,
+        # Chronological — `order` (admin-editable "노출순서") is the primary
+        # key so a specific project can still be promoted to the top; it no
+        # longer groups featured projects apart from the rest.
+        "all_projects": projects,
         "project_total": len(projects),
         "team_project_total": sum(1 for p in projects if p.scope == "TEAM"),
-        "filter_skills": filter_skills,
         "skill_groups": _skill_groups(),
         "timeline": _timeline_entries(),
         "cert_dev": Activity.objects.filter(type="CERTIFICATION", cert_category="DEV"),
         "cert_lang": Activity.objects.filter(type="CERTIFICATION", cert_category="LANG"),
         "cert_etc": Activity.objects.filter(type="CERTIFICATION", cert_category="ETC"),
         "cert_total": Activity.objects.filter(type="CERTIFICATION").count(),
+        "awards": Activity.objects.filter(type="AWARD"),
     }
     return render(request, "portfolio/home.html", context)
 

@@ -149,70 +149,30 @@
         spy();
     }
 
-    /* ---------- Project filter + progressive disclosure ---------- */
-    var filterBar = document.getElementById('project-filters');
+    /* ---------- Project progressive disclosure ----------
+       No filtering any more (that lives on each skill's own page) — this
+       just keeps a long project list from dumping everything at once. */
     var list = document.getElementById('project-list');
-    if (filterBar && list) {
-        var cards = Array.prototype.slice.call(list.querySelectorAll('[data-tech]'));
+    if (list) {
+        var cards = Array.prototype.slice.call(list.children);
         var moreBtn = document.getElementById('project-more');
-        var status = document.getElementById('project-status');
-        var empty = document.getElementById('project-empty');
         var STEP = 6;
         var shown = STEP;
-        var active = [];
-
-        function matches(card) {
-            if (!active.length) return true;
-            var techs = (card.dataset.tech || '').split(' ');
-            return active.some(function (t) { return techs.indexOf(t) !== -1; });
-        }
 
         function render() {
-            var visible = cards.filter(matches);
-            cards.forEach(function (c) { c.hidden = true; });
-            visible.slice(0, shown).forEach(function (c) { c.hidden = false; });
-
+            cards.forEach(function (c, i) { c.hidden = i >= shown; });
             if (moreBtn) {
-                var rest = visible.length - shown;
+                var rest = cards.length - shown;
                 moreBtn.hidden = rest <= 0;
                 moreBtn.textContent = '프로젝트 ' + Math.max(rest, 0) + '개 더 보기';
             }
-            if (empty) empty.hidden = visible.length !== 0;
-            if (status) {
-                status.textContent = active.length
-                    ? visible.length + '건이 필터와 일치합니다'
-                    : '대표 프로젝트 외 ' + visible.length + '건';
-            }
         }
-
-        filterBar.addEventListener('click', function (e) {
-            var btn = e.target.closest('.filter-btn');
-            if (!btn) return;
-            var value = btn.dataset.filter;
-
-            if (value === 'all') {
-                active = [];
-            } else {
-                var i = active.indexOf(value);
-                if (i === -1) { active.push(value); } else { active.splice(i, 1); }
-            }
-
-            filterBar.querySelectorAll('.filter-btn').forEach(function (b) {
-                var on = b.dataset.filter === 'all'
-                    ? active.length === 0
-                    : active.indexOf(b.dataset.filter) !== -1;
-                b.setAttribute('aria-pressed', String(on));
-            });
-
-            shown = STEP;
-            render();
-        });
 
         if (moreBtn) {
             moreBtn.addEventListener('click', function () {
+                var firstNew = cards[shown];
                 shown += STEP;
                 render();
-                var firstNew = cards.filter(function (c) { return !c.hidden; })[shown - STEP];
                 if (firstNew) {
                     var link = firstNew.querySelector('a');
                     if (link) link.focus({ preventScroll: true });

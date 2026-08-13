@@ -16,8 +16,12 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ('name', 'headline', 'email')
     fieldsets = (
         ('첫 화면(Hero)에 보이는 내용', {
-            'fields': ('name', 'headline', 'introduction', 'profile_image'),
-            'description': '한 줄 직군과 자기소개를 채우면 첫 화면 이름 아래에 바로 노출됩니다.',
+            'fields': ('name', 'headline', 'introduction', 'english_score', 'profile_image'),
+            'description': (
+                '한 줄 직군과 자기소개를 채우면 첫 화면 이름 아래에 바로 노출됩니다. '
+                '학력은 등록된 학력 중 가장 최근 항목이 자동으로 표시됩니다. '
+                '영어 성적은 채워두면 학력 아래에 노출되고, 비워두면 표시되지 않습니다.'
+            ),
         }),
         ('연락처 / 링크', {
             'fields': ('email', 'show_email_address', 'github_url', 'resume_url'),
@@ -38,8 +42,9 @@ class EducationAdmin(admin.ModelAdmin):
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category')
-    list_filter = ('category',)
+    list_display = ('name', 'domain', 'category')
+    list_editable = ('domain',)
+    list_filter = ('domain', 'category')
 
 @admin.register(Career)
 class CareerAdmin(admin.ModelAdmin):

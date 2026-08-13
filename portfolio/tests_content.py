@@ -9,7 +9,7 @@ rendering as clean, themeable, accessible markup.
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Career, Profile, Project, Skill
+from .models import Activity, Career, Education, Profile, Project, Skill
 from .templatetags.portfolio_extras import (
     bullets,
     emphasise,
@@ -156,7 +156,13 @@ class TimelineTest(TestCase):
                               period="2025.1-2025.9", description="설명")
         response = self.client.get(reverse("home"))
         self.assertContains(response, "데이터사이언스 소모임")
-        self.assertContains(response, "대표자")
+
+    def test_role_is_not_shown_on_the_home_timeline(self):
+        """Role text ('멘토', '팀장 4회' ...) only belongs on the detail page."""
+        Career.objects.create(organization="숭실 밴드 동아리", role="팀장 4회, 멘토",
+                              period="2025.1-2025.9", description="설명")
+        response = self.client.get(reverse("home"))
+        self.assertNotContains(response, "팀장 4회")
 
     def test_description_repeating_the_title_is_hidden(self):
         self.assertEqual(_dedupe_description("개발 동아리 멘토링", "개발 동아리 멘토링"), "")
@@ -288,3 +294,76 @@ class PrivacyTest(TestCase):
         html = self.client.get(reverse("home")).content.decode()
         self.assertIn("mailto:secret@t.com", html)
         self.assertNotIn(">secret@t.com<", html)
+
+
+class HeroContentTest(TestCase):
+    """Education always shows; the English score is opt-in by simply filling it in."""
+
+    def test_latest_education_shown_in_hero(self):
+        profile = Profile.objects.create(name="테스트", birthdate="2000-01-01", email="t@t.com")
+        Education.objects.create(profile=profile, period="2024-", school="테스트대학교", status="재학")
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertIn("테스트대학교", html)
+        self.assertIn("재학", html)
+
+    def test_english_score_hidden_until_filled(self):
+        Profile.objects.create(name="테스트", birthdate="2000-01-01", email="t@t.com")
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertNotIn("TOEIC", html)
+
+    def test_english_score_shown_once_filled(self):
+        Profile.objects.create(name="테스트", birthdate="2000-01-01", email="t@t.com",
+                               english_score="TOEIC 900")
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertIn("TOEIC 900", html)
+
+
+class SkillDomainGroupingTest(TestCase):
+    """Skills group by domain (Language/Data Science/AI/Security/Backend/기타) now."""
+
+    def test_skill_appears_under_its_domain(self):
+        Profile.objects.create(name="테스트", birthdate="2000-01-01", email="t@t.com")
+        project = Project.objects.create(title="p", description="d", period="2025", is_active=True)
+        skill = Skill.objects.create(name="Python", category="USING", domain="LANGUAGE")
+        project.tech_stacks.add(skill)
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertIn("Language", html)
+        self.assertIn("Python", html)
+
+    def test_domain_with_no_used_skills_is_not_rendered(self):
+        Profile.objects.create(name="테스트", birthdate="2000-01-01", email="t@t.com")
+        project = Project.objects.create(title="p", description="d", period="2025", is_active=True)
+        project.tech_stacks.add(Skill.objects.create(name="Python", category="USING", domain="LANGUAGE"))
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertIn("Language", html)
+        self.assertNotIn("skill-group__name\">Security<", html)
+
+
+class AwardsTest(TestCase):
+    """Activity(type=AWARD) powers the About section's '수상' column."""
+
+    def test_award_appears_in_about_section(self):
+        Profile.objects.create(name="테스트", birthdate="2000-01-01", email="t@t.com")
+        Activity.objects.create(type="AWARD", title="우수상", organization="교내 공모전", period="2026")
+        html = self.client.get(reverse("home")).content.decode()
+        self.assertIn("우수상", html)
+
+    def test_award_does_not_leak_into_the_activity_timeline(self):
+        Activity.objects.create(type="AWARD", title="우수상", organization="교내 공모전", period="2026")
+        from .views import _timeline_entries
+        kinds = [e["kind"] for e in _timeline_entries()]
+        self.assertNotIn("대외활동", kinds)
+
+
+class ProjectOrderTest(TestCase):
+    """The project list is chronological, with `order` as a manual promotion."""
+
+    def test_higher_order_project_appears_first(self):
+        Profile.objects.create(name="테스트", birthdate="2000-01-01", email="t@t.com")
+        older = Project.objects.create(title="오래된 프로젝트", description="d",
+                                       period="2020", is_active=True, order=0)
+        newer = Project.objects.create(title="최근 프로젝트", description="d",
+                                       period="2026", is_active=True, order=1)
+        response = self.client.get(reverse("home"))
+        titles = [p.title for p in response.context["all_projects"]]
+        self.assertLess(titles.index(newer.title), titles.index(older.title))
