@@ -47,6 +47,20 @@ pdfmetrics.registerFontFamily(
     italic=_KOREAN_FONT, boldItalic=_KOREAN_FONT_BOLD,
 )
 
+# PDF 템플릿의 @font-face 는 {% static %} 대신 이 전용 스킴을 참조한다.
+# {% static %} 을 쓰면 운영에서 ManifestStaticFilesStorage 가 파일명에 해시를
+# 붙이는데, link_callback 의 finders.find() 는 원본(해시 없는) 이름만 찾을 수
+# 있어 폰트 임베드가 조용히 실패해 한글이 다시 깨진다. 그렇다고 실제 절대
+# 경로를 템플릿 문자열에 그대로 박아 넣으면, 경로에 비-ASCII 문자(예: 한글
+# 사용자 폴더명)가 섞였을 때 xhtml2pdf 의 CSS 파서가 그 바이트를 그대로
+# 토큰화하다 깨진다. 그래서 CSS 에는 ASCII 전용 placeholder 만 남기고,
+# 실제 파일 경로는 (한글이 섞여 있어도 안전한) link_callback 안에서만 다룬다.
+_FONT_URI_SCHEME = "resume-font:"
+_FONT_PATHS_BY_NAME = {
+    "regular": str(_FONT_DIR / "NanumGothic-Regular.ttf"),
+    "bold": str(_FONT_DIR / "NanumGothic-Bold.ttf"),
+}
+
 SKILL_DOMAIN_ORDER = [
     ("LANGUAGE", "Language"),
     ("DATA_SCIENCE", "Data Science"),
@@ -92,6 +106,8 @@ def _resolve_media_or_static_path(uri):
 
 def resume_pdf_link_callback(uri, rel):
     """xhtml2pdf 가 <img src="..."> 등을 실제 파일 경로로 바꿀 때 쓰는 콜백."""
+    if uri.startswith(_FONT_URI_SCHEME):
+        return _FONT_PATHS_BY_NAME[uri[len(_FONT_URI_SCHEME):]]
     if not (uri.startswith(settings.MEDIA_URL) or uri.startswith(settings.STATIC_URL)):
         return uri  # http(s):// 등 절대 URI 는 그대로 xhtml2pdf 에 맡긴다.
     return _resolve_media_or_static_path(uri) or uri
