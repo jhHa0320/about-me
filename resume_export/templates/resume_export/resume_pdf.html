@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+{% load static %}
+{% load portfolio_extras %}
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    @font-face {
+        font-family: "NanumGothic";
+        src: url("{% static 'resume_export/fonts/NanumGothic-Regular.ttf' %}");
+    }
+    @font-face {
+        font-family: "NanumGothic";
+        font-weight: bold;
+        src: url("{% static 'resume_export/fonts/NanumGothic-Bold.ttf' %}");
+    }
+    @page {
+        size: A4;
+        margin: 16mm 14mm 22mm 14mm;
+
+        @frame footer_frame {
+            -pdf-frame-content: footer_content;
+            left: 14mm;
+            right: 14mm;
+            bottom: 8mm;
+            height: 12mm;
+        }
+    }
+    body {
+        font-family: "NanumGothic";
+        font-size: 9.5pt;
+        color: #222222;
+        line-height: 1.55;
+    }
+    h1, h2, h3 {
+        font-family: "NanumGothic";
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        border-bottom: 2px solid #222222;
+        padding-bottom: 8pt;
+        margin-bottom: 14pt;
+    }
+    .header table {
+        width: 100%;
+    }
+    .header .name {
+        font-size: 20pt;
+        font-weight: bold;
+    }
+    .header .headline {
+        font-size: 10pt;
+        color: #555555;
+        margin-top: 2pt;
+    }
+    .header .contact {
+        font-size: 8.5pt;
+        color: #444444;
+        margin-top: 6pt;
+    }
+    .avatar {
+        width: 70pt;
+        height: 70pt;
+    }
+    .section {
+        margin-bottom: 14pt;
+    }
+    .section-title {
+        font-size: 12pt;
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #2b2b2b;
+        padding: 5pt 9pt;
+        margin-bottom: 8pt;
+    }
+    .info-row {
+        margin-bottom: 3pt;
+    }
+    .skill-domain {
+        margin-bottom: 5pt;
+    }
+    .skill-domain .domain-label {
+        font-weight: bold;
+        color: #ffffff;
+        background-color: #6b6b6b;
+        padding: 2pt 6pt;
+    }
+    .skill-domain .skill-list {
+        color: #333333;
+    }
+    /* 프로젝트/경력 등을 카드처럼 보이게 옅은 배경 박스로 묶는다.
+       xhtml2pdf 는 여러 자식 블록(div)을 가진 div 에 background-color/border 를
+       주면 자식마다 따로 쪼개서 그리는 버그가 있어서, 카드 전체를 표(table)
+       하나의 셀로 감싼다 — 표는 이 버그 없이 배경이 한 덩어리로 안정적으로 나온다. */
+    .card-wrap {
+        width: 100%;
+        margin-bottom: 8pt;
+    }
+    .card {
+        background-color: #f6f6f4;
+        padding: 9pt 10pt;
+    }
+    .card-head table {
+        width: 100%;
+    }
+    .card-title {
+        font-size: 10.5pt;
+        font-weight: bold;
+    }
+    .card-period {
+        color: #666666;
+        font-size: 8.5pt;
+        text-align: right;
+        white-space: nowrap;
+    }
+    .card-meta {
+        color: #555555;
+        font-size: 8.5pt;
+        margin-top: 3pt;
+    }
+    .card-desc {
+        margin-top: 5pt;
+    }
+    .outcome-wrap {
+        width: 100%;
+        margin-top: 6pt;
+    }
+    .outcome-block {
+        background-color: #e8f0e8;
+        padding: 6pt 8pt;
+    }
+    .outcome-label {
+        font-weight: bold;
+        color: #1a5d1a;
+        font-size: 8pt;
+        margin-bottom: 3pt;
+    }
+    .outcome-item {
+        margin-bottom: 3pt;
+        color: #29542c;
+    }
+    .badge {
+        color: #a63d00;
+        font-weight: bold;
+    }
+    #footer_content {
+        font-size: 7pt;
+        color: #999999;
+        text-align: center;
+        line-height: 1.4;
+    }
+    #footer_content .disclaimer {
+        font-size: 6.5pt;
+    }
+</style>
+</head>
+<body>
+
+<div id="footer_content">
+    <div>{{ profile.name }} · {{ generated_on|date:"Y.m.d" }} 생성</div>
+    <div class="disclaimer">이 문서는 포트폴리오 사이트 내용을 자동으로 생성한 것으로, 실제 사이트와 표현상 차이가 있을 수 있습니다.</div>
+</div>
+
+<div class="header">
+    <table>
+        <tr>
+            <td>
+                <div class="name">{{ profile.name|default:"" }}</div>
+                {% if profile.headline %}<div class="headline">{{ profile.headline }}</div>{% endif %}
+                <div class="contact">
+                    {% if profile.show_email_address %}Email: {{ profile.email }}{% endif %}
+                    {% if profile.github_url %} &nbsp;|&nbsp; GitHub: {{ profile.github_url }}{% endif %}
+                    {% if profile.show_birthdate %} &nbsp;|&nbsp; 생년월일: {{ profile.birthdate|date:"Y.m.d" }}{% endif %}
+                    {% if profile.english_score %} &nbsp;|&nbsp; {{ profile.english_score }}{% endif %}
+                </div>
+            </td>
+            {% if profile.avatar_url %}
+            <td style="width: 80pt; text-align: right;">
+                <img class="avatar" src="{{ profile.avatar_url }}">
+            </td>
+            {% endif %}
+        </tr>
+    </table>
+    {% if profile.introduction %}<div class="info-row" style="margin-top:6pt;">{{ profile.introduction|linebreaksbr }}</div>{% endif %}
+</div>
+
+{% if skill_groups %}
+<div class="section">
+    <div class="section-title">기술 스택</div>
+    {% for group in skill_groups %}
+    <div class="skill-domain">
+        <span class="domain-label">{{ group.label }}</span>
+        &nbsp;
+        <span class="skill-list">{% for skill in group.skills %}{{ skill.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if projects %}
+<div class="section">
+    <div class="section-title">프로젝트</div>
+    {% for project in projects %}
+    <table class="card-wrap"><tr><td class="card">
+        <div class="card-head">
+            <table>
+                <tr>
+                    <td class="card-title">
+                        {{ project.title }}
+                        {% if project.key_result %}<span class="badge">[{{ project.key_result }}]</span>{% endif %}
+                    </td>
+                    <td class="card-period">{{ project.period }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-meta">
+            역할: {{ project.role }}
+            {% if project.tech_stacks.all %}
+            &nbsp;|&nbsp; 기술: {% for tech in project.tech_stacks.all %}{{ tech.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
+            {% endif %}
+        </div>
+        <div class="card-desc">{{ project.description|linebreaksbr }}</div>
+        {% if project.outcome %}
+        <table class="outcome-wrap"><tr><td class="outcome-block">
+            <div class="outcome-label">성과 · 배운 점</div>
+            {% for point in project.outcome|bullets %}
+            <div class="outcome-item">{{ point|emphasise }}</div>
+            {% endfor %}
+        </td></tr></table>
+        {% endif %}
+    </td></tr></table>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if careers or educations %}
+<div class="section">
+    <div class="section-title">경력 / 학력</div>
+    {% for career in careers %}
+    <table class="card-wrap"><tr><td class="card">
+        <div class="card-title">{{ career.organization }} - {{ career.role }}</div>
+        <div class="card-meta">{{ career.period }}</div>
+        <div class="card-desc">{{ career.description|linebreaksbr }}</div>
+    </td></tr></table>
+    {% endfor %}
+    {% for edu in educations %}
+    <table class="card-wrap"><tr><td class="card">
+        <div class="card-title">{{ edu.school }} ({{ edu.status }})</div>
+        <div class="card-meta">{{ edu.period }}</div>
+    </td></tr></table>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if leaderships %}
+<div class="section">
+    <div class="section-title">리더십 및 활동</div>
+    {% for lead in leaderships %}
+    <table class="card-wrap"><tr><td class="card">
+        <div class="card-title">{{ lead.title }} - {{ lead.organization }} ({{ lead.role }})</div>
+        <div class="card-meta">{{ lead.period }}</div>
+        <div class="card-desc">{{ lead.description|linebreaksbr }}</div>
+        {% if lead.outcome %}
+        <table class="outcome-wrap"><tr><td class="outcome-block">
+            <div class="outcome-label">성과</div>
+            {% for point in lead.outcome|bullets %}
+            <div class="outcome-item">{{ point|emphasise }}</div>
+            {% endfor %}
+        </td></tr></table>
+        {% endif %}
+    </td></tr></table>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if certifications or awards or activities %}
+<div class="section">
+    <div class="section-title">자격증 / 수상 / 대외활동</div>
+    {% for item in certifications %}
+    <table class="card-wrap"><tr><td class="card">
+        <div class="card-title">[자격증] {{ item.title }}{% if item.organization %} - {{ item.organization }}{% endif %}</div>
+        <div class="card-meta">{{ item.period }}</div>
+    </td></tr></table>
+    {% endfor %}
+    {% for item in awards %}
+    <table class="card-wrap"><tr><td class="card">
+        <div class="card-title">[수상] {{ item.title }}{% if item.organization %} - {{ item.organization }}{% endif %}</div>
+        <div class="card-meta">{{ item.period }}</div>
+    </td></tr></table>
+    {% endfor %}
+    {% for item in activities %}
+    <table class="card-wrap"><tr><td class="card">
+        <div class="card-title">[대외활동] {{ item.title }}{% if item.organization %} - {{ item.organization }}{% endif %}</div>
+        <div class="card-meta">{{ item.period }}</div>
+        {% if item.description %}<div class="card-desc">{{ item.description|linebreaksbr }}</div>{% endif %}
+    </td></tr></table>
+    {% endfor %}
+</div>
+{% endif %}
+
+</body>
+</html>

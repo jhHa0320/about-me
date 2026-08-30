@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
     "portfolio",
+    "resume_export",
     "django_summernote",
     'django_bleach',
 ]

@@ -32,6 +32,7 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap",
     ),
     path("", include("portfolio.urls")),
+    path("resume/", include("resume_export.urls")),
     path("summernote/", include("django_summernote.urls")),
 ]
 
