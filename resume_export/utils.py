@@ -1,6 +1,9 @@
+import asyncio
 import os
 import re
+import sys
 import tempfile
+import types
 from contextlib import contextmanager
 from datetime import date
 from io import BytesIO
@@ -12,6 +15,18 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+
+# xhtml2pdf 는 (쓰지도 않는) PDF 서명 기능 때문에 pyHanko 를 끌어오는데, 일부
+# 배포 환경(PythonAnywhere 등)에 이미 깔려 있는 다른 버전의 pyHanko 가 잡히면서
+# `pyhanko_certvalidator._asyncio_compat` 서브모듈이 없다고 죽는 경우가 있다.
+# 이 서브모듈이 제공하는 건 표준 라이브러리 asyncio.to_thread 와 동일한
+# 기능이라, xhtml2pdf 를 불러오기 전에 미리 채워 넣어 어떤 pyHanko 사본이
+# 잡히든 서명 기능을 실제로 쓰지 않는 우리 입장에서는 안전하게 우회된다.
+if "pyhanko_certvalidator._asyncio_compat" not in sys.modules:
+    _asyncio_compat_shim = types.ModuleType("pyhanko_certvalidator._asyncio_compat")
+    _asyncio_compat_shim.to_thread = asyncio.to_thread
+    sys.modules["pyhanko_certvalidator._asyncio_compat"] = _asyncio_compat_shim
+
 from xhtml2pdf import pisa
 
 from portfolio.models import Activity, Career, Leadership, Profile, Project
