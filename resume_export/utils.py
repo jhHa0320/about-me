@@ -97,12 +97,15 @@ def _skill_groups():
     ]
 
 
-def build_resume_context():
-    """사이트의 모든 내용에서, 내보내기 설정의 제외 목록만 뺀 컨텍스트.
+def build_resume_context() -> dict:
+    """내보내기 설정의 제외 목록을 제외한 전체 이력서/포트폴리오 데이터 템플릿 컨텍스트를 구성합니다.
 
-    제외 목록이 비어있으면(기본 상태) 사이트에 있는 모든 활성 콘텐츠가 그대로
-    반영된다 — 새 프로젝트/경력을 사이트에 추가하면 별도 작업 없이 바로
-    다음 내보내기에 포함된다.
+    Returns:
+        dict: PDF 및 DOCX 렌더링에 사용될 모델 객체 및 메타 데이터 딕셔너리.
+
+    Rationale:
+        관리자가 제외 목록(ResumeExportConfig)을 빈 값으로 둘 경우 사이트의 최신 전체 데이터가 자동으로 내보내기에 반영되며,
+        특정 데이터(예: 비공개 프로젝트)만 제외하도록 세밀히 제어할 수 있는 동적 템플릿 구조를 구축했습니다.
     """
     config = get_export_config()
     profile = Profile.objects.first()
@@ -130,10 +133,12 @@ def build_resume_context():
 
 @contextmanager
 def _windows_tempfile_reopen_fix():
-    """xhtml2pdf 가 @font-face 로 임베드한 TTF 를 임시파일로 복사한 뒤 reportlab 이
-    그 파일을 다시 여는데, Windows 는 열려 있는 NamedTemporaryFile 을 재오픈하는 걸
-    막아서(POSIX 는 허용) PermissionError 가 난다. Linux(PythonAnywhere)에는 없는
-    문제라 Windows 에서만, xhtml2pdf 호출 구간에서만 좁게 우회한다.
+    """Windows 환경에서 xhtml2pdf의 TTF 폰트 임시 파일 권한 에러를 우회하는 컨텍스트 매니저.
+
+    Rationale:
+        NOTE: xhtml2pdf가 @font-face로 임베드한 TTF 폰트를 임시 파일로 복사한 뒤 reportlab이 해당 파일을 재열 때,
+        Windows OS에서는 열려 있는 NamedTemporaryFile의 재오픈을 차단하여 PermissionError가 발생하는 이슈가 존재합니다.
+        Linux(PythonAnywhere)에는 해당 문제가 없으므로 os.name == 'nt' 일 때만 파일 delete=False로 패치하여 우회하도록 설계했습니다.
     """
     if os.name != "nt":
         yield
@@ -152,7 +157,19 @@ def _windows_tempfile_reopen_fix():
         tempfile.NamedTemporaryFile = original
 
 
-def render_resume_pdf_bytes():
+def render_resume_pdf_bytes() -> bytes:
+    """포트폴리오 HTML 템플릿을 xhtml2pdf 엔진을 이용해 PDF 바이너리 바이트로 렌더링합니다.
+
+    Returns:
+        bytes: 생성된 PDF 파일 바이너리 데이터.
+
+    Raises:
+        RuntimeError: xhtml2pdf 변환 과정 중 에러 발생 시 예외 throw.
+
+    Rationale:
+        ReportLab의 낮은 수준 API로 PDF 레이아웃을 직접 하드코딩하는 대신 HTML/CSS 템플릿 기반으로 xhtml2pdf를 사용함으로써
+        스타일 수정이 용이하고 유지보수성이 뛰어난 PDF 내보내기 구조를 달성했습니다.
+    """
     html = render_to_string("resume_export/resume_pdf.html", build_resume_context())
     buffer = BytesIO()
     with _windows_tempfile_reopen_fix():
@@ -164,7 +181,17 @@ def render_resume_pdf_bytes():
     return buffer.getvalue()
 
 
-def build_resume_filename(profile, ext, suffix="전체"):
+def build_resume_filename(profile, ext: str, suffix: str = "전체") -> str:
+    """안전한 이력서 다운로드 파일명을 생성합니다.
+
+    Args:
+        profile (Profile): 프로필 모델 객체.
+        ext (str): 확장자 ('pdf' 또는 'docx').
+        suffix (str, optional): 파일명 접미사. Defaults to "전체".
+
+    Returns:
+        str: 정형화된 다운로드 파일명 문자열 (예: '홍길동_포트폴리오_전체_20260830.pdf').
+    """
     safe_name = _UNSAFE_FILENAME_CHARS.sub("", profile.name if profile else "").strip() or "포트폴리오"
     today = date.today().strftime("%Y%m%d")
     return f"{safe_name}_포트폴리오_{suffix}_{today}.{ext}"
@@ -175,8 +202,15 @@ def _add_heading(document, text):
     heading.runs[0].font.size = Pt(14)
 
 
-def render_resume_docx_bytes():
-    """admin 전용 DOCX 내보내기. PDF 와 같은 컨텍스트(제외 목록 반영)를 그대로 쓴다."""
+def render_resume_docx_bytes() -> bytes:
+    """python-docx 라이브러리를 이용하여 포트폴리오 데이터를 워드 DOCX 바이너리로 생성합니다.
+
+    Returns:
+        bytes: 생성된 DOCX 문서 바이너리 바이트.
+
+    Rationale:
+        Admin 사용자가 자유롭게 이력서 내용을 편집할 수 있도록 docx 객체를 구성하여 제공합니다.
+    """
     context = build_resume_context()
     profile = context["profile"]
     document = docx.Document()

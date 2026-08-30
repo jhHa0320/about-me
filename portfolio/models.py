@@ -38,12 +38,16 @@ class Profile(models.Model):
         return self.name
 
     @property
-    def avatar_url(self):
-        """URL of a small derived copy of `profile_image`.
+    def avatar_url(self) -> str:
+        """업로드된 프로필 이미지의 파생 썸네일 URL을 반환합니다.
 
-        The uploaded original is never modified or deleted — the thumbnail is
-        written alongside it and reused on later requests. Falls back to the
-        original if Pillow cannot process the file.
+        Returns:
+            str: 생태 생성되거나 기존 저장된 썸네일 이미지의 URL. 프로필 이미지가 없으면 빈 문자열 반환.
+
+        Rationale:
+            원본 이미지를 변경하거나 삭제하지 않고 480px 최적화 썸네일을 파생 생성하여 
+            Hero 섹션(200px 표시) 및 모바일/레티나 디스플레이에서 빠른 로딩 속도를 유지하도록 구현했습니다.
+            Pillow 처리 중 예외 발생 시 원본 이미지 URL로 안정하게 fallback됩니다.
         """
         if not self.profile_image:
             return ""
@@ -195,17 +199,35 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
+        """프로젝트 상세 페이지의 절대 URL을 반환합니다.
+
+        Returns:
+            str: 프로젝트 상세 뷰 라우팅 URL.
+        """
         from django.urls import reverse
         return reverse('project_detail', args=[self.pk])
 
     @property
-    def primary_tech(self):
-        """The handful of technologies worth showing on a card."""
+    def primary_tech(self) -> list:
+        """프로젝트 카드에 노출할 대표 기술 스택 목록(최대 4개)을 반환합니다.
+
+        Returns:
+            list: Skill 모델 인스턴스 리스트 (최대 4개).
+
+        Rationale:
+            프로젝트 카드 UI 상 공간 제약으로 인해 사용된 모든 기술을 노출하기보다
+            핵심 기술 최대 4개만 뱃지로 노출하고 나머지는 숫자 뱃지(+N)로 표시하기 위함입니다.
+        """
         return list(self.tech_stacks.all())[:4]
 
     @property
-    def extra_tech_count(self):
+    def extra_tech_count(self) -> int:
+        """대표 기술 스택 4개를 제외한 추가 기술 스택 개수를 반환합니다.
+
+        Returns:
+            int: 추가 기술 스택 개수 (0 이상의 정수).
+        """
         return max(0, self.tech_stacks.count() - 4)
 
     class Meta:

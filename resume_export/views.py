@@ -7,7 +7,17 @@ from portfolio.models import Profile
 from .utils import build_resume_filename, render_resume_docx_bytes, render_resume_pdf_bytes
 
 
-def _file_response(content_bytes, content_type, filename):
+def _file_response(content_bytes: bytes, content_type: str, filename: str) -> HttpResponse:
+    """바이알 패킷 바이트 데이터로부터 파일 다운로드 HTTP 응답 객체를 생성합니다.
+
+    Args:
+        content_bytes (bytes): 생성된 파일의 바이너리 데이터.
+        content_type (str): MIME 타입 (예: 'application/pdf').
+        filename (str): 클라이언트 다운로드 파일명.
+
+    Returns:
+        HttpResponse: Content-Disposition attachment 헤더가 추가된 HTTP 응답.
+    """
     response = HttpResponse(content_bytes, content_type=content_type)
     response.headers["Content-Disposition"] = content_disposition_header(
         as_attachment=True, filename=filename
@@ -16,11 +26,20 @@ def _file_response(content_bytes, content_type, filename):
 
 
 def full_resume_pdf(request):
-    """공개 사이트의 '포트폴리오 PDF 추출' 버튼용. 로그인 없이 누구나 접근 가능.
+    """사이트 포트폴리오의 실시간 PDF 다운로드 뷰.
 
-    사이트에 있는 프로젝트/경력/자격증·수상·대외활동/리더십을 (관리자가 뺀
-    항목만 제외하고) 그 자리에서 실시간으로 PDF 로 만들어 바로 내려준다.
-    DB 에 파일을 저장하지 않는다 — 항상 그 순간의 사이트 내용 그대로.
+    Args:
+        request: HttpRequest 객체.
+
+    Returns:
+        HttpResponse: PDF 다운로드 바이너리 파일 응답.
+
+    Raises:
+        Http404: 등록된 프로필 데이터가 없을 경우 발생.
+
+    Rationale:
+        공개 사용자가 포트폴리오 웹 사이트 상에서 원클릭으로 최신 상태의 PDF 포트폴리오를 다운로드할 수 있도록 지원합니다.
+        서버 디스크에 별도 PDF 파일로 동적 생성하여 저장하지 않으므로 데이터 동기화 이슈가 발생하지 않습니다.
     """
     profile = Profile.objects.first()
     if not profile:
@@ -33,10 +52,20 @@ def full_resume_pdf(request):
 
 @staff_member_required
 def full_resume_docx(request):
-    """admin 전용 DOCX 다운로드. 공개 PDF 와 같은(제외 목록 반영) 내용을 담는다.
+    """관리자 전용 실시간 DOCX 다운로드 뷰.
 
-    DOCX 는 다운로드한 사람이 내용을 자유롭게 고칠 수 있어 조작 가능성이
-    있으므로 공개 페이지에는 노출하지 않고 admin 에서만 받을 수 있게 한다.
+    Args:
+        request: HttpRequest 객체.
+
+    Returns:
+        HttpResponse: DOCX 다운로드 바이너리 파일 응답.
+
+    Raises:
+        Http404: 등록된 프로필 데이터가 없을 경우 발생.
+
+    Rationale:
+        NOTE: DOCX 문서는 수정이 용이하여 원본 훼손 우려가 있으므로 @staff_member_required를 통해
+        공개 페이지가 아닌 Admin 관리자 계정에서만 내려받아 편집이 가능하도록 보안을 적용했습니다.
     """
     profile = Profile.objects.first()
     if not profile:

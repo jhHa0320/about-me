@@ -25,6 +25,15 @@ SKILL_GROUPS = [
 
 
 def _project_queryset():
+    """활성화된 프로젝트 목록 쿼리셋을 반환합니다.
+
+    Returns:
+        QuerySet: `type` 관계 모델이 select_related로 연동되고 `categories`, `tech_stacks`가 prefetch_related 처리된 프로젝트 쿼리셋.
+
+    Rationale:
+        템플릿에서 프로젝트 카드를 반복문으로 순회하며 연관 카테고리 및 기술 스택 뱃지를 렌더링하므로,
+        N+1 쿼리 폭발 문제를 사전에 방지하기 위해 쿼리셋 기본 헬퍼로 묶어 활용합니다.
+    """
     return (
         Project.objects.filter(is_active=True)
         .select_related("type")
@@ -33,10 +42,17 @@ def _project_queryset():
 
 
 def _period_sort_key(period):
-    """Sort free-text period strings ('2025.1-2025.9', '2024년 2학기 -') newest first.
+    """자유 형식의 기간 문자열('2025.1-2025.9', '2024년 2학기 -')을 정렬용 튜플로 변환합니다.
 
-    Returns (year, month, ongoing) — all ints so the tuple always compares.
-    Anything unparseable sinks to the bottom rather than raising.
+    Args:
+        period (str): 데이터베이스에 저장된 자유 입력 형태의 기간 텍스트.
+
+    Returns:
+        tuple[int, int, int]: (연도, 월, 진행여부) 형태의 비교 가능한 정수 튜플. 최신순 정렬에 활용.
+
+    Rationale:
+        기간 정보가 규격화된 날짜 형태가 아닌 자유 텍스트로 들어올 수 있으므로, 정규식을 이용해 연도/학기/월을 파싱하고
+        종료일 미기재('-') 시 진행 중(ongoing=1)으로 판단하여 타임라인에서 정교하게 최신순으로 정렬할 수 있도록 설계했습니다.
     """
     text = period or ""
     years = [int(y) for y in re.findall(r"(20\d{2})", text)]

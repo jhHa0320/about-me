@@ -4,11 +4,12 @@ from portfolio.models import Activity, Career, Leadership, Project
 
 
 class ResumeExportConfig(models.Model):
-    """포트폴리오 PDF/DOCX 추출에서 뺄 항목을 관리하는 싱글톤 설정.
+    """포트폴리오 PDF/DOCX 내보내기 시 제외할 항목을 관리하는 단일 설정 모델.
 
-    기본은 전체 포함이다 — 여기 추가된(=제외된) 항목만 내보내기에서 빠지고,
-    나머지는 사이트에 있는 그대로 실시간으로 반영된다. 새 프로젝트/경력을
-    사이트에 추가하면 이 목록에 넣지 않는 한 자동으로 내보내기에 포함된다.
+    Rationale:
+        기본 내보내기는 사이트에 등록된 전체 콘텐츠를 포함하도록 동작합니다.
+        특정 이력서 제출 상황에서 제외하고 싶은 프로젝트/경력/활동 항목이 있을 경우,
+        admin에서 해당 항목들만 선택적으로 필터링하여 실시간 내보내기에 반영되도록 싱글톤 형태로 설계되었습니다.
     """
 
     excluded_projects = models.ManyToManyField(
