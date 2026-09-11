@@ -164,7 +164,18 @@ class ProjectType(models.Model):
         ordering = ['order', 'id']
 
 class Project(models.Model):
+    REPORT_TYPE_CHOICES = [
+        ('A', 'A. 서비스/개발형'),
+        ('B', 'B. 데이터/AI 분석형'),
+        ('C', 'C. 보안/비공개형'),
+        ('D', 'D. 운영/리더십형'),
+    ]
     type = models.ForeignKey(ProjectType, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="프로젝트 유형")
+    report_type = models.CharField(
+        max_length=1, choices=REPORT_TYPE_CHOICES, blank=True, default='',
+        verbose_name="상세 내용(Report) 템플릿 유형",
+        help_text="'상세 내용' 하위 구조가 따르는 헤더셋(A~D). 편집 시 참고용이며 화면에는 노출되지 않습니다.",
+    )
     title = models.CharField(max_length=100, verbose_name="프로젝트명")
     period = models.CharField(max_length=50, default='', verbose_name="기간")
     start_date = models.DateField(null=True, blank=True, verbose_name="시작일 (정렬용)")

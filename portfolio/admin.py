@@ -61,7 +61,7 @@ class ProjectAdmin(SummernoteModelAdmin):
     filter_horizontal = ('categories', 'tech_stacks')
     fieldsets = (
         ('기본 정보', {
-            'fields': ('title', 'type', 'scope', 'period', 'start_date', 'categories', 'tech_stacks', 'role', 'order')
+            'fields': ('title', 'type', 'report_type', 'scope', 'period', 'start_date', 'categories', 'tech_stacks', 'role', 'order')
         }),
         ('노출 설정', {
             'fields': ('is_active', 'is_featured'),
