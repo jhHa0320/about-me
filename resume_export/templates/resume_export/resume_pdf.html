@@ -21,8 +21,8 @@
             -pdf-frame-content: footer_content;
             left: 14mm;
             right: 14mm;
-            bottom: 8mm;
-            height: 12mm;
+            bottom: 7mm;
+            height: 14mm;
         }
     }
     body {
@@ -45,45 +45,59 @@
         width: 100%;
     }
     .header .name {
-        font-size: 20pt;
+        font-size: 21pt;
         font-weight: bold;
+        letter-spacing: -0.2pt;
     }
     .header .headline {
         font-size: 10pt;
-        color: #555555;
-        margin-top: 2pt;
+        color: #92400e;
+        font-weight: bold;
+        margin-top: 3pt;
     }
     .header .contact {
         font-size: 8.5pt;
         color: #444444;
-        margin-top: 6pt;
+        margin-top: 7pt;
     }
     .avatar {
         width: 70pt;
         height: 70pt;
     }
     .section {
-        margin-bottom: 14pt;
+        margin-bottom: 15pt;
     }
+    /* 두꺼운 색 배경 바 대신 accent 컬러의 얇은 좌측 룰 + 자간 있는 대문자
+       라벨로 — 프린트해도 잉크가 덜 쓰이고, 사이트의 accent(amber) 톤과
+       맞춘다.
+       주의: -pdf-keep-with-next 를 여기 걸면 안 된다 — xhtml2pdf 가 바로
+       다음 카드(표)까지 통째로 못 묶으면 제목만 이 페이지에 남기고 카드
+       전체를 다음 페이지로 밀어버려, 페이지 하나가 거의 통으로 빈다. */
     .section-title {
-        font-size: 12pt;
+        font-size: 10pt;
         font-weight: bold;
-        color: #ffffff;
-        background-color: #2b2b2b;
-        padding: 5pt 9pt;
-        margin-bottom: 8pt;
+        letter-spacing: 1.2pt;
+        text-transform: uppercase;
+        color: #92400e;
+        border-left: 2.5pt solid #d97706;
+        padding: 2pt 0 2pt 8pt;
+        margin-bottom: 9pt;
     }
     .info-row {
         margin-bottom: 3pt;
     }
     .skill-domain {
-        margin-bottom: 5pt;
+        margin-bottom: 6pt;
     }
     .skill-domain .domain-label {
+        display: inline-block;
         font-weight: bold;
-        color: #ffffff;
-        background-color: #6b6b6b;
-        padding: 2pt 6pt;
+        font-size: 8pt;
+        color: #57534e;
+        background-color: #f0efec;
+        border: 0.75pt solid #d8d6d0;
+        border-radius: 3pt;
+        padding: 2pt 7pt;
     }
     .skill-domain .skill-list {
         color: #333333;
@@ -95,6 +109,7 @@
     .card-wrap {
         width: 100%;
         margin-bottom: 8pt;
+        page-break-inside: avoid;
     }
     .card {
         background-color: #f6f6f4;
@@ -114,34 +129,47 @@
         white-space: nowrap;
     }
     .card-meta {
+        clear: both;
         color: #555555;
         font-size: 8.5pt;
-        margin-top: 3pt;
+        margin-top: 4pt;
+    }
+    /* 인라인 배지(border+padding)는 xhtml2pdf 에서 같은 줄에 여러 개를
+       연달아 두면 스타일이 아예 안 먹는 경우가 있어(같은 span에
+       display:inline-block 을 쓴 domain-label 은 한 줄에 1개뿐이라 문제
+       없었다), 안정적인 "가운뎃점 나열" 로 대체한다. */
+    .card-tech {
+        color: #92400e;
+        font-size: 8pt;
     }
     .card-desc {
-        margin-top: 5pt;
+        margin-top: 6pt;
     }
     .outcome-wrap {
         width: 100%;
         margin-top: 6pt;
+        page-break-inside: avoid;
     }
     .outcome-block {
-        background-color: #e8f0e8;
+        background-color: #fef6e7;
         padding: 6pt 8pt;
     }
     .outcome-label {
         font-weight: bold;
-        color: #1a5d1a;
+        color: #92400e;
         font-size: 8pt;
         margin-bottom: 3pt;
     }
     .outcome-item {
         margin-bottom: 3pt;
-        color: #29542c;
+        color: #6b4a1c;
     }
     .badge {
-        color: #a63d00;
+        color: #92400e;
         font-weight: bold;
+        font-size: 8.5pt;
+        margin-top: 2pt;
+        clear: both;
     }
     #footer_content {
         font-size: 7pt;
@@ -152,12 +180,16 @@
     #footer_content .disclaimer {
         font-size: 6.5pt;
     }
+    #footer_content .pageno {
+        margin-top: 1pt;
+    }
 </style>
 </head>
 <body>
 
 <div id="footer_content">
     <div>{{ profile.name }} · {{ generated_on|date:"Y.m.d" }} 생성</div>
+    <div class="pageno"><pdf:pagenumber /> / <pdf:pagecount /></div>
     <div class="disclaimer">이 문서는 포트폴리오 사이트 내용을 자동으로 생성한 것으로, 실제 사이트와 표현상 차이가 있을 수 있습니다.</div>
 </div>
 
@@ -201,27 +233,23 @@
 <div class="section">
     <div class="section-title">프로젝트</div>
     {% for project in projects %}
-    <table class="card-wrap"><tr><td class="card">
+    <table class="card-wrap"><tr style="page-break-inside: avoid;"><td class="card">
         <div class="card-head">
             <table>
                 <tr>
-                    <td class="card-title">
-                        {{ project.title }}
-                        {% if project.key_result %}<span class="badge">[{{ project.key_result }}]</span>{% endif %}
-                    </td>
+                    <td class="card-title">{{ project.title }}</td>
                     <td class="card-period">{{ project.period }}</td>
                 </tr>
             </table>
+            {% if project.key_result %}<div class="badge">{{ project.key_result }}</div>{% endif %}
         </div>
-        <div class="card-meta">
-            역할: {{ project.role }}
-            {% if project.tech_stacks.all %}
-            &nbsp;|&nbsp; 기술: {% for tech in project.tech_stacks.all %}{{ tech.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
-            {% endif %}
-        </div>
+        <div class="card-meta">역할: {{ project.role }}</div>
+        {% if project.tech_stacks.all %}
+        <div class="card-meta card-tech">기술 &nbsp;{% for tech in project.tech_stacks.all %}{{ tech.name }}{% if not forloop.last %} · {% endif %}{% endfor %}</div>
+        {% endif %}
         <div class="card-desc">{{ project.description|linebreaksbr }}</div>
         {% if project.outcome %}
-        <table class="outcome-wrap"><tr><td class="outcome-block">
+        <table class="outcome-wrap"><tr style="page-break-inside: avoid;"><td class="outcome-block">
             <div class="outcome-label">성과 · 배운 점</div>
             {% for point in project.outcome|bullets %}
             <div class="outcome-item">{{ point|emphasise }}</div>
@@ -237,14 +265,14 @@
 <div class="section">
     <div class="section-title">경력 / 학력</div>
     {% for career in careers %}
-    <table class="card-wrap"><tr><td class="card">
+    <table class="card-wrap"><tr style="page-break-inside: avoid;"><td class="card">
         <div class="card-title">{{ career.organization }} - {{ career.role }}</div>
         <div class="card-meta">{{ career.period }}</div>
         <div class="card-desc">{{ career.description|linebreaksbr }}</div>
     </td></tr></table>
     {% endfor %}
     {% for edu in educations %}
-    <table class="card-wrap"><tr><td class="card">
+    <table class="card-wrap"><tr style="page-break-inside: avoid;"><td class="card">
         <div class="card-title">{{ edu.school }} ({{ edu.status }})</div>
         <div class="card-meta">{{ edu.period }}</div>
     </td></tr></table>
@@ -256,12 +284,12 @@
 <div class="section">
     <div class="section-title">리더십 및 활동</div>
     {% for lead in leaderships %}
-    <table class="card-wrap"><tr><td class="card">
+    <table class="card-wrap"><tr style="page-break-inside: avoid;"><td class="card">
         <div class="card-title">{{ lead.title }} - {{ lead.organization }} ({{ lead.role }})</div>
         <div class="card-meta">{{ lead.period }}</div>
         <div class="card-desc">{{ lead.description|linebreaksbr }}</div>
         {% if lead.outcome %}
-        <table class="outcome-wrap"><tr><td class="outcome-block">
+        <table class="outcome-wrap"><tr style="page-break-inside: avoid;"><td class="outcome-block">
             <div class="outcome-label">성과</div>
             {% for point in lead.outcome|bullets %}
             <div class="outcome-item">{{ point|emphasise }}</div>
@@ -277,19 +305,19 @@
 <div class="section">
     <div class="section-title">자격증 / 수상 / 대외활동</div>
     {% for item in certifications %}
-    <table class="card-wrap"><tr><td class="card">
+    <table class="card-wrap"><tr style="page-break-inside: avoid;"><td class="card">
         <div class="card-title">[자격증] {{ item.title }}{% if item.organization %} - {{ item.organization }}{% endif %}</div>
         <div class="card-meta">{{ item.period }}</div>
     </td></tr></table>
     {% endfor %}
     {% for item in awards %}
-    <table class="card-wrap"><tr><td class="card">
+    <table class="card-wrap"><tr style="page-break-inside: avoid;"><td class="card">
         <div class="card-title">[수상] {{ item.title }}{% if item.organization %} - {{ item.organization }}{% endif %}</div>
         <div class="card-meta">{{ item.period }}</div>
     </td></tr></table>
     {% endfor %}
     {% for item in activities %}
-    <table class="card-wrap"><tr><td class="card">
+    <table class="card-wrap"><tr style="page-break-inside: avoid;"><td class="card">
         <div class="card-title">[대외활동] {{ item.title }}{% if item.organization %} - {{ item.organization }}{% endif %}</div>
         <div class="card-meta">{{ item.period }}</div>
         {% if item.description %}<div class="card-desc">{{ item.description|linebreaksbr }}</div>{% endif %}

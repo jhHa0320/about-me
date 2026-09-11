@@ -10,7 +10,8 @@ from io import BytesIO
 from pathlib import Path
 
 import docx
-from docx.shared import Inches, Pt
+from docx.enum.text import WD_TAB_ALIGNMENT
+from docx.shared import Inches, Pt, RGBColor
 from django.conf import settings
 from django.template.loader import render_to_string
 from reportlab.pdfbase import pdfmetrics
@@ -234,9 +235,82 @@ def build_resume_filename(profile, ext: str, suffix: str = "전체") -> str:
     return f"{safe_name}_포트폴리오_{suffix}_{today}.{ext}"
 
 
+#: PDF(resume_pdf.html)와 같은 amber accent — 두 포맷의 톤앤매너를 맞춘다.
+_ACCENT_RGB = RGBColor(0x92, 0x40, 0x0E)
+_MUTED_RGB = RGBColor(0x66, 0x66, 0x66)
+
+
 def _add_heading(document, text):
+    """섹션 제목을 Heading 1 스타일로 추가한다(문서 아웃라인에도 계층이 드러남)."""
     heading = document.add_heading(text, level=1)
-    heading.runs[0].font.size = Pt(14)
+    run = heading.runs[0]
+    run.font.size = Pt(13)
+    run.font.color.rgb = _ACCENT_RGB
+    heading.paragraph_format.space_before = Pt(16)
+    heading.paragraph_format.space_after = Pt(6)
+    return heading
+
+
+def _add_entry_title_line(document, title, period=None):
+    """제목(왼쪽 정렬)과 기간(오른쪽 정렬)을 탭 정지로 한 줄에 배치한다.
+
+    Rationale:
+        PDF 카드의 "제목 ... 기간" 배치와 동일한 정보 구조를 docx 표 없이
+        재현한다. python-docx 문단은 flex/float 이 없어 오른쪽 정렬 탭
+        정지(tab stop)로 같은 효과를 낸다.
+    """
+    p = document.add_paragraph()
+    p.paragraph_format.space_before = Pt(10)
+    p.paragraph_format.space_after = Pt(1)
+    if period:
+        p.paragraph_format.tab_stops.add_tab_stop(Inches(6.3), WD_TAB_ALIGNMENT.RIGHT)
+    title_run = p.add_run(title)
+    title_run.bold = True
+    title_run.font.size = Pt(11)
+    if period:
+        period_run = p.add_run(f"\t{period}")
+        period_run.font.size = Pt(9)
+        period_run.font.color.rgb = _MUTED_RGB
+    return p
+
+
+def _add_meta_line(document, text, accent=False):
+    """역할/기술 스택처럼 본문보다 한 단계 작은 메타 정보 한 줄."""
+    p = document.add_paragraph()
+    p.paragraph_format.space_after = Pt(2)
+    run = p.add_run(text)
+    run.font.size = Pt(9)
+    run.font.color.rgb = _ACCENT_RGB if accent else _MUTED_RGB
+    return p
+
+
+def _add_badge_line(document, text):
+    """key_result 처럼 카드 뱃지에 해당하는 강조 한 줄."""
+    p = document.add_paragraph()
+    p.paragraph_format.space_after = Pt(3)
+    run = p.add_run(text)
+    run.bold = True
+    run.font.size = Pt(9.5)
+    run.font.color.rgb = _ACCENT_RGB
+    return p
+
+
+def _add_body_paragraph(document, text):
+    p = document.add_paragraph(text)
+    p.paragraph_format.space_before = Pt(3)
+    p.paragraph_format.space_after = Pt(4)
+    for run in p.runs:
+        run.font.size = Pt(9.5)
+    return p
+
+
+def _add_bullet(document, text):
+    p = document.add_paragraph(text, style="List Bullet")
+    p.paragraph_format.space_after = Pt(2)
+    p.paragraph_format.left_indent = Inches(0.25)
+    for run in p.runs:
+        run.font.size = Pt(9.5)
+    return p
 
 
 def render_resume_docx_bytes() -> bytes:
@@ -250,6 +324,8 @@ def render_resume_docx_bytes() -> bytes:
     """
     context = build_resume_context()
     document = docx.Document()
+    document.styles["Normal"].font.name = "맑은 고딕"
+    document.styles["Normal"].font.size = Pt(10)
 
     _add_docx_profile(document, context["profile"])
     _add_docx_skills(document, context["skill_groups"])
@@ -265,10 +341,16 @@ def render_resume_docx_bytes() -> bytes:
 
 def _add_docx_profile(document, profile):
     title = document.add_heading(profile.name if profile else "", level=0)
-    title.runs[0].font.size = Pt(22)
+    title.runs[0].font.size = Pt(24)
+    title.paragraph_format.space_after = Pt(2)
 
     if profile and profile.headline:
-        document.add_paragraph(profile.headline)
+        p = document.add_paragraph()
+        p.paragraph_format.space_after = Pt(4)
+        run = p.add_run(profile.headline)
+        run.bold = True
+        run.font.size = Pt(11)
+        run.font.color.rgb = _ACCENT_RGB
 
     if profile and profile.avatar_url:
         image_path = _resolve_media_or_static_path(profile.avatar_url)
@@ -285,10 +367,14 @@ def _add_docx_profile(document, profile):
     if profile and profile.english_score:
         contact_bits.append(profile.english_score)
     if contact_bits:
-        document.add_paragraph(" | ".join(contact_bits))
+        p = document.add_paragraph()
+        p.paragraph_format.space_after = Pt(8)
+        run = p.add_run(" | ".join(contact_bits))
+        run.font.size = Pt(9)
+        run.font.color.rgb = _MUTED_RGB
 
     if profile and profile.introduction:
-        document.add_paragraph(profile.introduction)
+        _add_body_paragraph(document, profile.introduction)
 
 
 def _add_docx_skills(document, skill_groups):
@@ -298,8 +384,12 @@ def _add_docx_skills(document, skill_groups):
     for group in skill_groups:
         names = ", ".join(skill.name for skill in group["skills"])
         p = document.add_paragraph()
-        p.add_run(f"{group['label']}: ").bold = True
-        p.add_run(names)
+        p.paragraph_format.space_after = Pt(3)
+        label_run = p.add_run(f"{group['label']}  ")
+        label_run.bold = True
+        label_run.font.size = Pt(9.5)
+        names_run = p.add_run(names)
+        names_run.font.size = Pt(9.5)
 
 
 def _add_docx_projects(document, projects):
@@ -307,22 +397,16 @@ def _add_docx_projects(document, projects):
         return
     _add_heading(document, "프로젝트")
     for project in projects:
-        p = document.add_paragraph()
-        title_text = project.title
+        _add_entry_title_line(document, project.title, project.period)
         if project.key_result:
-            title_text += f" [{project.key_result}]"
-        p.add_run(f"{title_text}  ").bold = True
-        p.add_run(project.period)
-
-        meta = f"역할: {project.role}"
-        tech_names = ", ".join(t.name for t in project.tech_stacks.all())
+            _add_badge_line(document, project.key_result)
+        _add_meta_line(document, f"역할: {project.role}")
+        tech_names = " · ".join(t.name for t in project.tech_stacks.all())
         if tech_names:
-            meta += f" | 기술: {tech_names}"
-        document.add_paragraph(meta)
-
-        document.add_paragraph(project.description)
+            _add_meta_line(document, f"기술  {tech_names}", accent=True)
+        _add_body_paragraph(document, project.description)
         for point in bullets(project.outcome):
-            document.add_paragraph(point, style="List Bullet")
+            _add_bullet(document, point)
 
 
 def _add_docx_career_and_education(document, careers, educations):
@@ -330,14 +414,10 @@ def _add_docx_career_and_education(document, careers, educations):
         return
     _add_heading(document, "경력 / 학력")
     for career in careers:
-        p = document.add_paragraph()
-        p.add_run(f"{career.organization} - {career.role}").bold = True
-        document.add_paragraph(career.period)
-        document.add_paragraph(career.description)
+        _add_entry_title_line(document, f"{career.organization} · {career.role}", career.period)
+        _add_body_paragraph(document, career.description)
     for edu in educations:
-        p = document.add_paragraph()
-        p.add_run(f"{edu.school} ({edu.status})").bold = True
-        document.add_paragraph(edu.period)
+        _add_entry_title_line(document, f"{edu.school} ({edu.status})", edu.period)
 
 
 def _add_docx_leaderships(document, leaderships):
@@ -345,10 +425,9 @@ def _add_docx_leaderships(document, leaderships):
         return
     _add_heading(document, "리더십 및 활동")
     for lead in leaderships:
-        p = document.add_paragraph()
-        p.add_run(f"{lead.title} - {lead.organization} ({lead.role})").bold = True
-        document.add_paragraph(lead.period)
-        document.add_paragraph(lead.description)
+        _add_entry_title_line(document, f"{lead.title} · {lead.organization}", lead.period)
+        _add_meta_line(document, f"역할: {lead.role}")
+        _add_body_paragraph(document, lead.description)
 
 
 def _add_docx_activities(document, certifications, awards, activities):
@@ -356,8 +435,13 @@ def _add_docx_activities(document, certifications, awards, activities):
         return
     _add_heading(document, "자격증 / 수상 / 대외활동")
     for item in certifications:
-        document.add_paragraph(f"[자격증] {item.title} - {item.organization}")
+        label = f"[자격증] {item.title}" + (f" · {item.organization}" if item.organization else "")
+        _add_entry_title_line(document, label, item.period)
     for item in awards:
-        document.add_paragraph(f"[수상] {item.title} - {item.organization}")
+        label = f"[수상] {item.title}" + (f" · {item.organization}" if item.organization else "")
+        _add_entry_title_line(document, label, item.period)
     for item in activities:
-        document.add_paragraph(f"[대외활동] {item.title} - {item.organization}")
+        label = f"[대외활동] {item.title}" + (f" · {item.organization}" if item.organization else "")
+        _add_entry_title_line(document, label, item.period)
+        if item.description:
+            _add_body_paragraph(document, item.description)
