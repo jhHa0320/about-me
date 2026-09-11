@@ -275,6 +275,61 @@ def richtext(value):
     return mark_safe(parser.result())      # noqa: S308 — bleach ran first
 
 
+_TOP_HEADING_RE_CACHE = {}
+
+
+def _top_heading_pattern(level):
+    pattern = _TOP_HEADING_RE_CACHE.get(level)
+    if pattern is None:
+        pattern = re.compile(rf"<h{level}\b[^>]*>(.*?)</h{level}\s*>", re.I | re.S)
+        _TOP_HEADING_RE_CACHE[level] = pattern
+    return pattern
+
+
+@register.filter
+def report_sections(value):
+    """richtext()로 정규화된 report HTML을 최상위 헤딩 기준 섹션 리스트로 나눈다.
+
+    Args:
+        value: `richtext` 필터를 이미 거친 안전한 HTML 문자열.
+
+    Returns:
+        list[dict]: [{"title": str, "body": SafeString}, ...]. 헤딩이 전혀
+        없는 콘텐츠는 title 없는 섹션 1개로 반환되어, 기존처럼 통짜로
+        렌더링된다(하위호환).
+
+    Rationale:
+        report_type(A~D)별로 "상세 내용"을 다른 레이아웃(번호 라벨, 타임라인
+        등)으로 감싸려면, 지금처럼 content 전체를 한 덩어리 HTML로 렌더링해선
+        섹션 경계를 CSS/템플릿에서 알 수 없다. richtext()가 최상위 헤딩을
+        항상 h3로 압축해주므로(_build_heading_map), 실제 사용된 최상위
+        레벨에서만 자르면 하위 헤딩(h4 등)은 섹션 본문 안에 그대로 남는다.
+    """
+    if not value:
+        return []
+    html = str(value)
+    levels = sorted({int(m) for m in re.findall(r"<h([1-6])\b", html, re.I)})
+    if not levels:
+        return [{"title": "", "body": mark_safe(html)}]
+
+    matches = list(_top_heading_pattern(levels[0]).finditer(html))
+    if not matches:
+        return [{"title": "", "body": mark_safe(html)}]
+
+    sections = []
+    lead = html[:matches[0].start()].strip()
+    if lead:
+        sections.append({"title": "", "body": mark_safe(lead)})
+
+    for i, m in enumerate(matches):
+        title = re.sub(r"<[^>]+>", "", m.group(1)).strip()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(html)
+        body = html[m.end():end].strip()
+        sections.append({"title": title, "body": mark_safe(body)})
+
+    return sections
+
+
 # --- plain-text helpers ---------------------------------------------------
 
 @register.filter(is_safe=True)

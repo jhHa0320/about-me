@@ -98,7 +98,19 @@
         <h2 class="detail-section__title" id="report-title">
             상세 내용 <small>Report</small>
         </h2>
-        <div class="prose prose-scroll">{{ project.content|richtext }}</div>
+        <div class="report report--{{ project.report_type|default:'x'|lower }}">
+            {% for section in project.content|richtext|report_sections %}
+            <div class="report-section">
+                {% if section.title %}
+                <h3 class="report-section__title">
+                    {% if project.report_type == 'C' %}<svg aria-hidden="true"><use href="#i-lock"></use></svg>{% endif %}
+                    {{ section.title }}
+                </h3>
+                {% endif %}
+                <div class="prose prose-scroll">{{ section.body }}</div>
+            </div>
+            {% endfor %}
+        </div>
     </section>
     {% endif %}
 

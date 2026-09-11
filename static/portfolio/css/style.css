@@ -1027,6 +1027,92 @@ a.skill-pill:focus-visible .skill-pill__arrow {
 .prose-scroll { overflow-x: auto; }
 
 /* ------------------------------------------------------------
+   6b. REPORT SECTIONS — report_type(A~D)별 "상세 내용" 레이아웃.
+   색은 새로 안 만들고 기존 토큰만 재사용한다. report_type 이 없으면
+   report--x 로 떨어져서 아래 규칙이 하나도 안 걸리고 예전과 동일하게
+   보인다(하위호환).
+   ------------------------------------------------------------ */
+.report-section { margin-top: 2.25rem; }
+.report-section:first-child { margin-top: 0; }
+
+.report-section__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0 0 0.9rem;
+}
+.report-section__title svg { width: 1em; height: 1em; flex: none; }
+
+/* A — 서비스/개발형: 순차 빌드 단계처럼 번호 라벨을 붙인다 */
+.report--a { counter-reset: report-step; }
+.report--a .report-section { counter-increment: report-step; }
+.report--a .report-section__title::before {
+    content: counter(report-step, decimal-leading-zero);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: var(--accent);
+    background: var(--accent-wash);
+    border-radius: 5px;
+    padding: 0.1rem 0.45rem;
+}
+
+/* B — 데이터/AI 분석형: 실험 노트 느낌의 얇은 룰 + 표가 있는 섹션은 카드로 */
+.report--b .report-section {
+    padding-top: 1.1rem;
+    border-top: 2px solid var(--accent-solid);
+}
+.report--b .report-section:first-child { border-top: none; padding-top: 0; }
+.report--b .report-section__title {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: var(--fs-sm);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text-2);
+}
+.report--b .report-section:has(table) {
+    padding: 1.25rem clamp(1rem, 2vw, 1.5rem) 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent-solid);
+    border-radius: 0 var(--radius) var(--radius) var(--radius);
+}
+
+/* C — 보안/비공개형: 절제된 톤 + 자물쇠 표시 */
+.report--c .report-section__title {
+    color: var(--text-2);
+    font-size: var(--fs-sm);
+}
+.report--c .report-section__title svg { color: var(--text-3); }
+.report--c .report-section .prose { color: var(--text-2); }
+
+/* D — 운영/리더십형: 왼쪽 세로 타임라인으로 섹션을 잇는다 */
+.report--d { padding-left: 1.4rem; }
+.report--d .report-section { position: relative; }
+.report--d .report-section::before {
+    content: "";
+    position: absolute;
+    left: -1.4rem;
+    top: 0.5em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-solid);
+}
+.report--d .report-section:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc(-1.4rem + 3.5px);
+    top: 1.2em;
+    bottom: -2.25rem;
+    width: 1px;
+    background: var(--border-strong);
+}
+
+/* ------------------------------------------------------------
    7. MOTION
    `.reveal` only hides content when <html> has `js-anim`, which the
    inline head script adds ONLY when JS runs and motion is allowed.
