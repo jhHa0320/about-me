@@ -28,7 +28,7 @@ jobs:
         env:
           SECRET_KEY: ci-only-not-a-real-secret
           DEBUG: "True"
-        run: python manage.py test portfolio
+        run: python manage.py test portfolio resume_export
 
   deploy:
     needs: test
