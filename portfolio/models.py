@@ -122,6 +122,30 @@ class Skill(models.Model):
     def __str__(self):
         return f"{self.name} ({self.get_category_display()})"
 
+    @classmethod
+    def group_by_domain(cls, skills):
+        """Skill iterable을 DOMAIN_CHOICES 순서로 그룹화합니다(내용 없는 도메인은 제외).
+
+        Args:
+            skills: Skill 인스턴스의 iterable. 정렬·annotate는 호출자가 미리 적용합니다.
+
+        Returns:
+            list[dict]: [{"key": "LANGUAGE", "label": "Language", "skills": [...]}, ...]
+
+        Rationale:
+            홈 화면(portfolio.views)과 이력서 내보내기(resume_export.utils)가
+            같은 도메인 순서·라벨로 스킬을 묶어야 해서, 두 곳에 따로 있던
+            동일한 리스트/루프를 여기 하나로 합쳤습니다.
+        """
+        by_domain = {}
+        for skill in skills:
+            by_domain.setdefault(skill.domain, []).append(skill)
+        return [
+            {"key": key, "label": label, "skills": by_domain[key]}
+            for key, label in cls.DOMAIN_CHOICES
+            if by_domain.get(key)
+        ]
+
     class Meta:
         verbose_name = "기술"
         verbose_name_plural = "기술"
@@ -238,8 +262,14 @@ class Project(models.Model):
 
         Returns:
             int: 추가 기술 스택 개수 (0 이상의 정수).
+
+        Note:
+            `self.tech_stacks.count()`는 `prefetch_related("tech_stacks")` 캐시를
+            쓰지 않고 매번 새 COUNT 쿼리를 날리므로, 카드가 여러 개 렌더링되는
+            목록 페이지에서 N+1을 재도입하게 됩니다. `.all()`은 캐시를 쓰므로
+            `primary_tech`와 동일한 리스트를 재사용합니다.
         """
-        return max(0, self.tech_stacks.count() - 4)
+        return max(0, len(self.tech_stacks.all()) - 4)
 
     class Meta:
         verbose_name = "프로젝트"

@@ -197,5 +197,8 @@ BLEACH_ALLOWED_ATTRIBUTES = {
     'a': ['href', 'target', 'rel'],
     'img': ['src', 'alt', 'width', 'height'],
 }
-BLEACH_ALLOWED_STYLES = ['color', 'font-weight', 'text-align', 'background-color']
+# portfolio.templatetags.portfolio_extras._RichTextCleaner (2단계 정규화)의
+# KEEP_STYLE_PROPS 와 정확히 일치해야 합니다. bleach(1단계)가 먼저 돌기
+# 때문에 여기 없는 속성은 2단계 코드가 뭐라고 하든 이미 제거된 뒤입니다.
+BLEACH_ALLOWED_STYLES = ['font-weight', 'text-align', 'text-decoration', 'font-style']
 BLEACH_STRIP_TAGS = True  # 허용 안 된 태그는 제거

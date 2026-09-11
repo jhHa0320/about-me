@@ -35,6 +35,8 @@ DROP_STYLE_PROPS = {
     "margin-bottom", "margin-left", "margin-right", "padding", "width",
     "height", "font-variant", "mso-fareast-font-family",
 }
+#: Must match settings.BLEACH_ALLOWED_STYLES exactly — bleach_value() runs
+#: before this cleaner, so a property missing there never reaches here at all.
 KEEP_STYLE_PROPS = {"font-weight", "text-align", "text-decoration", "font-style"}
 
 DROP_ATTRS = {"data-path-to-node", "data-index-in-node", "lang", "align", "border",

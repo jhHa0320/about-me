@@ -16,36 +16,59 @@ from django.template.loader import render_to_string
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-# xhtml2pdf 는 (쓰지도 않는) PDF 서명 기능 때문에 pyHanko 를 끌어오는데, 일부
-# 배포 환경(PythonAnywhere 등)에 이미 깔려 있는 다른 버전의 pyHanko 가 잡히면서
-# `pyhanko_certvalidator._asyncio_compat` 서브모듈이 없다고 죽는 경우가 있다.
-# 이 서브모듈이 제공하는 건 표준 라이브러리 asyncio.to_thread 와 동일한
-# 기능이라, xhtml2pdf 를 불러오기 전에 미리 채워 넣어 어떤 pyHanko 사본이
-# 잡히든 서명 기능을 실제로 쓰지 않는 우리 입장에서는 안전하게 우회된다.
-if "pyhanko_certvalidator._asyncio_compat" not in sys.modules:
-    _asyncio_compat_shim = types.ModuleType("pyhanko_certvalidator._asyncio_compat")
-    _asyncio_compat_shim.to_thread = asyncio.to_thread
-    sys.modules["pyhanko_certvalidator._asyncio_compat"] = _asyncio_compat_shim
-
-from xhtml2pdf import pisa
-
 from portfolio.models import Activity, Career, Leadership, Profile, Project
 from portfolio.templatetags.portfolio_extras import bullets
 
 from .models import ResumeExportConfig
 
-# 한글 PDF 텍스트용 폰트를 등록한다. reportlab 내장 CID 폰트(HYGothic-Medium)는
-# 한글은 문제없지만 영문/숫자 글자폭이 어색하게 벌어져서, 한글·영문이 같이
-# 자연스러운 나눔고딕 TTF 를 직접 번들링해서 쓴다 (resume_export/static/.../fonts/).
+# 한글 PDF 텍스트용 폰트. reportlab 내장 CID 폰트(HYGothic-Medium)는 한글은
+# 문제없지만 영문/숫자 글자폭이 어색하게 벌어져서, 한글·영문이 같이 자연스러운
+# 나눔고딕 TTF 를 직접 번들링해서 쓴다 (resume_export/static/.../fonts/).
 _FONT_DIR = Path(__file__).resolve().parent / "static" / "resume_export" / "fonts"
 _KOREAN_FONT = "NanumGothic"
 _KOREAN_FONT_BOLD = "NanumGothic-Bold"
-pdfmetrics.registerFont(TTFont(_KOREAN_FONT, str(_FONT_DIR / "NanumGothic-Regular.ttf")))
-pdfmetrics.registerFont(TTFont(_KOREAN_FONT_BOLD, str(_FONT_DIR / "NanumGothic-Bold.ttf")))
-pdfmetrics.registerFontFamily(
-    _KOREAN_FONT, normal=_KOREAN_FONT, bold=_KOREAN_FONT_BOLD,
-    italic=_KOREAN_FONT, boldItalic=_KOREAN_FONT_BOLD,
-)
+_pdf_engine_ready = False
+
+
+def _ensure_pdf_engine_ready():
+    """pyHanko 셔밍 + 폰트 등록을 최초 PDF 생성 시점까지 늦춘다.
+
+    Returns:
+        module: xhtml2pdf.pisa 모듈.
+
+    Rationale:
+        둘 다 원래 모듈 import 시점에 실행되는 전역 부작용이었다. PDF를 만들
+        일이 없는 테스트/셸/다른 management command 가 이 모듈을 import 하는
+        것만으로 reportlab 전역 상태를 건드리거나 sys.modules 를 셔밍하지
+        않도록, 실제로 PDF를 만들 때만 1회 실행되게 옮겼다.
+    """
+    global _pdf_engine_ready
+    if _pdf_engine_ready:
+        from xhtml2pdf import pisa
+        return pisa
+
+    # xhtml2pdf 는 (쓰지도 않는) PDF 서명 기능 때문에 pyHanko 를 끌어오는데, 일부
+    # 배포 환경(PythonAnywhere 등)에 이미 깔려 있는 다른 버전의 pyHanko 가 잡히면서
+    # `pyhanko_certvalidator._asyncio_compat` 서브모듈이 없다고 죽는 경우가 있다.
+    # 이 서브모듈이 제공하는 건 표준 라이브러리 asyncio.to_thread 와 동일한
+    # 기능이라, xhtml2pdf 를 불러오기 전에 미리 채워 넣어 어떤 pyHanko 사본이
+    # 잡히든 서명 기능을 실제로 쓰지 않는 우리 입장에서는 안전하게 우회된다.
+    if "pyhanko_certvalidator._asyncio_compat" not in sys.modules:
+        _asyncio_compat_shim = types.ModuleType("pyhanko_certvalidator._asyncio_compat")
+        _asyncio_compat_shim.to_thread = asyncio.to_thread
+        sys.modules["pyhanko_certvalidator._asyncio_compat"] = _asyncio_compat_shim
+
+    from xhtml2pdf import pisa
+
+    pdfmetrics.registerFont(TTFont(_KOREAN_FONT, str(_FONT_DIR / "NanumGothic-Regular.ttf")))
+    pdfmetrics.registerFont(TTFont(_KOREAN_FONT_BOLD, str(_FONT_DIR / "NanumGothic-Bold.ttf")))
+    pdfmetrics.registerFontFamily(
+        _KOREAN_FONT, normal=_KOREAN_FONT, bold=_KOREAN_FONT_BOLD,
+        italic=_KOREAN_FONT, boldItalic=_KOREAN_FONT_BOLD,
+    )
+
+    _pdf_engine_ready = True
+    return pisa
 
 # PDF 템플릿의 @font-face 는 {% static %} 대신 이 전용 스킴을 참조한다.
 # {% static %} 을 쓰면 운영에서 ManifestStaticFilesStorage 가 파일명에 해시를
@@ -60,15 +83,6 @@ _FONT_PATHS_BY_NAME = {
     "regular": str(_FONT_DIR / "NanumGothic-Regular.ttf"),
     "bold": str(_FONT_DIR / "NanumGothic-Bold.ttf"),
 }
-
-SKILL_DOMAIN_ORDER = [
-    ("LANGUAGE", "Language"),
-    ("DATA_SCIENCE", "Data Science"),
-    ("AI", "AI"),
-    ("SECURITY", "Security"),
-    ("BACKEND", "Backend"),
-    ("ETC", "기타"),
-]
 
 # 파일명에 쓰면 안 되는 문자들을 걷어낸다 (Windows/Linux 공통 금지 문자 기준).
 _UNSAFE_FILENAME_CHARS = re.compile(r'[\\/:*?"<>|]+')
@@ -116,16 +130,7 @@ def resume_pdf_link_callback(uri, rel):
 def _skill_groups():
     from portfolio.models import Skill
 
-    skills = Skill.objects.all().order_by("name")
-    by_domain = {}
-    for skill in skills:
-        by_domain.setdefault(skill.domain, []).append(skill)
-
-    return [
-        {"key": key, "label": label, "skills": by_domain.get(key, [])}
-        for key, label in SKILL_DOMAIN_ORDER
-        if by_domain.get(key)
-    ]
+    return Skill.group_by_domain(Skill.objects.all().order_by("name"))
 
 
 def build_resume_context() -> dict:
@@ -201,6 +206,7 @@ def render_resume_pdf_bytes() -> bytes:
         ReportLab의 낮은 수준 API로 PDF 레이아웃을 직접 하드코딩하는 대신 HTML/CSS 템플릿 기반으로 xhtml2pdf를 사용함으로써
         스타일 수정이 용이하고 유지보수성이 뛰어난 PDF 내보내기 구조를 달성했습니다.
     """
+    pisa = _ensure_pdf_engine_ready()
     html = render_to_string("resume_export/resume_pdf.html", build_resume_context())
     buffer = BytesIO()
     with _windows_tempfile_reopen_fix():
@@ -243,9 +249,21 @@ def render_resume_docx_bytes() -> bytes:
         Admin 사용자가 자유롭게 이력서 내용을 편집할 수 있도록 docx 객체를 구성하여 제공합니다.
     """
     context = build_resume_context()
-    profile = context["profile"]
     document = docx.Document()
 
+    _add_docx_profile(document, context["profile"])
+    _add_docx_skills(document, context["skill_groups"])
+    _add_docx_projects(document, context["projects"])
+    _add_docx_career_and_education(document, context["careers"], context["educations"])
+    _add_docx_leaderships(document, context["leaderships"])
+    _add_docx_activities(document, context["certifications"], context["awards"], context["activities"])
+
+    buffer = BytesIO()
+    document.save(buffer)
+    return buffer.getvalue()
+
+
+def _add_docx_profile(document, profile):
     title = document.add_heading(profile.name if profile else "", level=0)
     title.runs[0].font.size = Pt(22)
 
@@ -272,63 +290,74 @@ def render_resume_docx_bytes() -> bytes:
     if profile and profile.introduction:
         document.add_paragraph(profile.introduction)
 
-    if context["skill_groups"]:
-        _add_heading(document, "기술 스택")
-        for group in context["skill_groups"]:
-            names = ", ".join(skill.name for skill in group["skills"])
-            p = document.add_paragraph()
-            p.add_run(f"{group['label']}: ").bold = True
-            p.add_run(names)
 
-    if context["projects"]:
-        _add_heading(document, "프로젝트")
-        for project in context["projects"]:
-            p = document.add_paragraph()
-            title_text = project.title
-            if project.key_result:
-                title_text += f" [{project.key_result}]"
-            p.add_run(f"{title_text}  ").bold = True
-            p.add_run(project.period)
+def _add_docx_skills(document, skill_groups):
+    if not skill_groups:
+        return
+    _add_heading(document, "기술 스택")
+    for group in skill_groups:
+        names = ", ".join(skill.name for skill in group["skills"])
+        p = document.add_paragraph()
+        p.add_run(f"{group['label']}: ").bold = True
+        p.add_run(names)
 
-            meta = f"역할: {project.role}"
-            tech_names = ", ".join(t.name for t in project.tech_stacks.all())
-            if tech_names:
-                meta += f" | 기술: {tech_names}"
-            document.add_paragraph(meta)
 
-            document.add_paragraph(project.description)
-            for point in bullets(project.outcome):
-                document.add_paragraph(point, style="List Bullet")
+def _add_docx_projects(document, projects):
+    if not projects:
+        return
+    _add_heading(document, "프로젝트")
+    for project in projects:
+        p = document.add_paragraph()
+        title_text = project.title
+        if project.key_result:
+            title_text += f" [{project.key_result}]"
+        p.add_run(f"{title_text}  ").bold = True
+        p.add_run(project.period)
 
-    if context["careers"] or context["educations"]:
-        _add_heading(document, "경력 / 학력")
-        for career in context["careers"]:
-            p = document.add_paragraph()
-            p.add_run(f"{career.organization} - {career.role}").bold = True
-            document.add_paragraph(career.period)
-            document.add_paragraph(career.description)
-        for edu in context["educations"]:
-            p = document.add_paragraph()
-            p.add_run(f"{edu.school} ({edu.status})").bold = True
-            document.add_paragraph(edu.period)
+        meta = f"역할: {project.role}"
+        tech_names = ", ".join(t.name for t in project.tech_stacks.all())
+        if tech_names:
+            meta += f" | 기술: {tech_names}"
+        document.add_paragraph(meta)
 
-    if context["leaderships"]:
-        _add_heading(document, "리더십 및 활동")
-        for lead in context["leaderships"]:
-            p = document.add_paragraph()
-            p.add_run(f"{lead.title} - {lead.organization} ({lead.role})").bold = True
-            document.add_paragraph(lead.period)
-            document.add_paragraph(lead.description)
+        document.add_paragraph(project.description)
+        for point in bullets(project.outcome):
+            document.add_paragraph(point, style="List Bullet")
 
-    if context["certifications"] or context["awards"] or context["activities"]:
-        _add_heading(document, "자격증 / 수상 / 대외활동")
-        for item in context["certifications"]:
-            document.add_paragraph(f"[자격증] {item.title} - {item.organization}")
-        for item in context["awards"]:
-            document.add_paragraph(f"[수상] {item.title} - {item.organization}")
-        for item in context["activities"]:
-            document.add_paragraph(f"[대외활동] {item.title} - {item.organization}")
 
-    buffer = BytesIO()
-    document.save(buffer)
-    return buffer.getvalue()
+def _add_docx_career_and_education(document, careers, educations):
+    if not careers and not educations:
+        return
+    _add_heading(document, "경력 / 학력")
+    for career in careers:
+        p = document.add_paragraph()
+        p.add_run(f"{career.organization} - {career.role}").bold = True
+        document.add_paragraph(career.period)
+        document.add_paragraph(career.description)
+    for edu in educations:
+        p = document.add_paragraph()
+        p.add_run(f"{edu.school} ({edu.status})").bold = True
+        document.add_paragraph(edu.period)
+
+
+def _add_docx_leaderships(document, leaderships):
+    if not leaderships:
+        return
+    _add_heading(document, "리더십 및 활동")
+    for lead in leaderships:
+        p = document.add_paragraph()
+        p.add_run(f"{lead.title} - {lead.organization} ({lead.role})").bold = True
+        document.add_paragraph(lead.period)
+        document.add_paragraph(lead.description)
+
+
+def _add_docx_activities(document, certifications, awards, activities):
+    if not certifications and not awards and not activities:
+        return
+    _add_heading(document, "자격증 / 수상 / 대외활동")
+    for item in certifications:
+        document.add_paragraph(f"[자격증] {item.title} - {item.organization}")
+    for item in awards:
+        document.add_paragraph(f"[수상] {item.title} - {item.organization}")
+    for item in activities:
+        document.add_paragraph(f"[대외활동] {item.title} - {item.organization}")

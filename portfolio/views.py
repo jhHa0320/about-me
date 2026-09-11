@@ -14,16 +14,6 @@ from .models import (
     Skill,
 )
 
-SKILL_GROUPS = [
-    ("LANGUAGE", "Language"),
-    ("DATA_SCIENCE", "Data Science"),
-    ("AI", "AI"),
-    ("SECURITY", "Security"),
-    ("BACKEND", "Backend"),
-    ("ETC", "기타"),
-]
-
-
 def _project_queryset():
     """활성화된 프로젝트 목록 쿼리셋을 반환합니다.
 
@@ -164,15 +154,7 @@ def _skill_groups():
         )
         .order_by("-project_count", "name")
     )
-    by_domain = {}
-    for skill in skills:
-        by_domain.setdefault(skill.domain, []).append(skill)
-
-    return [
-        {"key": key, "label": label, "skills": by_domain.get(key, [])}
-        for key, label in SKILL_GROUPS
-        if by_domain.get(key)
-    ]
+    return Skill.group_by_domain(skills)
 
 
 def home(request):
