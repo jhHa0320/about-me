@@ -1220,3 +1220,16 @@ a.skill-pill:focus-visible .skill-pill__arrow {
     a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; color: #555; }
     .featured, .p-card, .section--alt { break-inside: avoid; }
 }
+
+/* --- Paper archive --- */
+.paper { padding: 1.5rem 0; border-top: 1px solid var(--border); }
+.paper:last-of-type { border-bottom: 1px solid var(--border); }
+.paper__title { font-size: var(--fs-h3); font-weight: 650; line-height: 1.4; }
+.paper__title a { color: var(--text); }
+.paper__authors { margin-top: 0.35rem; font-size: var(--fs-sm); color: var(--text-2); }
+.paper__meta { margin-top: 0.25rem; font-size: var(--fs-xs); color: var(--text-3); }
+.paper__date { margin-left: 0.6rem; }
+.paper__summary { margin-top: 0.75rem; font-size: var(--fs-sm); line-height: 1.7; }
+.paper__preview { margin-top: 1rem; }
+.paper__preview summary { cursor: pointer; font-size: var(--fs-xs); color: var(--text-2); }
+.paper__preview iframe { width: 100%; aspect-ratio: 16 / 10; margin-top: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }

@@ -1,0 +1,71 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}논문 발표자료 · {{ global_profile.name|default:"하정훈" }}{% endblock %}
+{% block description %}{% if career %}{{ career.organization }}에서 읽고 발표한 논문과 발표자료 아카이브.{% else %}읽고 발표한 논문과 발표자료 아카이브.{% endif %}{% endblock %}
+{% block og_title %}논문 발표자료{% endblock %}
+
+{% block content %}
+<div class="wrap wrap--narrow">
+
+    <header class="detail-header">
+        <nav aria-label="현재 위치">
+            <ol class="crumbs">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                {% if career %}<li><a href="{% url 'home' %}#experience">Experience</a></li>{% endif %}
+                <li aria-current="page">논문 발표자료</li>
+            </ol>
+        </nav>
+
+        <span class="eyebrow">{% if career %}{{ career.organization }}{% else %}Paper presentations{% endif %}</span>
+        <h1 class="detail-title">논문 발표자료</h1>
+        <p class="detail-lead">읽고 발표한 논문과 발표자료를 모아둔 아카이브입니다 · 총 {{ papers|length }}건</p>
+    </header>
+
+    {% for paper in papers %}
+    <article class="paper">
+        <h2 class="paper__title">
+            {% if paper.source_url %}<a href="{{ paper.source_url }}" target="_blank" rel="noopener noreferrer">{{ paper.title }}</a>{% else %}{{ paper.title }}{% endif %}
+        </h2>
+        {% if paper.authors %}<p class="paper__authors">{{ paper.authors }}</p>{% endif %}
+        <p class="paper__meta font-numeric">
+            {{ paper.venue }}{% if paper.venue and paper.year %} · {% endif %}{{ paper.year|default:"" }}
+            {% if paper.presented_at %}<span class="paper__date">발표 {{ paper.presented_at|date:"Y.m.d" }}</span>{% endif %}
+        </p>
+        {% if paper.summary %}<p class="paper__summary">{{ paper.summary|linebreaksbr }}</p>{% endif %}
+
+        {% if paper.slides_file or paper.slides_url %}
+        <div class="detail-actions">
+            {% if paper.slides_file %}
+            <a class="btn-x btn-x--ghost btn-x--sm" href="{{ paper.slides_file.url }}" target="_blank" rel="noopener noreferrer">
+                <svg aria-hidden="true"><use href="#i-doc"></use></svg>발표자료 파일
+            </a>
+            {% endif %}
+            {% if paper.slides_url %}
+            <a class="btn-x btn-x--ghost btn-x--sm" href="{{ paper.slides_url }}" target="_blank" rel="noopener noreferrer">
+                <svg aria-hidden="true"><use href="#i-external"></use></svg>{% if paper.drive %}Google Drive{% else %}발표자료 링크{% endif %}
+            </a>
+            {% endif %}
+            {% if paper.drive %}
+            <a class="btn-x btn-x--ghost btn-x--sm" href="{{ paper.drive.download }}">다운로드</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if paper.embed_url %}
+        <details class="paper__preview">
+            <summary>미리보기</summary>
+            <iframe src="{{ paper.embed_url }}" title="{{ paper.title }} 발표자료" loading="lazy" allowfullscreen></iframe>
+        </details>
+        {% endif %}
+    </article>
+    {% empty %}
+    <p class="empty-note">등록된 발표자료가 없습니다.</p>
+    {% endfor %}
+
+    <nav class="detail-nav" aria-label="페이지 이동">
+        <a class="btn-x btn-x--ghost" href="{% url 'home' %}{% if career %}#experience{% endif %}">
+            <svg aria-hidden="true"><use href="#i-arrow-left"></use></svg>{% if career %}활동 · 경험{% else %}홈으로{% endif %}
+        </a>
+    </nav>
+</div>
+{% endblock %}

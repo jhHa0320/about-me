@@ -308,6 +308,74 @@ class Activity(models.Model):
         verbose_name_plural = "활동/자격증"
         ordering = ['-order', '-id']
 
+class Paper(models.Model):
+    """논문 발표자료 아카이브 항목. 제목·저자·학회·연도는 source_url 에서 자동으로 채웁니다."""
+
+    source_url = models.URLField(
+        blank=True, verbose_name="논문 주소 (arXiv / DOI / 논문 사이트)",
+        help_text="예: https://arxiv.org/abs/1706.03762. 제목을 비워두면 이 주소에서 제목·저자·학회·연도를 자동으로 불러옵니다.",
+    )
+    title = models.CharField(max_length=300, blank=True, verbose_name="논문 제목")
+    authors = models.TextField(blank=True, verbose_name="저자")
+    venue = models.CharField(max_length=200, blank=True, verbose_name="학회/저널")
+    year = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name="연도")
+
+    presented_at = models.DateField(null=True, blank=True, verbose_name="발표일")
+    summary = models.TextField(blank=True, verbose_name="한 줄 요약 / 메모")
+    career = models.ForeignKey(
+        'Career', on_delete=models.SET_NULL, null=True, blank=True, related_name='papers',
+        verbose_name="연구실 경력 (선택)",
+        help_text="지정하면 경력 타임라인에서 이 경력의 발표자료 페이지로 연결됩니다.",
+    )
+
+    slides_file = models.FileField(upload_to='papers/', blank=True, verbose_name="발표자료 파일 (PDF/PPTX)")
+    slides_url = models.URLField(
+        blank=True, verbose_name="발표자료 Google Drive / Slides 링크",
+        help_text="'링크가 있는 모든 사용자'로 공유한 링크. 페이지에서 바로 미리보기·다운로드됩니다.",
+    )
+    is_active = models.BooleanField(default=True, verbose_name="공개")
+
+    class Meta:
+        verbose_name = "논문 발표자료"
+        verbose_name_plural = "논문 발표자료"
+        ordering = ['-presented_at', '-id']
+
+    def __str__(self):
+        return self.title or self.source_url
+
+    def apply_metadata(self, meta, overwrite=False):
+        """조회한 메타데이터를 채웁니다. overwrite=False 면 이미 입력된 값은 유지합니다."""
+        for field in ('title', 'authors', 'venue', 'year'):
+            if meta.get(field) and (overwrite or not getattr(self, field)):
+                setattr(self, field, meta[field])
+
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        from . import paper_sources
+
+        if self.source_url and not self.title:
+            try:
+                self.apply_metadata(paper_sources.fetch_metadata(self.source_url))
+            except paper_sources.MetaError as exc:
+                raise ValidationError({'source_url': f"논문 정보를 불러오지 못했습니다: {exc} 제목을 직접 입력해 주세요."})
+        if not self.title:
+            raise ValidationError({'title': "논문 제목 또는 논문 주소 중 하나는 필요합니다."})
+
+    @property
+    def drive(self):
+        from .paper_sources import drive_links
+        return drive_links(self.slides_url)
+
+    @property
+    def embed_url(self) -> str:
+        """미리보기 iframe 주소. Drive/Slides 링크 우선, 없으면 업로드된 PDF."""
+        if self.drive:
+            return self.drive["embed"]
+        if self.slides_file and self.slides_file.name.lower().endswith('.pdf'):
+            return self.slides_file.url
+        return ""
+
+
 class Leadership(models.Model):
     title = models.CharField(max_length=100, verbose_name="활동명")
     organization = models.CharField(max_length=100, verbose_name="단체/조직명")

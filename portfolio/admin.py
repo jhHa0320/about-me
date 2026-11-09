@@ -1,6 +1,7 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Profile, Skill, Career, Project, Activity, Education, ProjectCategory, ProjectType, Leadership
+from . import paper_sources
+from .models import Profile, Skill, Career, Project, Activity, Education, ProjectCategory, ProjectType, Leadership, Paper
 
 @admin.register(ProjectType)
 class ProjectTypeAdmin(admin.ModelAdmin):
@@ -81,6 +82,32 @@ class ActivityAdmin(admin.ModelAdmin):
     list_editable = ('order', 'type')
     list_display_links = ('title',)
     list_filter = ('type',)
+
+@admin.register(Paper)
+class PaperAdmin(admin.ModelAdmin):
+    list_display = ('title', 'venue', 'year', 'presented_at', 'career', 'is_active')
+    list_filter = ('is_active', 'year', 'career')
+    search_fields = ('title', 'authors', 'venue')
+    fieldsets = (
+        ('논문 정보 (주소만 넣으면 자동 입력)', {'fields': ('source_url', 'title', 'authors', 'venue', 'year')}),
+        ('발표', {'fields': ('presented_at', 'career', 'summary', 'is_active')}),
+        ('발표자료', {'fields': ('slides_file', 'slides_url')}),
+    )
+    actions = ['refetch_metadata']
+
+    @admin.action(description="논문 주소에서 제목·저자·학회·연도 다시 불러오기 (덮어쓰기)")
+    def refetch_metadata(self, request, queryset):
+        done = 0
+        for paper in queryset.exclude(source_url=''):
+            try:
+                paper.apply_metadata(paper_sources.fetch_metadata(paper.source_url), overwrite=True)
+            except paper_sources.MetaError as exc:
+                self.message_user(request, f"{paper}: {exc}", messages.WARNING)
+                continue
+            paper.save()
+            done += 1
+        self.message_user(request, f"{done}건 갱신했습니다.")
+
 
 @admin.register(Leadership)
 class LeadershipAdmin(SummernoteModelAdmin):

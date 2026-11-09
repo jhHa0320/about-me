@@ -3,12 +3,14 @@ import re
 from django.db.models import Count, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.views.decorators.http import require_GET
 
 from .models import (
     Activity,
     Career,
     Leadership,
+    Paper,
     Profile,
     Project,
     Skill,
@@ -115,7 +117,8 @@ def _timeline_entries():
             "external": False,
         })
 
-    for career in Career.objects.all():
+    careers = Career.objects.annotate(paper_count=Count("papers", filter=Q(papers__is_active=True)))
+    for career in careers:
         key = _norm(career.organization)
         if any(key and (key in k or k in key) for k in leadership_keys if k):
             continue    # 같은 조직이 리더십 항목으로 이미 있음
@@ -126,7 +129,8 @@ def _timeline_entries():
             "period": career.period,
             "role": career.role,
             "description": _dedupe_description(career.description, career.organization, career.role),
-            "url": "",
+            # 논문 발표자료가 연결된 경력만 링크됩니다.
+            "url": reverse("career_papers", args=[career.pk]) if career.paper_count else "",
             "external": False,
         })
 
@@ -207,6 +211,15 @@ def project_detail(request, project_id):
 def leadership_detail(request, leadership_id):
     leadership = get_object_or_404(Leadership, pk=leadership_id)
     return render(request, "portfolio/leadership_detail.html", {"leadership": leadership})
+
+
+def papers(request, career_id=None):
+    """논문 발표자료 아카이브. 홈(/papers/)은 전체, 경력(/career/<id>/papers/)은 해당 경력 연결분."""
+    career = get_object_or_404(Career, pk=career_id) if career_id else None
+    items = Paper.objects.filter(is_active=True)
+    if career:
+        items = items.filter(career=career)
+    return render(request, "portfolio/papers.html", {"papers": items, "career": career})
 
 
 def skill_projects(request, skill_id):
