@@ -1,8 +1,8 @@
 {% extends 'portfolio/base.html' %}
 
-{% block title %}논문 발표자료 · {{ global_profile.name|default:"하정훈" }}{% endblock %}
-{% block description %}{% if career %}{{ career.organization }}에서 읽고 발표한 논문과 발표자료 아카이브.{% else %}읽고 발표한 논문과 발표자료 아카이브.{% endif %}{% endblock %}
-{% block og_title %}논문 발표자료{% endblock %}
+{% block title %}Archive · {{ global_profile.name|default:"하정훈" }}{% endblock %}
+{% block description %}{% if career %}{{ career.organization }}의 논문 발표자료와 자료 아카이브.{% else %}논문 발표자료를 비롯한 자료 아카이브.{% endif %}{% endblock %}
+{% block og_title %}Archive{% endblock %}
 
 {% block content %}
 <div class="wrap wrap--narrow">
@@ -12,13 +12,22 @@
             <ol class="crumbs">
                 <li><a href="{% url 'home' %}">Home</a></li>
                 {% if career %}<li><a href="{% url 'home' %}#experience">Experience</a></li>{% endif %}
-                <li aria-current="page">논문 발표자료</li>
+                <li aria-current="page">Archive</li>
             </ol>
         </nav>
 
-        <span class="eyebrow">{% if career %}{{ career.organization }}{% else %}Paper presentations{% endif %}</span>
-        <h1 class="detail-title">논문 발표자료</h1>
-        <p class="detail-lead">읽고 발표한 논문과 발표자료를 모아둔 아카이브입니다 · 총 {{ papers|length }}건</p>
+        <span class="eyebrow">{% if career %}{{ career.organization }}{% else %}Archive{% endif %}</span>
+        <h1 class="detail-title">아카이브</h1>
+        <p class="detail-lead">읽고 발표한 논문 발표자료와 정리한 자료를 모아둔 곳입니다 · 총 {{ papers|length }}건</p>
+
+        {% if categories %}
+        <div class="tag-row" role="group" aria-label="카테고리">
+            <a class="tag{% if not selected %} tag--on{% endif %}" href="{% if career %}{% url 'career_archive' career.pk %}{% else %}{% url 'archive' %}{% endif %}">전체</a>
+            {% for c in categories %}
+            <a class="tag{% if c == selected %} tag--on{% endif %}" href="?category={{ c.pk }}"{% if c == selected %} aria-current="true"{% endif %}>{{ c.name }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
     </header>
 
     {% for paper in papers %}
@@ -31,6 +40,9 @@
             {{ paper.venue }}{% if paper.venue and paper.year %} · {% endif %}{{ paper.year|default:"" }}
             {% if paper.presented_at %}<span class="paper__date">발표 {{ paper.presented_at|date:"Y.m.d" }}</span>{% endif %}
         </p>
+        {% if paper.categories.all %}
+        <div class="tag-row tag-row--stacked">{% for c in paper.categories.all %}<span class="tag">{{ c.name }}</span>{% endfor %}</div>
+        {% endif %}
         {% if paper.summary %}<p class="paper__summary">{{ paper.summary|linebreaksbr }}</p>{% endif %}
 
         {% if paper.slides_file or paper.slides_url %}
@@ -59,7 +71,7 @@
         {% endif %}
     </article>
     {% empty %}
-    <p class="empty-note">등록된 발표자료가 없습니다.</p>
+    <p class="empty-note">등록된 자료가 없습니다.</p>
     {% endfor %}
 
     <nav class="detail-nav" aria-label="페이지 이동">

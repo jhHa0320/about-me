@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from . import paper_sources as ps
-from .models import Career, Paper
+from .models import ArchiveCategory, Career, Paper
 
 ARXIV_XML = """<feed xmlns="http://www.w3.org/2005/Atom" xmlns:arxiv="http://arxiv.org/schemas/atom">
 <entry><title>Attention Is All
@@ -95,7 +95,7 @@ class PaperModelAndViewTest(TestCase):
     def test_papers_page_lists_only_active(self):
         Paper.objects.create(title="공개 논문", slides_url="https://drive.google.com/file/d/ID1/view")
         Paper.objects.create(title="숨김 논문", is_active=False)
-        res = self.client.get(reverse("papers"))
+        res = self.client.get(reverse("archive"))
         self.assertContains(res, "공개 논문")
         self.assertContains(res, "drive.google.com/file/d/ID1/preview")
         self.assertNotContains(res, "숨김 논문")
@@ -106,11 +106,29 @@ class PaperModelAndViewTest(TestCase):
         Paper.objects.create(title="연구실 논문", career=lab)
         Paper.objects.create(title="무소속 논문")
 
-        res = self.client.get(reverse("career_papers", args=[lab.pk]))
+        res = self.client.get(reverse("career_archive", args=[lab.pk]))
         self.assertContains(res, "연구실 논문")
         self.assertNotContains(res, "무소속 논문")
-        self.assertEqual(self.client.get(reverse("career_papers", args=[9999])).status_code, 404)
+        self.assertEqual(self.client.get(reverse("career_archive", args=[9999])).status_code, 404)
 
         home = self.client.get(reverse("home")).content.decode()
-        self.assertIn(reverse("career_papers", args=[lab.pk]), home)
-        self.assertNotIn(reverse("career_papers", args=[empty.pk]), home)
+        self.assertIn(reverse("career_archive", args=[lab.pk]), home)
+        self.assertNotIn(reverse("career_archive", args=[empty.pk]), home)
+
+    def test_category_filter_and_chips(self):
+        seminar, tutorial = ArchiveCategory.objects.create(name="세미나"), ArchiveCategory.objects.create(name="튜토리얼")
+        ArchiveCategory.objects.create(name="비어있는분류")
+        Paper.objects.create(title="세미나 자료").categories.add(seminar)
+        Paper.objects.create(title="튜토리얼 자료").categories.add(tutorial)
+
+        res = self.client.get(reverse("archive"))
+        self.assertContains(res, "세미나 자료")
+        self.assertContains(res, "튜토리얼 자료")
+        self.assertNotContains(res, "비어있는분류")          # 자료 없는 카테고리는 칩에서 제외
+
+        res = self.client.get(reverse("archive"), {"category": seminar.pk})
+        self.assertContains(res, "세미나 자료")
+        self.assertNotContains(res, "튜토리얼 자료")
+
+        res = self.client.get(reverse("archive"), {"category": "abc"})    # 잘못된 값은 전체로
+        self.assertContains(res, "튜토리얼 자료")

@@ -308,8 +308,21 @@ class Activity(models.Model):
         verbose_name_plural = "활동/자격증"
         ordering = ['-order', '-id']
 
+class ArchiveCategory(models.Model):
+    name = models.CharField(max_length=50, verbose_name="카테고리명")
+    order = models.IntegerField(default=0, verbose_name="정렬 순서 (낮을수록 먼저)")
+
+    class Meta:
+        verbose_name = "아카이브 카테고리"
+        verbose_name_plural = "아카이브 카테고리"
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.name
+
+
 class Paper(models.Model):
-    """논문 발표자료 아카이브 항목. 제목·저자·학회·연도는 source_url 에서 자동으로 채웁니다."""
+    """아카이브 항목(논문 발표자료 등). 제목·저자·학회·연도는 source_url 에서 자동으로 채웁니다."""
 
     source_url = models.URLField(
         blank=True, verbose_name="논문 주소 (arXiv / DOI / 논문 사이트)",
@@ -320,12 +333,15 @@ class Paper(models.Model):
     venue = models.CharField(max_length=200, blank=True, verbose_name="학회/저널")
     year = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name="연도")
 
+    categories = models.ManyToManyField(
+        ArchiveCategory, blank=True, related_name='papers', verbose_name="카테고리 (복수선택 가능)",
+    )
     presented_at = models.DateField(null=True, blank=True, verbose_name="발표일")
     summary = models.TextField(blank=True, verbose_name="한 줄 요약 / 메모")
     career = models.ForeignKey(
         'Career', on_delete=models.SET_NULL, null=True, blank=True, related_name='papers',
         verbose_name="연구실 경력 (선택)",
-        help_text="지정하면 경력 타임라인에서 이 경력의 발표자료 페이지로 연결됩니다.",
+        help_text="지정하면 경력 타임라인에서 이 경력의 아카이브 페이지로 연결됩니다.",
     )
 
     slides_file = models.FileField(upload_to='papers/', blank=True, verbose_name="발표자료 파일 (PDF/PPTX)")
@@ -336,8 +352,8 @@ class Paper(models.Model):
     is_active = models.BooleanField(default=True, verbose_name="공개")
 
     class Meta:
-        verbose_name = "논문 발표자료"
-        verbose_name_plural = "논문 발표자료"
+        verbose_name = "아카이브 자료"
+        verbose_name_plural = "아카이브 자료"
         ordering = ['-presented_at', '-id']
 
     def __str__(self):

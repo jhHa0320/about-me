@@ -1,7 +1,7 @@
 from django.contrib import admin, messages
 from django_summernote.admin import SummernoteModelAdmin
 from . import paper_sources
-from .models import Profile, Skill, Career, Project, Activity, Education, ProjectCategory, ProjectType, Leadership, Paper
+from .models import Profile, Skill, Career, Project, Activity, Education, ProjectCategory, ProjectType, Leadership, Paper, ArchiveCategory
 
 @admin.register(ProjectType)
 class ProjectTypeAdmin(admin.ModelAdmin):
@@ -83,15 +83,22 @@ class ActivityAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
     list_filter = ('type',)
 
+@admin.register(ArchiveCategory)
+class ArchiveCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'order')
+    list_editable = ('order',)
+
+
 @admin.register(Paper)
 class PaperAdmin(admin.ModelAdmin):
     list_display = ('title', 'venue', 'year', 'presented_at', 'career', 'is_active')
-    list_filter = ('is_active', 'year', 'career')
+    list_filter = ('is_active', 'categories', 'year', 'career')
+    filter_horizontal = ('categories',)
     search_fields = ('title', 'authors', 'venue')
     fieldsets = (
         ('논문 정보 (주소만 넣으면 자동 입력)', {'fields': ('source_url', 'title', 'authors', 'venue', 'year')}),
-        ('발표', {'fields': ('presented_at', 'career', 'summary', 'is_active')}),
-        ('발표자료', {'fields': ('slides_file', 'slides_url')}),
+        ('분류 / 발표', {'fields': ('categories', 'presented_at', 'career', 'summary', 'is_active')}),
+        ('자료 파일', {'fields': ('slides_file', 'slides_url')}),
     )
     actions = ['refetch_metadata']
 

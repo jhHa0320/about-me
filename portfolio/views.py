@@ -8,6 +8,7 @@ from django.views.decorators.http import require_GET
 
 from .models import (
     Activity,
+    ArchiveCategory,
     Career,
     Leadership,
     Paper,
@@ -130,7 +131,7 @@ def _timeline_entries():
             "role": career.role,
             "description": _dedupe_description(career.description, career.organization, career.role),
             # 논문 발표자료가 연결된 경력만 링크됩니다.
-            "url": reverse("career_papers", args=[career.pk]) if career.paper_count else "",
+            "url": reverse("career_archive", args=[career.pk]) if career.paper_count else "",
             "external": False,
         })
 
@@ -213,13 +214,22 @@ def leadership_detail(request, leadership_id):
     return render(request, "portfolio/leadership_detail.html", {"leadership": leadership})
 
 
-def papers(request, career_id=None):
-    """논문 발표자료 아카이브. 홈(/papers/)은 전체, 경력(/career/<id>/papers/)은 해당 경력 연결분."""
+def archive(request, career_id=None):
+    """아카이브. 홈(/archive/)은 전체, 경력(/career/<id>/archive/)은 해당 경력 연결분.
+
+    `?category=<id>` 로 카테고리를 거릅니다. 칩에는 현재 범위에 자료가 있는 카테고리만 나옵니다.
+    """
     career = get_object_or_404(Career, pk=career_id) if career_id else None
-    items = Paper.objects.filter(is_active=True)
+    items = Paper.objects.filter(is_active=True).prefetch_related("categories")
     if career:
         items = items.filter(career=career)
-    return render(request, "portfolio/papers.html", {"papers": items, "career": career})
+    categories = list(ArchiveCategory.objects.filter(papers__in=items).distinct())
+    selected = next((c for c in categories if str(c.pk) == request.GET.get("category")), None)
+    if selected:
+        items = items.filter(categories=selected)
+    return render(request, "portfolio/archive.html", {
+        "papers": items, "career": career, "categories": categories, "selected": selected,
+    })
 
 
 def skill_projects(request, skill_id):
