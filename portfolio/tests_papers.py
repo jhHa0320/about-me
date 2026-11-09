@@ -51,6 +51,16 @@ class MetadataTest(TestCase):
         with self.assertRaises(ps.MetaError):
             ps._get("file:///etc/passwd")
 
+    def test_private_and_loopback_hosts_rejected(self):
+        for url in ("http://127.0.0.1/", "http://localhost:8000/", "http://169.254.169.254/latest/meta-data/",
+                    "http://10.0.0.5/", "http://[::1]/"):
+            with self.assertRaises(ps.MetaError, msg=url):
+                ps._get(url)
+
+    def test_redirect_to_private_host_rejected(self):
+        with self.assertRaises(ps.MetaError):
+            ps._CheckedRedirect().redirect_request(None, None, 302, "Found", {}, "http://169.254.169.254/")
+
 
 class DriveLinksTest(TestCase):
     def test_drive_file_and_slides(self):

@@ -6,12 +6,14 @@
   - 그 외  → 페이지의 citation_* <meta> 태그 (ACL Anthology, OpenReview, CVF,
              NeurIPS, ACM, IEEE, Springer 등 대부분의 논문 사이트가 제공)
 """
+import ipaddress
 import json
 import re
+import socket
 import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 from urllib.parse import quote, urlparse
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 TIMEOUT = 10
 MAX_BYTES = 1_000_000   # 논문 페이지 HTML 읽기 상한
@@ -31,15 +33,42 @@ class MetaError(Exception):
     """메타데이터를 가져오지 못했을 때."""
 
 
-def _get(url, limit=MAX_BYTES):
-    if urlparse(url).scheme not in ("http", "https"):
+def _check_public(url):
+    """http(s) 이고 호스트가 공개 인터넷 주소일 때만 통과(SSRF 방지: 사설/루프백/링크로컬 차단)."""
+    parts = urlparse(url)
+    if parts.scheme not in ("http", "https") or not parts.hostname:
         raise MetaError("http(s) 주소만 지원합니다.")
     try:
-        with urlopen(Request(url, headers=HEADERS), timeout=TIMEOUT) as resp:
+        infos = socket.getaddrinfo(parts.hostname, parts.port or (443 if parts.scheme == "https" else 80),
+                                   proto=socket.IPPROTO_TCP)
+    except OSError as exc:
+        raise MetaError("주소를 찾을 수 없습니다.") from exc
+    # ponytail: 검사 후 실제 접속 사이의 DNS 재바인딩은 막지 못함. 엄밀히 하려면 검증한 IP 로 직접 접속.
+    if not all(ipaddress.ip_address(i[4][0]).is_global for i in infos):
+        raise MetaError("공개 인터넷 주소만 지원합니다.")
+
+
+class _CheckedRedirect(HTTPRedirectHandler):
+    """리다이렉트 목적지도 매번 검사합니다."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        _check_public(newurl)
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+_opener = build_opener(_CheckedRedirect)
+
+
+def _get(url, limit=MAX_BYTES):
+    _check_public(url)
+    try:
+        with _opener.open(Request(url, headers=HEADERS), timeout=TIMEOUT) as resp:
             charset = resp.headers.get_content_charset() or "utf-8"
             return resp.read(limit).decode(charset, errors="replace")
-    except Exception as exc:   # noqa: BLE001 — 네트워크/HTTP/인코딩 오류를 한 종류로 통일
-        raise MetaError(f"요청 실패 ({exc})") from exc
+    except MetaError:
+        raise
+    except Exception as exc:   # noqa: BLE001 — 상세 원인은 사용자에게 노출하지 않음(내부망 정보 유출 방지)
+        raise MetaError("요청에 실패했습니다(접속 불가·시간 초과·HTTP 오류).") from exc
 
 
 def _clean(text):
